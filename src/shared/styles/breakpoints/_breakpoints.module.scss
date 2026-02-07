@@ -1,0 +1,23 @@
+$breakpoint-xs: 420px;    
+$breakpoint-sm: 520px;    
+$breakpoint-md: 640px;    
+$breakpoint-tablet: 768px; 
+$breakpoint-lg: 900px;    
+$breakpoint-laptop: 1024px; 
+$breakpoint-xl: 1200px;   
+$breakpoint-desktop: 1280px; 
+$breakpoint-xxl: 1440px;  
+$breakpoint-hds: 1560px;
+$breakpoint-uhd: 1920px;  
+
+@mixin media-max($breakpoint) {
+  @media (max-width: $breakpoint) {
+    @content;
+  }
+}
+
+@mixin media-min($breakpoint) {
+  @media (min-width: $breakpoint) {
+    @content;
+  }
+}
