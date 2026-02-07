@@ -6,21 +6,28 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+       "svg:transform": "svgr src/shared/assets/svg/raw --out-dir src/shared/assets/svg/components --ext tsx --no-index && node src/shared/scripts/generate-svg-icons-index.js"
   },
   "dependencies": {
     "next": "16.1.6",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "sass": "^1.97.3",
+    "yarn": "^1.22.22"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4",
+    "@svgr/cli": "^8.1.0",
+    "@svgr/core": "^8.1.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
-    "tailwindcss": "^4",
     "typescript": "^5"
-  }
+  },
+  "main": "index.js",
+  "repository": "https://github.com/goodwebman/where-is-pizza-next.git",
+  "author": "goodwebman <gitweb2danya@mail.ru>",
+  "license": "MIT"
 }
