@@ -1,0 +1,17 @@
+[data-theme='dark'] {
+  /* Background */
+  --bg-primary: var(--orange-500);
+  --bg-primary-hover: var(--orange-700);
+  --bg-secondary: var(--gray-100);
+
+  --bg-disabled: var(--gray-600);
+
+  /* Text */
+  --text-primary: var(--gray-0);
+  --text-secondary: var(--gray-100);
+  --text-inverted: var(--orange-500);
+  --text-placeholder: var(--gray-600);
+  --text-danger: var(--red-500);
+
+  
+}

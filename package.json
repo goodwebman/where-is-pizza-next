@@ -7,9 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-       "svg:transform": "svgr src/shared/assets/svg/raw --out-dir src/shared/assets/svg/components --ext tsx --no-index && node src/shared/scripts/generate-svg-icons-index.js"
+    "svg:transform": "svgr src/shared/assets/svg/raw --out-dir src/shared/assets/svg/components --ext tsx --no-index && node src/shared/scripts/generate-svg-icons-index.js"
   },
   "dependencies": {
+    "classnames": "^2.5.1",
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",

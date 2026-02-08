@@ -1,0 +1,35 @@
+@mixin h1 {
+  font-family: 'Inter';
+  font-weight: 600;
+  font-size: 40px;
+}
+
+@mixin h2 {
+  font-family: 'Inter';
+  font-weight: 600;
+  font-size: 32px;
+}
+
+@mixin h2 {
+  font-family: 'Inter';
+  font-weight: 600;
+  font-size: 20px;
+}
+
+@mixin h3 {
+  font-family: 'Inter';
+  font-weight: 400;
+  font-size: 14px;
+}
+
+@mixin b1 {
+  font-family: 'SFProText';
+  font-weight: 400;
+  font-size: 18px;
+}
+
+@mixin b2 {
+  font-family: 'SFProText';
+  font-weight: 400;
+  font-size: 16px;
+}

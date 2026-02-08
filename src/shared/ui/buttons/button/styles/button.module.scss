@@ -1,0 +1,93 @@
+@use './../../../../../shared/styles/typography/typography.module' as typo;
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+  border-radius: 8px;
+  border: none;
+  max-height: 48px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+.title {
+  @include typo.b1;
+  color: var(--text-primary);
+}
+
+.small {
+  padding: 8px 16px;
+
+  .title {
+    @include typo.b1;
+  }
+}
+
+.medium {
+  padding: 13px 40px;
+
+  .title {
+    @include typo.b1;
+  }
+}
+
+.large {
+  padding: 20px 60px;
+
+  .title {
+    @include typo.b1;
+  }
+}
+
+.full-width {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.primary {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+
+  &:hover {
+    background-color: var(--bg-primary-hover);
+  }
+
+  &:focus {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    outline: none;
+    &:hover {
+      background-color: var(--bg-primary-hover);
+    }
+  }
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.8;
+  background-color: var(--bg-disabled);
+  color: var(--text-primary);
+  transform: none;
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  &.left {
+    margin-right: 0.5rem;
+  }
+
+  &.right {
+    margin-left: 0.5rem;
+  }
+}

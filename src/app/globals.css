@@ -1,6 +1,10 @@
+@import '@/src/shared/styles/palette/_palette.scss';
+@import '@/src/shared/theme/themes/dark-theme.scss';
+@import '@/src/shared/theme/themes/light-theme.scss';
+
 @font-face {
   font-family: 'Inter';
-  src: url('fonts/Inter-Regular.ttf') format('truetype');
+  src: url('/fonts/Inter-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -8,7 +12,7 @@
 
 @font-face {
   font-family: 'Inter';
-  src: url('fonts/Inter-Semibold.ttf') format('truetype');
+  src: url('/fonts/Inter-Semibold.ttf') format('truetype');
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -16,7 +20,7 @@
 
 @font-face {
   font-family: 'Inter';
-  src: url('fonts/Inter-Bold.ttf') format('truetype');
+  src: url('/fonts/Inter-Bold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -26,7 +30,7 @@
 
 @font-face {
   font-family: 'SFProText';
-  src: url('fonts/SFProText-Regular.ttf') format('truetype');
+  src: url('/fonts/SFProText-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -34,7 +38,7 @@
 
 @font-face {
   font-family: 'SFProText';
-  src: url('fonts/SFProText-Semibold.ttf') format('truetype');
+  src: url('/fonts/SFProText-Semibold.ttf') format('truetype');
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -42,7 +46,7 @@
 
 @font-face {
   font-family: 'SFProText';
-  src: url('fonts/SFProText-Bold.ttf') format('truetype');
+  src: url('/fonts/SFProText-Bold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
