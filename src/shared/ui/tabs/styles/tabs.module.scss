@@ -1,0 +1,50 @@
+@use './../../../../shared/styles/typography/typography.module' as typo;
+
+.tabs {
+  display: flex;
+  border: 2px solid var(--border-default);
+  border-radius: 8px;
+  max-height: 48px;
+}
+
+.tab {
+  min-width: 0;
+  flex: 1;
+  min-width: 0;
+  @include typo.b2;
+  cursor: pointer;
+  background-color: var(--bg-inverted);
+  color: var(--text-secondary);
+  white-space: nowrap;
+  padding: 13px 35px;
+  border-radius: 6px;
+  border: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 1;
+
+  &.active {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    z-index: 2;
+    margin: -2px -1px;
+
+    &:hover {
+      background-color: var(--bg-primary-hover);
+    }
+  }
+
+  &.disabled {
+    cursor: not-allowed;
+    background-color: var(--bg-inverted);
+    opacity: 0.5;
+  }
+
+  &:hover:not(.active):not(.disabled) {
+    background-color: var(--bg-secondary);
+    opacity: 0.8;
+  }
+}

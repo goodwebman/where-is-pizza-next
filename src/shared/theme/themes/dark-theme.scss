@@ -3,6 +3,7 @@
   --bg-primary: var(--orange-500);
   --bg-primary-hover: var(--orange-700);
   --bg-secondary: var(--gray-100);
+  --bg-inverted: var(--gray-0);
 
   --bg-disabled: var(--gray-600);
   --bg-danger: var(--red-500);
@@ -11,7 +12,7 @@
 
   /* Text */
   --text-primary: var(--gray-0);
-  --text-secondary: var(--gray-100);
+  --text-secondary: var(--gray-800);
   --text-inverted: var(--orange-500);
   --text-placeholder: var(--gray-600);
   --text-danger: var(--red-500);
@@ -19,7 +20,7 @@
   /* Border */
 
   --border-primary: var(--orange-500);
-
+  --border-default: var(--gray-300);
 
   /* Spinners */
 

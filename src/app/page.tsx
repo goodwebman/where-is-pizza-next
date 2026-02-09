@@ -1,7 +1,19 @@
+'use client'
+import { useState } from 'react';
 import { Icons } from '../shared/assets/svg/components';
 import { Buttons } from '../shared/ui/buttons';
+import { Tabs } from '../shared/ui/tabs/tabs'
 
 export default function Home() {
+  const [active, setActive] = useState<string | number>('tab1');
+  const tabsData = [
+  { label: 'Традиционное', value: 'tab1' },
+  { label: 'Тонкое', value: 'tab2' },
+  
+  
+];
+
+
   return (
     <div
       style={{
@@ -45,6 +57,10 @@ export default function Home() {
 
       <div>
         <Buttons.IconButton icon={<Icons.LeftArrow width={20} height={20} />} />
+      </div>
+
+      <div>
+        <Tabs tabs={tabsData} activeTab={active} onChange={setActive} />
       </div>
     </div>
   );
