@@ -1,6 +1,7 @@
 @use './../../../../../shared/styles/typography/typography.module' as typo;
 
 .button {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -19,7 +20,6 @@
 
 .title {
   @include typo.b1;
-  color: var(--text-primary);
 }
 
 .small {
@@ -52,32 +52,108 @@
   align-items: center;
 }
 
+/* ------------------ Варианты кнопки ------------------ */
+
+/* Primary */
 .primary {
   background-color: var(--bg-primary);
   color: var(--text-primary);
 
-  &:hover {
+  &:hover:not(:disabled) {
     background-color: var(--bg-primary-hover);
   }
 
-  &:focus {
+  &:focus:not(:disabled) {
+    outline: none;
     background-color: var(--bg-primary);
     color: var(--text-primary);
-    outline: none;
+
     &:hover {
       background-color: var(--bg-primary-hover);
     }
   }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.85;
+    background-color: var(--bg-disabled);
+    color: var(--text-primary);
+    transform: none;
+  }
 }
 
-.button:disabled {
-  cursor: not-allowed;
-  opacity: 0.8;
-  background-color: var(--bg-disabled);
+/* Danger */
+.danger {
+  background-color: var(--bg-danger);
   color: var(--text-primary);
-  transform: none;
+
+  &:hover:not(:disabled) {
+    background-color: var(--bg-danger-hover);
+  }
+
+  &:focus:not(:disabled) {
+    outline: none;
+    background-color: var(--bg-danger);
+    color: var(--text-primary);
+
+    &:hover {
+      background-color: var(--bg-danger-hover);
+    }
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.9;
+    background-color: var(--bg-danger-hover);
+    color: var(--text-primary);
+    transform: none;
+  }
 }
 
+/* Ghost */
+.ghost {
+  background-color: var(--bg-ghost);
+  color: var(--text-inverted);;
+  border: 2px solid var(--border-primary);
+
+  &:hover:not(:disabled) {
+    color: var(--text-inverted);
+    background-color: var(--bg-ghost);
+  }
+
+  &:focus:not(:disabled) {
+    outline: none;
+    background-color: var(--bg-ghost);
+    color: var(--text-inverted);
+
+    &:hover {
+      background-color: var(--bg-ghost);
+      color: var(--text-inverted);
+    }
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.9;
+    background-color: var(--bg-ghost);
+    color: var(--text-inverted);
+    transform: none;
+  }
+}
+
+/* ------------------ Состояние загрузки ------------------ */
+.loading {
+  cursor: not-allowed;
+}
+
+.spinner {
+  position: absolute;
+  top: 50%;
+  left: 15%;
+  transform: translate(-50%, -50%);
+}
+
+/* ------------------ Иконки ------------------ */
 .icon {
   display: inline-flex;
   align-items: center;

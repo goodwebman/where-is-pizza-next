@@ -5,6 +5,9 @@
   --bg-secondary: var(--gray-100);
 
   --bg-disabled: var(--gray-600);
+  --bg-danger: var(--red-500);
+  --bg-danger-hover: var(--red-600);
+  --bg-ghost: var(--gray-200);
 
   /* Text */
   --text-primary: var(--gray-0);
@@ -13,5 +16,13 @@
   --text-placeholder: var(--gray-600);
   --text-danger: var(--red-500);
 
-  
+  /* Border */
+
+  --border-primary: var(--orange-500);
+
+
+  /* Spinners */
+
+  --spinner-primary: var(--gray-0);
+  --spinner-ghost: var(--orange-500);
 }

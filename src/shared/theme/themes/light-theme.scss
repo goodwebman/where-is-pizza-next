@@ -5,22 +5,20 @@
   --bg-secondary: var(--gray-100);
 
   --bg-disabled: var(--gray-600);
-
+  --bg-warning: var(--red-500)
+  --bg-ghost: var(--gray-200)
 
   /* Text */
-  --text-primary: var(--gray-800);
-  --text-secondary: var(--gray-0);
+  --text-primary: var(--gray-0);
+  --text-secondary: var(--gray-100);
   --text-inverted: var(--orange-500);
   --text-placeholder: var(--gray-600);
   --text-danger: var(--red-500);
 
-  // /* Action */
-  // --action-primary: var(--orange-500);
-  // --action-primary-hover: var(--orange-700);
 
-  // /* Border */
-  // --border-default: var(--gray-300);
+  /* Border */
 
-  // /* Status */
-  // --status-danger: var(--red-500);
+  --border-primary: var(--orange-500);
+
+  
 }

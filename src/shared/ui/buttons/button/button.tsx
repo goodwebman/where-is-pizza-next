@@ -1,4 +1,5 @@
 import { ComponentPropsWithRef, FC, ReactNode } from 'react';
+import { Spinner } from '../../spinner/spinner';
 import { ButtonSize, ButtonVariant } from '../types';
 import { getClasses } from './styles/get-classes';
 
@@ -33,11 +34,19 @@ export const Button: FC<ButtonProps> = ({
 }) => {
   const isDisabled = disabled || isLoading;
 
-  const { cnRoot, cnTitle, cnLeftIcon, cnRightIcon } = getClasses({
+  const {
+    cnRoot,
+    cnTitle,
+    cnLeftIcon,
+    cnRightIcon,
+    cnSpinnerWrapper,
+    spinnerColor,
+  } = getClasses({
     className,
     size,
     variant,
     fullWidth,
+    isLoading,
   });
 
   return (
@@ -48,14 +57,15 @@ export const Button: FC<ButtonProps> = ({
       onClick={onClick}
       {...props}
     >
-      {isLoading ? (
-        <span>Loading</span>
-      ) : (
-        <>
-          {leftIcon && <span className={cnLeftIcon}>{leftIcon}</span>}
-          <span className={cnTitle}>{children}</span>
-          {rightIcon && <span className={cnRightIcon}>{rightIcon}</span>}
-        </>
+      {isLoading && (
+        <span className={cnSpinnerWrapper}>
+          <Spinner size={size} color={spinnerColor} />
+        </span>
+      )}
+      {leftIcon && !isLoading && <span className={cnLeftIcon}>{leftIcon}</span>}
+      <span className={cnTitle}>{children}</span>
+      {rightIcon && !isLoading && (
+        <span className={cnRightIcon}>{rightIcon}</span>
       )}
     </button>
   );
