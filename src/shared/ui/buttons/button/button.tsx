@@ -18,7 +18,7 @@ type CustomButtonProps = {
 
 type ButtonProps = CustomButtonProps & ComponentPropsWithRef<'button'>;
 
-export const Button: FC<ButtonProps> = ({
+export const DefaultButton: FC<ButtonProps> = ({
   children,
   size = 'medium',
   variant = 'primary',

@@ -1,0 +1,48 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: var(--bg-primary);
+  transition: background-color 0.2s ease, transform 0.1s ease;
+
+  &:hover {
+    background-color: var(--bg-primary-hover);
+  }
+
+  &:focus {
+    background-color: var(--bg-primary);
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+
+  &.disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}
+
+.small {
+  padding: 10px;
+}
+
+.medium {
+  padding: 16px;
+}
+
+.large {
+  padding: 20px;
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+}
