@@ -1,18 +1,17 @@
-'use client'
+'use client';
 import { useState } from 'react';
 import { Icons } from '../shared/assets/svg/components';
 import { Buttons } from '../shared/ui/buttons';
-import { Tabs } from '../shared/ui/tabs/tabs'
+import { Tabs } from '../shared/ui/tabs';
+import { Radio } from '../shared/ui/radio'
 
 export default function Home() {
   const [active, setActive] = useState<string | number>('tab1');
+  const [value, setValue] = useState<'fast' | 'time'>('fast');
   const tabsData = [
-  { label: 'Традиционное', value: 'tab1' },
-  { label: 'Тонкое', value: 'tab2' },
-  
-  
-];
-
+    { label: 'Традиционное', value: 'tab1' },
+    { label: 'Тонкое', value: 'tab2' },
+  ];
 
   return (
     <div
@@ -61,6 +60,21 @@ export default function Home() {
 
       <div>
         <Tabs tabs={tabsData} activeTab={active} onChange={setActive} />
+      </div>
+
+      <div>
+        <Radio.Container>
+          <Radio.Button
+            label="Как можно скорее"
+            checked={value === 'fast'}
+            onChange={() => setValue('fast')}
+          />
+          <Radio.Button
+            label="По времени"
+            checked={value === 'time'}
+            onChange={() => setValue('time')}
+          />
+        </Radio.Container>
       </div>
     </div>
   );
