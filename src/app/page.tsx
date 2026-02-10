@@ -2,12 +2,15 @@
 import { useState } from 'react';
 import { Icons } from '../shared/assets/svg/components';
 import { Buttons } from '../shared/ui/buttons';
+import { Radio } from '../shared/ui/radio';
 import { Tabs } from '../shared/ui/tabs';
-import { Radio } from '../shared/ui/radio'
+import { Checkbox } from '../shared/ui/checkbox'
 
 export default function Home() {
   const [active, setActive] = useState<string | number>('tab1');
   const [value, setValue] = useState<'fast' | 'time'>('fast');
+  const [fast, setFast] = useState(false);
+  const [time, setTime] = useState(false);
   const tabsData = [
     { label: 'Традиционное', value: 'tab1' },
     { label: 'Тонкое', value: 'tab2' },
@@ -75,6 +78,21 @@ export default function Home() {
             onChange={() => setValue('time')}
           />
         </Radio.Container>
+      </div>
+
+      <div>
+        <Checkbox.Container>
+          <Checkbox.Button
+            label="Как можно скорее"
+            checked={fast}
+            onChange={() => setFast(!fast)}
+          />
+          <Checkbox.Button
+            label="По времени"
+            checked={time}
+            onChange={() => setTime(!time)}
+          />
+        </Checkbox.Container>
       </div>
     </div>
   );

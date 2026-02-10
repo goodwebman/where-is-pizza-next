@@ -1,17 +1,10 @@
 import { FC, SVGProps } from 'react';
 const SvgAccount: FC<
   SVGProps<SVGSVGElement> & {
-    color?: string;
-  }
+    color?: string,
+  },
 > = ({ color = 'var(--text-primary)', ...props }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
-    fill="none"
-    viewBox="0 0 24 24"
-    {...props}
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="none" viewBox="0 0 24 24" {...props}>
     <path
       fill="#FF7010"
       fillRule="evenodd"
