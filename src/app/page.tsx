@@ -7,6 +7,7 @@ import { BaseInput } from '../shared/ui/inputs/base-input/base-input';
 import { Radio } from '../shared/ui/radio';
 import { Tabs } from '../shared/ui/tabs';
 import { TagSelector } from '../shared/ui/tag-selector';
+import { TextareaDefault } from '../shared/ui/inputs/text-area/text-area-input'
 
 export default function Home() {
   const [value, setValue] = useState<'fast' | 'time'>('fast');
@@ -176,6 +177,11 @@ export default function Home() {
             <span style={{ fontSize: 12, color: '#888' }}>Подсказка</span>
           }
           isClearable
+        />
+
+        <TextareaDefault
+       
+          placeholder="Напишите ваш комментарий..."
         />
 
         {/* Загружающийся инпут */}

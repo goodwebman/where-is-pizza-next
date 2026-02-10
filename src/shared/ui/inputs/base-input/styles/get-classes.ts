@@ -15,6 +15,7 @@ type GetFieldClassesArgs = {
   contentRight?: boolean;
   isClearable?: boolean;
   isLoading?: boolean;
+  isTextarea?: boolean;
 };
 
 export const getBaseInputClasses = ({
@@ -29,6 +30,7 @@ export const getBaseInputClasses = ({
   contentRight,
   isClearable,
   isLoading,
+  isTextarea
 }: GetFieldClassesArgs) => {
   const cnRoot = cn('root');
   const cnLabel = cn('label');
@@ -38,7 +40,9 @@ export const getBaseInputClasses = ({
     error: isError,
     success: isSuccess,
   });
-  const cnField = cn('field', classNameField, size);
+  const cnField = cn('field', classNameField, size, {
+    textarea: isTextarea,
+  },);
   const cnContentLeft = cn('contentLeft', { hasContent: !!contentLeft });
   const cnContentRight = cn('contentRight', {
     hasContent: !!contentRight,

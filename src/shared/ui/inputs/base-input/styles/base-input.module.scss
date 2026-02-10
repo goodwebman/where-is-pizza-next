@@ -77,3 +77,11 @@
     color: var(--text-success);
   }
 }
+
+
+.textarea {
+  min-height: 120px;
+  resize: vertical;
+  line-height: 1.4;
+  max-height: 700px;
+}
