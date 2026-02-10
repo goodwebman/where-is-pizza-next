@@ -3,14 +3,16 @@ import { useState } from 'react';
 import { Icons } from '../shared/assets/svg/components';
 import { Buttons } from '../shared/ui/buttons';
 import { Checkbox } from '../shared/ui/checkbox';
+import { Counter } from '../shared/ui/counter/counter';
 import { BaseInput } from '../shared/ui/inputs/base-input/base-input';
+import { TextareaDefault } from '../shared/ui/inputs/text-area/text-area-input';
 import { Radio } from '../shared/ui/radio';
 import { Tabs } from '../shared/ui/tabs';
 import { TagSelector } from '../shared/ui/tag-selector';
-import { TextareaDefault } from '../shared/ui/inputs/text-area/text-area-input'
 
 export default function Home() {
   const [value, setValue] = useState<'fast' | 'time'>('fast');
+  const [count, setCount] = useState(10);
   const [fast, setFast] = useState(false);
   const [time, setTime] = useState(false);
   const tabsData = [
@@ -179,12 +181,20 @@ export default function Home() {
           isClearable
         />
 
-        <TextareaDefault
-       
-          placeholder="Напишите ваш комментарий..."
-        />
+        <TextareaDefault placeholder="Напишите ваш комментарий..." />
 
         {/* Загружающийся инпут */}
+      </div>
+
+      <div>
+        <Counter
+          value={count}
+          onChange={setCount} // синхронизация с внешним состоянием
+          min={0}
+          max={50}
+          step={1}
+          size="medium"
+        />
       </div>
     </div>
   );

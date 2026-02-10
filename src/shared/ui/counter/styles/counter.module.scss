@@ -1,0 +1,53 @@
+@use './../../../../shared/styles/typography/typography.module' as typo;
+.counter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background-color: var(--bg-primary-low);
+
+  padding: 4px 8px;
+  gap: 12px;
+
+  &.small {
+    padding: 2px 6px;
+    font-size: 14px;
+  }
+
+  &.medium {
+    padding: 4px 8px;
+    font-size: 16px;
+  }
+
+  &.large {
+    padding: 6px 12px;
+    font-size: 18px;
+  }
+
+  .button {
+    @include typo.b2;
+    background: transparent;
+    border: none;
+    color: var(--text-inverted);
+    
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+  }
+
+  .value {
+    @include typo.b2;
+    min-width: 24px;
+    text-align: center;
+    color: var(--text-inverted);
+    
+  }
+}
