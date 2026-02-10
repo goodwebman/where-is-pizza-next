@@ -1,0 +1,79 @@
+@use './../../../../../shared/styles/typography/typography.module' as typo;
+
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.label {
+  @include typo.h3;
+  color: var(--text-placeholder);
+}
+
+.outer {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--border-default);
+  border-radius: 8px;
+  padding: 4px 8px;
+  gap: 8px;
+
+  &.focused {
+    border-color: var(--border-primary);
+  }
+
+  &.error {
+    border-color: var(--border-danger);
+  }
+
+  &.success {
+    border-color: var(--border-success);
+  }
+
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}
+
+.field {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  @include typo.h3;
+  &.small {
+    font-size: 14px;
+    padding: 4px;
+  }
+
+  &.large {
+    font-size: 16px;
+    padding: 8px;
+  }
+
+  &::placeholder {
+    color: var(--text-placeholder);
+  }
+}
+
+.contentLeft,
+.contentRight {
+  display: flex;
+  align-items: center;
+  @include typo.b2;
+}
+
+.caption {
+  @include typo.b2;
+  color: var(--text-secondary);
+
+  &.error {
+    color: var(--text-danger);
+  }
+
+  &.success {
+    color: var(--text-success);
+  }
+}

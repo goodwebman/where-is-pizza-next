@@ -31,3 +31,6 @@ export const CheckboxButton: FC<CheckboxButtonProps> = ({
     </label>
   );
 };
+
+
+CheckboxButton.displayName = 'CheckboxButton'

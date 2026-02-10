@@ -1,45 +1,31 @@
 import { Dispatch, FC, SetStateAction } from 'react';
-import { getClasses } from './styles/get-classes';
-
-type Tab = {
-  label: string;
-  value: string | number;
-  disabled?: boolean;
-};
+import { Tab } from './tab';
+import { TabsContainer } from './tabs-container';
+import { TabItem, TabValue } from './types';
 
 type TabsProps = {
-  tabs: Tab[];
-  activeTab: string | number;
-  onChange: Dispatch<SetStateAction<string | number>>;
+  tabs: TabItem[];
+  activeTab: TabValue;
+  onChange: Dispatch<SetStateAction<TabValue>>;
   className?: string;
 };
 
-export const Tabs: FC<TabsProps> = ({
-  tabs,
-  activeTab,
-  onChange,
-  className,
-}) => {
-  const { cnRoot, cnTab } = getClasses({ className });
-
+export const TabsRoot: FC<TabsProps> = ({ tabs, activeTab, onChange, className }) => {
   return (
-    <div className={cnRoot}>
-      {tabs.map(tab => {
-        const isActive = tab.value === activeTab;
-        return (
-          <button
-            key={tab.value}
-            className={cnTab({
-              active: isActive,
-              disabled: tab.disabled,
-            })}
-            onClick={() => !tab.disabled && onChange(tab.value)}
-            disabled={tab.disabled}
-          >
-            {tab.label}
-          </button>
-        );
-      })}
-    </div>
+    <TabsContainer className={className}>
+      {tabs.map(tab => (
+        <Tab
+          key={tab.value}
+          label={tab.label}
+          value={tab.value}
+          disabled={tab.disabled}
+          isActive={tab.value === activeTab}
+          onClick={onChange}
+        />
+      ))}
+    </TabsContainer>
   );
 };
+
+TabsRoot.displayName = 'Tabs';
+

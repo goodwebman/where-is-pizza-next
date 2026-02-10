@@ -14,3 +14,5 @@ export const CheckboxContainer: FC<CheckboxContainerProps> = ({
 
   return <div className={cnContainer}>{children}</div>;
 };
+
+CheckboxContainer.displayName = 'CheckboxContainer'

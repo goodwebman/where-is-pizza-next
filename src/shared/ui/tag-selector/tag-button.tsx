@@ -8,7 +8,12 @@ type TagButtonProps = {
   className?: string;
 };
 
-export const TagButton: FC<TagButtonProps> = ({ label, selected, onClick, className }) => {
+export const TagButton: FC<TagButtonProps> = ({
+  label,
+  selected,
+  onClick,
+  className,
+}) => {
   const { cnButton } = getTagButtonClasses({ selected, className });
 
   return (
@@ -17,3 +22,5 @@ export const TagButton: FC<TagButtonProps> = ({ label, selected, onClick, classN
     </button>
   );
 };
+
+TagButton.displayName = 'TagButton';

@@ -14,3 +14,5 @@ export const RadioContainer: FC<RadioContainerProps> = ({
 
   return <div className={cnContainer}>{children}</div>;
 };
+
+RadioContainer.displayName = 'RadioContainer'

@@ -16,10 +16,13 @@
   --text-inverted: var(--orange-500);
   --text-placeholder: var(--gray-600);
   --text-danger: var(--red-500);
+  --text-success: var(--green-500);
 
   /* Border */
 
   --border-primary: var(--orange-500);
+  --border-danger: var(--red-500);
+  --border-success: var(--green-500);
   --border-default: var(--gray-300);
 
   /* Spinners */
@@ -27,7 +30,7 @@
   --spinner-primary: var(--gray-0);
   --spinner-ghost: var(--orange-500);
 
-  // icons 
+  // icons
 
   --icon-primary: var(--gray-0);
 }

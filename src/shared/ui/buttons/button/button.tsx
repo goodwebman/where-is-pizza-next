@@ -70,3 +70,5 @@ export const DefaultButton: FC<ButtonProps> = ({
     </button>
   );
 };
+
+DefaultButton.displayName = 'DefaultButton'

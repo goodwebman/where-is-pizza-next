@@ -19,3 +19,5 @@ export const Spinner: FC<SpinnerProps> = ({ size = 'small', className, color }) 
     </div>
   );
 };
+
+Spinner.displayName = 'Spinner'

@@ -14,3 +14,5 @@ export const TagContainer: FC<TagContainerProps> = ({
 
   return <div className={cnContainer}>{children}</div>;
 };
+
+TagContainer.displayName = 'TagContainer';

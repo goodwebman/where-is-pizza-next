@@ -14,8 +14,10 @@ export const RadioButton: FC<RadioButtonProps> = ({
   onChange,
   className,
 }) => {
-  const { cnButton, cnCircle, cnLabel } =
-    getRadioButtonClasses({ checked, className });
+  const { cnButton, cnCircle, cnLabel } = getRadioButtonClasses({
+    checked,
+    className,
+  });
 
   return (
     <label className={cnButton} onClick={onChange}>
@@ -24,3 +26,5 @@ export const RadioButton: FC<RadioButtonProps> = ({
     </label>
   );
 };
+
+RadioButton.displayName = 'RadioButton';
