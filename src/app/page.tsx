@@ -2,9 +2,11 @@
 import { useState } from 'react';
 import { Icons } from '../shared/assets/svg/components';
 import { Buttons } from '../shared/ui/buttons';
+import { Checkbox } from '../shared/ui/checkbox';
 import { Radio } from '../shared/ui/radio';
 import { Tabs } from '../shared/ui/tabs';
-import { Checkbox } from '../shared/ui/checkbox'
+import { TagButton } from '../shared/ui/tag-selector/tag-button';
+import { TagContainer } from '../shared/ui/tag-selector/tag-container';
 
 export default function Home() {
   const [active, setActive] = useState<string | number>('tab1');
@@ -15,6 +17,17 @@ export default function Home() {
     { label: 'Традиционное', value: 'tab1' },
     { label: 'Тонкое', value: 'tab2' },
   ];
+
+  const [selected, setSelected] = useState<string[]>([]);
+
+  const toggleTag = (tag: string) => {
+    if (selected.includes(tag)) {
+      setSelected(selected.filter(t => t !== tag));
+    } else {
+      setSelected([...selected, tag]);
+    }
+  };
+  const options = ['React', 'TypeScript', 'Next.js'];
 
   return (
     <div
@@ -93,6 +106,18 @@ export default function Home() {
             onChange={() => setTime(!time)}
           />
         </Checkbox.Container>
+      </div>
+      <div>
+        <TagContainer>
+          {options.map(tag => (
+            <TagButton
+              key={tag}
+              label={tag}
+              selected={selected.includes(tag)}
+              onClick={() => toggleTag(tag)}
+            />
+          ))}
+        </TagContainer>
       </div>
     </div>
   );

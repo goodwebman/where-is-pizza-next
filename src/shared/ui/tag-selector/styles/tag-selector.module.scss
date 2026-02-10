@@ -1,0 +1,27 @@
+@use './../../../../shared/styles/typography/typography.module' as typo;
+.tagContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tagButton {
+  padding: 11px 16px;
+  border: 1px solid var(--border-default);
+  border-radius: 6px;
+  background-color: var(--bg-default);
+  color: var(--text-default);
+  cursor: pointer;
+    @include typo.b2;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: var(--border-primary);
+  }
+
+  &.selected {
+    background-color: var(--bg-primary);
+    border-color: var(--border-primary);
+    color: var(--text-primary);
+  }
+}
