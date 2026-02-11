@@ -8,11 +8,12 @@ type Args = {
   className?: string;
   size?: ButtonSize;
   disabled?: boolean;
+  circle?: boolean;
  
 };
 
-export const getClasses = ({ className, size = 'medium', disabled }: Args) => {
-  const cnRoot = cn('button', size, { disabled }, className);
+export const getClasses = ({ className, size = 'medium', disabled, circle }: Args) => {
+  const cnRoot = cn('button', size, { disabled }, className, {circle});
   const cnIcon = cn('icon');
  
 

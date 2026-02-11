@@ -80,7 +80,7 @@ export default function Home() {
       </div>
 
       <div>
-        <Buttons.IconButton icon={<Icons.LeftArrow width={20} height={20} />} />
+        <Buttons.IconButton  icon={<Icons.LeftArrow width={20} height={20} />} />
       </div>
 
       <div>
