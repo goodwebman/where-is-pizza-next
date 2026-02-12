@@ -1,6 +1,6 @@
 'use client';
 
-import { StorageKey } from '@/src/shared/config/storage-keys';
+import { StorageKey } from '@/src/shared/config/storages/storage-keys';
 import { localStorageService } from '@/src/shared/lib/storage';
 import { darkTheme, lightTheme } from '@/src/shared/theme';
 import { ThemeContext } from '@/src/shared/theme/context/theme-context';

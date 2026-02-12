@@ -1,0 +1,12 @@
+@use './../../../../../../../shared/styles/typography/typography.module' as typo;
+
+.root {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.logo-text {
+    @include typo.b2;
+    color: var(--text-secondary);
+}

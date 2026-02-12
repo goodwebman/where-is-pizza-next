@@ -1,0 +1,15 @@
+@use './../../../../../shared/styles/typography/typography.module' as typo;
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+
+.text {
+    @include typo.b2;
+    color: var(--text-secondary);
+    white-space: nowrap;
+}
