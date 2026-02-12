@@ -1,5 +1,5 @@
-@use './../../../../shared/styles/typography/typography.module' as typo;
-@use './../../../../shared/styles/shadows/shadows.module' as *;
+@use '@/src/shared/styles/typography/typography.module' as typo;
+@use '@/src/shared//styles/shadows/shadows.module' as *;
 .container {
   position: relative;
   display: inline-block;
@@ -11,19 +11,7 @@
   @include typo.b2;
   color: var(--text-secondary);
   user-select: none;
-  gap: 8px;
   width: 100%;
-  margin-bottom: 10px;
-  & > span:first-child {
-    flex-grow: 1;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  & > svg,
-  & > span:last-child {
-    flex-shrink: 0;
-  }
 }
 .label {
   width: 100px;
@@ -38,20 +26,21 @@
 }
 .menu {
   position: absolute;
-  top: 100%;
+  top: 130%;
   left: 0;
-  z-index: 10;
+  z-index: 10000;
   max-width: 600px;
   border-radius: 4px;
   @include shadow(medium-glow);
   border: 1px var(--border-default) solid;
- 
+
   list-style: none;
   padding: 10px 2px;
   max-height: 200px;
   overflow-y: auto;
   background-color: var(--bg-inverted);
 }
+
 .item {
   padding: 10px 12px;
   cursor: pointer;
@@ -64,7 +53,6 @@
   text-decoration: none;
   &:hover {
     color: var(--text-secondary);
-   
   }
   &.active {
     color: var(--text-secondary);

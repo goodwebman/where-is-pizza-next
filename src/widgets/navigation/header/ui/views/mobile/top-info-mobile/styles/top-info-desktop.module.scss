@@ -1,0 +1,59 @@
+@use '@/src/shared/styles/breakpoints/breakpoints.module' as *;
+@use '@/src/shared/styles/typography/typography.module' as typo;
+.root {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--bg-inverted);
+  padding: 10px 0;
+  
+}
+
+.delivery-time {
+  font-weight: bold;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+
+  @include media-max($breakpoint-lg) {
+    gap: 15px;
+  }
+}
+
+.dropdown-wrapper {
+ 
+  align-items: center;
+
+  @include media-max($breakpoint-lg) {
+    width: 100px;
+  }
+}
+
+.left-side {
+  display: flex;
+  gap: 8px;
+  @include media-max($breakpoint-lg) {
+    gap: 0;
+  }
+}
+
+.check-address {
+  @include typo.b2;
+  white-space: nowrap;
+
+  @include media-max($breakpoint-laptop) {
+    display: none;
+  }
+}
+
+.info {
+  @include typo.b2;
+  white-space: nowrap;
+
+  @include media-max($breakpoint-xl) {
+    @include typo.b4;
+  }
+}

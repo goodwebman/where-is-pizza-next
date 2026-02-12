@@ -33,3 +33,15 @@
   font-weight: 500;
   font-size: 16px;
 }
+
+@mixin b3 {
+  font-family: 'SFProText';
+  font-weight: 400;
+  font-size: 14px;
+}
+
+@mixin b4 {
+  font-family: 'SFProText';
+  font-weight: 400;
+  font-size: 12px;
+}

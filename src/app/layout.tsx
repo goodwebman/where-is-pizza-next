@@ -17,19 +17,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className="layout">
-          <header className="headerWrapper">
-            <div className="container">
-              <Header />
-            </div>
-          </header>
+        <Providers>
+          <div className="layout">
+            <header className="headerWrapper">
+              <div className="container">
+                <Header />
+              </div>
+            </header>
 
-          <main className="main">
-            <div className="container">
-              <Providers>{children}</Providers>
-            </div>
-          </main>
-        </div>
+            <main className="main">
+              <div className="container">{children}</div>
+            </main>
+          </div>
+        </Providers>
       </body>
     </html>
   );

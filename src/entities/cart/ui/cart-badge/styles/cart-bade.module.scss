@@ -1,0 +1,34 @@
+@use '@/src/shared/styles/typography/typography.module' as typo;
+@use '@/src/shared/styles/breakpoints/breakpoints.module' as *;
+.button {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  background-color: var(--bg-primary);
+  padding: 10px 16px;
+  border-radius: 8px;
+  transition: background-color 0.1s ease;
+
+  &:active {
+    transform: scale(0.97);
+  }
+  &:hover {
+    background-color: var(--bg-primary-hover);
+  }
+
+  &:focus {
+    background-color: var(--bg-primary);
+
+    &:hover {
+      background-color: var(--bg-primary-hover);
+    }
+  }
+}
+
+.value {
+  color: var(--text-primary);
+  @include typo.b2;
+  white-space: nowrap;
+}
+
+

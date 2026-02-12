@@ -1,0 +1,60 @@
+@use '@/src/shared/styles/typography/typography.module' as typo;
+@use '@/src/shared/styles/breakpoints/breakpoints.module' as *;
+
+.root {
+  background: var(--bg-inverted);
+}
+
+.container {
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  padding: 8px 0;
+  gap: 10px;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  @include media-max($breakpoint-laptop) {
+    gap: 16px;
+  }
+  @include media-max($breakpoint-lg) {
+    gap: 10px;
+  }
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.item {
+  cursor: pointer;
+  transition: 0.2s ease;
+  white-space: nowrap;
+}
+
+.link {
+  @include typo.b2;
+  text-decoration: none;
+  color: var(--text-secondary);
+
+  @include media-max($breakpoint-lg) {
+    @include typo.b3;
+  }
+}

@@ -1,4 +1,4 @@
-@use './../../../../shared/styles/typography/typography.module' as typo;
+@use '@/src/shared/styles/typography/typography.module' as typo;
 .tagContainer {
   display: flex;
   flex-wrap: wrap;

@@ -2,6 +2,7 @@
 
 import Account from './account';
 import ArrowDown from './arrow-down';
+import CartBag from './cart-bag';
 import Check from './check';
 import LeftArrow from './left-arrow';
 import Location from './location';
@@ -12,6 +13,7 @@ import XMark from './x-mark';
 export const Icons = {
   Account,
   ArrowDown,
+  CartBag,
   Check,
   LeftArrow,
   Location,

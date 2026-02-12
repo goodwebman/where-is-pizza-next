@@ -52,12 +52,12 @@
   font-display: swap;
 }
 
+
 .layout {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
-
 
 .headerWrapper {
   position: sticky;
@@ -66,12 +66,8 @@
   width: 100%;
 
   background: var(--bg-inverted);
-
-
-
 }
 
-/* Ограничение контента */
 .container {
   max-width: 1720px;
   padding: 0 20px;
@@ -222,3 +218,4 @@ input:-webkit-autofill:active {
   -webkit-background-clip: text;
   background-clip: text;
 }
+

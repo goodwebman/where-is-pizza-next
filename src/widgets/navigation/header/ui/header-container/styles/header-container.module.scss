@@ -1,0 +1,17 @@
+.header {
+ 
+  background-color: var(--bg-inverted);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.divider {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 99vw;
+  height: 1px;
+  background-color: var(--border-default);
+  
+}
