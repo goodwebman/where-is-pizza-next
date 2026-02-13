@@ -1,0 +1,25 @@
+@use '@/src/shared/styles/breakpoints/breakpoints.module' as *;
+
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  background-color: var(--bg-inverted);
+  padding: 24px 0;
+
+  @include media-min($breakpoint-tablet) {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: start;
+  }
+
+  @include media-between($breakpoint-tablet, $breakpoint-lg) {
+    align-items: flex-start;
+    flex-wrap: wrap;
+    justify-content: center;
+    > * {
+      width: calc(50% - 12px);
+    }
+  }
+}

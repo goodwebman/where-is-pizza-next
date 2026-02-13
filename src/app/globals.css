@@ -52,7 +52,6 @@
   font-display: swap;
 }
 
-
 .layout {
   display: flex;
   flex-direction: column;
@@ -77,6 +76,11 @@
 
 .main {
   flex: 1;
+}
+
+.footer-wrapper {
+  background: var(--bg-inverted);
+  border-top: 1px var(--border-default) solid;
 }
 
 body {
@@ -218,4 +222,3 @@ input:-webkit-autofill:active {
   -webkit-background-clip: text;
   background-clip: text;
 }
-

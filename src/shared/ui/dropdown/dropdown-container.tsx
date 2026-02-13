@@ -1,3 +1,4 @@
+'use client'
 import { FC, useRef, useState, useCallback, ReactNode } from 'react'; // Добавил ReactNode
 import { DropdownItem, DropdownItemProps } from './dropdown-item';
 import { useClickOutside } from '@/src/shared/hooks/ui';

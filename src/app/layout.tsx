@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 
 import { Header } from '@/src/widgets/navigation/header';
+import { Footer } from '../widgets/navigation/footer/footer';
 import './globals.css';
 import { Providers } from './providers';
 
@@ -28,6 +29,12 @@ export default function RootLayout({
             <main className="main">
               <div className="container">{children}</div>
             </main>
+
+            <div className="footer-wrapper">
+              <div className="container">
+                <Footer />
+              </div>
+            </div>
           </div>
         </Providers>
       </body>

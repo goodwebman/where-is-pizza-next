@@ -1,3 +1,4 @@
+'use client'
 import { forwardRef } from 'react'
 import { BaseInput, BaseInputProps } from '../base-input/base-input'
 
