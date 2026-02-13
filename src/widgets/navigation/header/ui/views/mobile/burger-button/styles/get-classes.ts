@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import classes from './burger-button.module.scss';
+import classes from './burget-button.module.scss';
 
 const cn = classNames.bind(classes);
 

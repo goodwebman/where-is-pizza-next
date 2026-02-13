@@ -1,8 +1,9 @@
+'use client';
 import React from 'react';
 import { getContainerClasses } from './styles/get-classes';
 
 type Props = {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   leftSlot?: React.ReactNode;
   rightSlot?: React.ReactNode;
   className?: string;

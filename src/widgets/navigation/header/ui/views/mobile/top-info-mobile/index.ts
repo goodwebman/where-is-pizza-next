@@ -1,1 +1,1 @@
-export { TopInfoDesktop } from './top-info-desktop';
+export { TopInfoMobile } from './top-info-mobile';

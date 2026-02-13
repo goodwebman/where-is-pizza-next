@@ -13,10 +13,13 @@ type DropdownItemArgs = {
   className?: string;
 };
 
-export const getDropdownClasses = (className?: string) => ({
+export const getDropdownClasses = (
+  className?: string,
+  labelClassName?: string,
+) => ({
   cnContainer: cn('container', className),
   cnMenu: cn('menu'),
-  cnLabel: cn('label')
+  cnLabel: cn('label', labelClassName),
 });
 
 export const getDropdownButtonClasses = ({
@@ -25,7 +28,6 @@ export const getDropdownButtonClasses = ({
 }: DropdownButtonArgs) => ({
   cnButton: cn('button', { open: isOpen }, className),
   cnArrowIcon: cn('arrow-icon', { open: isOpen }),
-  
 });
 
 export const getDropdownItemClasses = ({

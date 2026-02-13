@@ -22,6 +22,7 @@ type DropdownProps = {
   onSelect: (value: string, href?: string) => void;
   selectedValue?: string;
   className?: string;
+  labelClassName?: string;
   forNavigate?: boolean; 
 };
 
@@ -31,12 +32,13 @@ export const Dropdown: FC<DropdownProps> = ({
   onSelect,
   selectedValue,
   className,
+  labelClassName,
   forNavigate = false, 
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
-  const { cnContainer, cnMenu, cnLabel } = getDropdownClasses(className);
+  const { cnContainer, cnMenu, cnLabel,  } = getDropdownClasses(className, labelClassName);
   const { cnButton, cnArrowIcon } = getDropdownButtonClasses({ isOpen });
 
   const handleToggle = () => {

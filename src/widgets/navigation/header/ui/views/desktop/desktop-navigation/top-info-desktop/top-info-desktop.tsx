@@ -3,8 +3,10 @@
 import { UserInfo } from '@/src/entities/user/ui';
 import { Icons } from '@/src/shared/assets/svg/components';
 import { Dropdown } from '@/src/shared/ui/dropdown/dropdown';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { getClasses } from './styles/get-classes';
+import { LOCATION_OPTIONS } from '@/src/entities/location/config/location-options'
+import { useLocation } from '@/src/entities/location/model/use-location'
 
 type TopInfoProps = {
   className?: string;
@@ -18,32 +20,25 @@ export const TopInfoDesktop: FC<TopInfoProps> = ({ className }) => {
     cnLeftSide,
     cnDropdownWrapper,
     cnDeliveryTime,
-    cnCheckAddress
+    cnCheckAddress,
   } = getClasses({ className });
 
-  const [selectedFruit, setSelectedFruit] = useState('Moscow');
+  const { selected, setSelected } = useLocation();
 
-  const fruitOptions = [
-    { value: 'Moscow', children: 'Москва' },
-    { value: 'Omsk', children: 'Омск' },
-    { value: 'Kirow', children: 'Киров' },
-    { value: 'Volgograd', children: 'Волгоград' },
-  ];
-
-  const handleFruitSelect = (value: string) => {
-    setSelectedFruit(value);
-  };
   return (
-    <nav className={cnRoot}>
+    <section className={cnRoot}>
       <div className={cnWrapper}>
         <div className={cnLeftSide}>
           <Icons.Location width={20} height={20} />
 
-          <div className={cnDropdownWrapper} >
+          <div className={cnDropdownWrapper}>
             <Dropdown
-              options={fruitOptions}
-              onSelect={handleFruitSelect}
-              selectedValue={selectedFruit}
+              options={LOCATION_OPTIONS.map(option => ({
+                value: option.value,
+                children: option.label,
+              }))}
+              selectedValue={selected}
+              onSelect={setSelected}
             />
           </div>
         </div>
@@ -60,6 +55,6 @@ export const TopInfoDesktop: FC<TopInfoProps> = ({ className }) => {
 
         <UserInfo />
       </div>
-    </nav>
+    </section>
   );
 };

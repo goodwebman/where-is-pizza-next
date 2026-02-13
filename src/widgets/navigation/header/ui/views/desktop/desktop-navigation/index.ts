@@ -1,2 +1,2 @@
-export { Navigation } from './main-navigation';
+export { Navigation } from '../../../navigation-layout';
 export { TopInfoDesktop } from './top-info-desktop/';
