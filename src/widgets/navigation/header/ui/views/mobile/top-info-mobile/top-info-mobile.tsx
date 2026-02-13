@@ -3,9 +3,10 @@
 import { LOCATION_OPTIONS } from '@/src/entities/location/config/location-options';
 import { useLocation } from '@/src/entities/location/model/use-location';
 import { Icons } from '@/src/shared/assets/svg/components';
-import { Dropdown } from '@/src/shared/ui/dropdown/dropdown';
+
 import { FC } from 'react';
 import { getClasses } from './styles/get-classes';
+import { Dropdown } from '@/src/shared/ui'
 
 type TopInfoMobileProps = {
   className?: string;
@@ -19,7 +20,7 @@ export const TopInfoMobile: FC<TopInfoMobileProps> = ({ className }) => {
     cnDropdownWrapper,
     cnDeliveryTime,
     cnDropdown,
-    cnDropdownLabel
+    cnDropdownLabel,
   } = getClasses({ className });
 
   const { selected, setSelected } = useLocation();
@@ -29,7 +30,7 @@ export const TopInfoMobile: FC<TopInfoMobileProps> = ({ className }) => {
         <Icons.Location width={20} height={20} />
 
         <div className={cnDropdownWrapper}>
-          <Dropdown
+          <Dropdown.Container
             options={LOCATION_OPTIONS.map(option => ({
               value: option.value,
               children: option.label,

@@ -1,12 +1,13 @@
 'use client';
 
+import { LOCATION_OPTIONS } from '@/src/entities/location/config/location-options';
+import { useLocation } from '@/src/entities/location/model/use-location';
 import { UserInfo } from '@/src/entities/user/ui';
 import { Icons } from '@/src/shared/assets/svg/components';
-import { Dropdown } from '@/src/shared/ui/dropdown/dropdown';
+
 import { FC } from 'react';
 import { getClasses } from './styles/get-classes';
-import { LOCATION_OPTIONS } from '@/src/entities/location/config/location-options'
-import { useLocation } from '@/src/entities/location/model/use-location'
+import { Dropdown } from '@/src/shared/ui'
 
 type TopInfoProps = {
   className?: string;
@@ -32,7 +33,7 @@ export const TopInfoDesktop: FC<TopInfoProps> = ({ className }) => {
           <Icons.Location width={20} height={20} />
 
           <div className={cnDropdownWrapper}>
-            <Dropdown
+            <Dropdown.Container
               options={LOCATION_OPTIONS.map(option => ({
                 value: option.value,
                 children: option.label,

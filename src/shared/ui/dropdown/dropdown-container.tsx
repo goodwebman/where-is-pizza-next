@@ -16,7 +16,7 @@ type DropdownOption = {
   href?: string; 
 };
 
-type DropdownProps = {
+type DropdownContainerProps = {
   placeholder?: string;
   options: DropdownOption[];
   onSelect: (value: string, href?: string) => void;
@@ -26,7 +26,7 @@ type DropdownProps = {
   forNavigate?: boolean; 
 };
 
-export const Dropdown: FC<DropdownProps> = ({
+export const DropdownContainer: FC<DropdownContainerProps> = ({
   placeholder = 'Выберите',
   options,
   onSelect,
@@ -95,4 +95,4 @@ export const Dropdown: FC<DropdownProps> = ({
   );
 };
 
-Dropdown.displayName = 'Dropdown';
+DropdownContainer.displayName = 'DropdownContainer';
