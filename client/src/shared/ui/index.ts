@@ -1,8 +1,8 @@
 export { Buttons } from './buttons';
 export { Checkbox } from './checkbox';
 export { Counter } from './counter';
-export { Dropdown } from './dropdown';
 export { Divider } from './divider';
+export { Dropdown } from './dropdown';
 export {
   BaseInput,
   BaseTextarea,
@@ -12,6 +12,7 @@ export {
   TextareaField,
 } from './inputs';
 export { Logo } from './logo';
+export { Modal } from './modal';
 export { Radio } from './radio';
 export { SocialInfo } from './social-info';
 export { Spinner } from './spinner';

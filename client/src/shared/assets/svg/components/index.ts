@@ -10,6 +10,7 @@ import LeftArrow from './left-arrow';
 import LocationSmall from './location-small';
 import Location from './location';
 import Logo from './logo';
+import ModalXMark from './modal-x-mark';
 import Phone from './phone';
 import Spinner from './spinner';
 import XMark from './x-mark';
@@ -25,6 +26,7 @@ export const Icons = {
   LocationSmall,
   Location,
   Logo,
+  ModalXMark,
   Phone,
   Spinner,
   XMark,
