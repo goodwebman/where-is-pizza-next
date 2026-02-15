@@ -1,8 +1,8 @@
 export { Buttons } from './buttons';
 export { Checkbox } from './checkbox';
 export { Counter } from './counter';
-export { Divider } from './divider';
 export { Dropdown } from './dropdown';
+export { Divider } from './divider';
 export {
   BaseInput,
   BaseTextarea,
