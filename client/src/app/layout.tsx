@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
+import { Footer } from '@/src/widgets/navigation/footer/footer';
 import { Header } from '@/src/widgets/navigation/header';
-import { Footer } from '../widgets/navigation/footer/footer';
 import './globals.css';
 import { Providers } from './providers';
 

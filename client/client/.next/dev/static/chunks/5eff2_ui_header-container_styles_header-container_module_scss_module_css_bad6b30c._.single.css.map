@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///C:/codding/where-is-pizza-next/client/src/widgets/navigation/header/ui/header-container/styles/header-container.module.scss"],"sourcesContent":[".header {\r\n  background-color: var(--bg-inverted);\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\r\n}\r\n"],"names":[],"mappings":"AAAA"}}]
+}

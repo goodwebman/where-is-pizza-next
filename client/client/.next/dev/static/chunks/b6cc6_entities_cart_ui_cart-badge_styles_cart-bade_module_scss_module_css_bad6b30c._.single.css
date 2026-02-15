@@ -1,0 +1,36 @@
+/* [project]/client/src/entities/cart/ui/cart-badge/styles/cart-bade.module.scss.module.css [app-client] (css) */
+.cart-bade-module-scss-module__46rZnW__button {
+  background-color: var(--bg-primary);
+  border-radius: 8px;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 16px;
+  transition: background-color .1s;
+  display: flex;
+}
+
+.cart-bade-module-scss-module__46rZnW__button:active {
+  transform: scale(.97);
+}
+
+.cart-bade-module-scss-module__46rZnW__button:hover {
+  background-color: var(--bg-primary-hover);
+}
+
+.cart-bade-module-scss-module__46rZnW__button:focus {
+  background-color: var(--bg-primary);
+}
+
+.cart-bade-module-scss-module__46rZnW__button:focus:hover {
+  background-color: var(--bg-primary-hover);
+}
+
+.cart-bade-module-scss-module__46rZnW__value {
+  color: var(--text-primary);
+  white-space: nowrap;
+  font-family: SFProText;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/*# sourceMappingURL=b6cc6_entities_cart_ui_cart-badge_styles_cart-bade_module_scss_module_css_bad6b30c._.single.css.map*/

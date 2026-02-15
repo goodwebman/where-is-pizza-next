@@ -1,0 +1,12 @@
+{
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
+    "svg:transform": "svgr src/shared/assets/svg/raw --out-dir src/shared/assets/svg/components --ext tsx --no-index && node src/shared/scripts/generate-svg-icons-index.js"
+  }
+}

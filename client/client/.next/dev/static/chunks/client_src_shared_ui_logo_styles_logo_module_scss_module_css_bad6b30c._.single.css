@@ -1,0 +1,17 @@
+/* [project]/client/src/shared/ui/logo/styles/logo.module.scss.module.css [app-client] (css) */
+.logo-module-scss-module__m2jkya__root {
+  flex-shrink: 0;
+  align-items: center;
+  gap: 12px;
+  display: flex;
+}
+
+.logo-module-scss-module__m2jkya__logo-text {
+  color: var(--text-secondary);
+  white-space: nowrap;
+  font-family: SFProText;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/*# sourceMappingURL=client_src_shared_ui_logo_styles_logo_module_scss_module_css_bad6b30c._.single.css.map*/

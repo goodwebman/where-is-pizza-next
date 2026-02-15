@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///C:/codding/where-is-pizza-next/client/src/shared/styles/palette/_palette.scss"],"sourcesContent":[":root {\r\n  /* Orange */\r\n  --orange-100: #fdd4b9;\r\n  --orange-500: #ff7010;\r\n  --orange-700: #e66f34;\r\n\r\n  /* Gray */\r\n  --gray-0: #ffffff;\r\n  --gray-100: #f0f0f0;\r\n  --gray-200: #f9f9f9;\r\n  --gray-300: #d9d9d9;\r\n  --gray-600: #a5a5a5;\r\n  --gray-800: #191919;\r\n\r\n  /* Red */\r\n  --red-500: #e23535;\r\n  --red-600: #bd2d2d;\r\n\r\n  /* Green */\r\n  --green-500: #18b926;\r\n}\r\n"],"names":[],"mappings":"AAAA"}}]
+}

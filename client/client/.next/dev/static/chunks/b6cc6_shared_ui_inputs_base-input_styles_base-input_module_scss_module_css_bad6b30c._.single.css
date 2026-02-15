@@ -1,0 +1,95 @@
+/* [project]/client/src/shared/ui/inputs/base-input/styles/base-input.module.scss.module.css [app-client] (css) */
+.base-input-module-scss-module__exijMq__root {
+  flex-direction: column;
+  gap: 4px;
+  display: flex;
+}
+
+.base-input-module-scss-module__exijMq__label {
+  color: var(--text-placeholder);
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.base-input-module-scss-module__exijMq__outer {
+  border: 1px solid var(--border-default);
+  border-radius: 8px;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+  display: flex;
+}
+
+.base-input-module-scss-module__exijMq__outer.base-input-module-scss-module__exijMq__focused {
+  border-color: var(--border-primary);
+}
+
+.base-input-module-scss-module__exijMq__outer.base-input-module-scss-module__exijMq__error {
+  border-color: var(--border-danger);
+}
+
+.base-input-module-scss-module__exijMq__outer.base-input-module-scss-module__exijMq__success {
+  border-color: var(--border-success);
+}
+
+.base-input-module-scss-module__exijMq__outer.base-input-module-scss-module__exijMq__disabled {
+  opacity: .5;
+  pointer-events: none;
+}
+
+.base-input-module-scss-module__exijMq__field {
+  background: none;
+  border: none;
+  outline: none;
+  flex: 1;
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.base-input-module-scss-module__exijMq__field.base-input-module-scss-module__exijMq__small {
+  padding: 4px;
+  font-size: 14px;
+}
+
+.base-input-module-scss-module__exijMq__field.base-input-module-scss-module__exijMq__large {
+  padding: 8px;
+  font-size: 16px;
+}
+
+.base-input-module-scss-module__exijMq__field::placeholder {
+  color: var(--text-placeholder);
+}
+
+.base-input-module-scss-module__exijMq__contentLeft, .base-input-module-scss-module__exijMq__contentRight {
+  align-items: center;
+  font-family: SFProText;
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+}
+
+.base-input-module-scss-module__exijMq__caption {
+  color: var(--text-secondary);
+  font-family: SFProText;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.base-input-module-scss-module__exijMq__caption.base-input-module-scss-module__exijMq__error {
+  color: var(--text-danger);
+}
+
+.base-input-module-scss-module__exijMq__caption.base-input-module-scss-module__exijMq__success {
+  color: var(--text-success);
+}
+
+.base-input-module-scss-module__exijMq__textarea {
+  resize: vertical;
+  min-height: 120px;
+  max-height: 700px;
+  line-height: 1.4;
+}
+
+/*# sourceMappingURL=b6cc6_shared_ui_inputs_base-input_styles_base-input_module_scss_module_css_bad6b30c._.single.css.map*/

@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///C:/codding/where-is-pizza-next/client/src/shared/theme/themes/light-theme.scss"],"sourcesContent":["[data-theme='light'] {\r\n  /* Background */\r\n  --bg-primary: var(--orange-500);\r\n  --bg-primary-low: var(--orange-100);\r\n  --bg-primary-hover: var(--orange-700);\r\n  --bg-secondary: var(--gray-100);\r\n  --bg-inverted: var(--gray-0);\r\n\r\n  --bg-disabled: var(--gray-600);\r\n  --bg-danger: var(--red-500);\r\n  --bg-danger-hover: var(--red-600);\r\n  --bg-ghost: var(--gray-200);\r\n\r\n  /* Text */\r\n  --text-primary: var(--gray-0);\r\n  --text-secondary: var(--gray-800);\r\n  --text-inverted: var(--orange-500);\r\n  --text-placeholder: var(--gray-600);\r\n  --text-danger: var(--red-500);\r\n  --text-success: var(--green-500);\r\n\r\n  /* Border */\r\n\r\n  --border-primary: var(--orange-500);\r\n  --border-danger: var(--red-500);\r\n  --border-success: var(--green-500);\r\n  --border-default: var(--gray-300);\r\n\r\n  /* Spinners */\r\n\r\n  --spinner-primary: var(--gray-0);\r\n  --spinner-ghost: var(--orange-500);\r\n\r\n  // icons\r\n\r\n  --icon-primary: var(--gray-0);\r\n}\r\n"],"names":[],"mappings":"AAAA"}}]
+}

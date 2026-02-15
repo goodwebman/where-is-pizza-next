@@ -1,0 +1,74 @@
+/* [project]/client/src/widgets/navigation/header/ui/navigation-layout/styles/main-navigation.module.scss.module.css [app-client] (css) */
+.main-navigation-module-scss-module__CsW2xG__root {
+  background: var(--bg-inverted);
+}
+
+.main-navigation-module-scss-module__CsW2xG__container {
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 10px;
+  margin: 0 auto;
+  padding: 8px 0;
+  display: grid;
+}
+
+.main-navigation-module-scss-module__CsW2xG__left {
+  align-items: center;
+  display: flex;
+}
+
+.main-navigation-module-scss-module__CsW2xG__center {
+  justify-content: center;
+  gap: 32px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+}
+
+@media (max-width: 1024px) {
+  .main-navigation-module-scss-module__CsW2xG__center {
+    gap: 16px;
+  }
+}
+
+@media (max-width: 850px) {
+  .main-navigation-module-scss-module__CsW2xG__center {
+    gap: 10px;
+  }
+}
+
+.main-navigation-module-scss-module__CsW2xG__right {
+  justify-content: flex-end;
+  align-items: center;
+  display: flex;
+}
+
+.main-navigation-module-scss-module__CsW2xG__item {
+  cursor: pointer;
+  white-space: nowrap;
+  color: var(--text-secondary);
+  transition: all .2s;
+}
+
+.main-navigation-module-scss-module__CsW2xG__link {
+  color: var(--text-secondary);
+  font-family: SFProText;
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+@media (max-width: 850px) {
+  .main-navigation-module-scss-module__CsW2xG__link {
+    font-family: SFProText;
+    font-size: 14px;
+    font-weight: 400;
+  }
+}
+
+.main-navigation-module-scss-module__CsW2xG__link:hover {
+  opacity: .7;
+}
+
+/*# sourceMappingURL=5eff2_ui_navigation-layout_styles_main-navigation_module_scss_module_css_bad6b30c._.single.css.map*/

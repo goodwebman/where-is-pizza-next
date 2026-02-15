@@ -1,0 +1,27 @@
+/* [project]/client/src/shared/theme/themes/light-theme.scss.css [app-client] (css) */
+[data-theme="light"] {
+  --bg-primary: var(--orange-500);
+  --bg-primary-low: var(--orange-100);
+  --bg-primary-hover: var(--orange-700);
+  --bg-secondary: var(--gray-100);
+  --bg-inverted: var(--gray-0);
+  --bg-disabled: var(--gray-600);
+  --bg-danger: var(--red-500);
+  --bg-danger-hover: var(--red-600);
+  --bg-ghost: var(--gray-200);
+  --text-primary: var(--gray-0);
+  --text-secondary: var(--gray-800);
+  --text-inverted: var(--orange-500);
+  --text-placeholder: var(--gray-600);
+  --text-danger: var(--red-500);
+  --text-success: var(--green-500);
+  --border-primary: var(--orange-500);
+  --border-danger: var(--red-500);
+  --border-success: var(--green-500);
+  --border-default: var(--gray-300);
+  --spinner-primary: var(--gray-0);
+  --spinner-ghost: var(--orange-500);
+  --icon-primary: var(--gray-0);
+}
+
+/*# sourceMappingURL=client_src_shared_theme_themes_light-theme_scss_css_bad6b30c._.single.css.map*/

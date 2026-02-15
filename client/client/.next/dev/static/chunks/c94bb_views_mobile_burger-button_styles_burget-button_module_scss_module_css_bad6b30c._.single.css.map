@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///C:/codding/where-is-pizza-next/client/src/widgets/navigation/header/ui/views/mobile/burger-button/styles/burget-button.module.scss"],"sourcesContent":[".burger {\r\n  width: 24px;\r\n  height: 18px;\r\n  position: relative;\r\n  background: none;\r\n  border: none;\r\n  cursor: pointer;\r\n\r\n  span {\r\n    position: absolute;\r\n    width: 100%;\r\n    height: 2px;\r\n    background: var(--bg-contrast);\r\n    left: 0;\r\n    transition: 0.3s;\r\n  }\r\n\r\n  span:nth-child(1) {\r\n    top: 0;\r\n  }\r\n\r\n  span:nth-child(2) {\r\n    top: 8px;\r\n  }\r\n\r\n  span:nth-child(3) {\r\n    bottom: 0;\r\n    width: 70%;\r\n  }\r\n}\r\n\r\n.open {\r\n  span:nth-child(1) {\r\n    transform: rotate(45deg);\r\n    top: 8px;\r\n  }\r\n\r\n  span:nth-child(2) {\r\n    opacity: 0;\r\n  }\r\n\r\n  span:nth-child(3) {\r\n    transform: rotate(-45deg);\r\n    bottom: 8px;\r\n    width: 100%;\r\n  }\r\n}\r\n"],"names":[],"mappings":"AAAA;;;;;;;;;AAQE;;;;;;;;;AASA;;;;AAIA;;;;AAIA;;;;;AAOA;;;;;AAKA;;;;AAIA"}}]
+}

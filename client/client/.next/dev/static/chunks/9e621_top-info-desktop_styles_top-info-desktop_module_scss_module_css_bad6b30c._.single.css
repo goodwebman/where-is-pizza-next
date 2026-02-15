@@ -1,0 +1,75 @@
+/* [project]/client/src/widgets/navigation/header/ui/views/desktop/desktop-navigation/top-info-desktop/styles/top-info-desktop.module.scss.module.css [app-client] (css) */
+.top-info-desktop-module-scss-module__cVvwva__root {
+  background-color: var(--bg-inverted);
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  display: flex;
+}
+
+.top-info-desktop-module-scss-module__cVvwva__delivery-time {
+  font-weight: bold;
+}
+
+.top-info-desktop-module-scss-module__cVvwva__wrapper {
+  align-items: center;
+  gap: 40px;
+  display: flex;
+}
+
+@media (max-width: 850px) {
+  .top-info-desktop-module-scss-module__cVvwva__wrapper {
+    gap: 15px;
+  }
+}
+
+.top-info-desktop-module-scss-module__cVvwva__dropdown-wrapper {
+  align-items: center;
+}
+
+@media (max-width: 850px) {
+  .top-info-desktop-module-scss-module__cVvwva__dropdown-wrapper {
+    width: 100px;
+  }
+}
+
+.top-info-desktop-module-scss-module__cVvwva__left-side {
+  gap: 8px;
+  display: flex;
+}
+
+@media (max-width: 850px) {
+  .top-info-desktop-module-scss-module__cVvwva__left-side {
+    gap: 0;
+  }
+}
+
+.top-info-desktop-module-scss-module__cVvwva__check-address {
+  white-space: nowrap;
+  font-family: SFProText;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+@media (max-width: 1024px) {
+  .top-info-desktop-module-scss-module__cVvwva__check-address {
+    display: none;
+  }
+}
+
+.top-info-desktop-module-scss-module__cVvwva__info {
+  white-space: nowrap;
+  font-family: SFProText;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+@media (max-width: 1200px) {
+  .top-info-desktop-module-scss-module__cVvwva__info {
+    font-family: SFProText;
+    font-size: 12px;
+    font-weight: 400;
+  }
+}
+
+/*# sourceMappingURL=9e621_top-info-desktop_styles_top-info-desktop_module_scss_module_css_bad6b30c._.single.css.map*/

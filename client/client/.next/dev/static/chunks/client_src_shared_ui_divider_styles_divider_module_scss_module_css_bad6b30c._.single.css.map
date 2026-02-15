@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///C:/codding/where-is-pizza-next/client/src/shared/ui/divider/styles/divider.module.scss"],"sourcesContent":[".divider {\r\n  position: relative;\r\n  left: 50%;\r\n  transform: translateX(-50%);\r\n  width: 99vw;\r\n  height: 1px;\r\n  background-color: var(--border-default);\r\n}\r\n"],"names":[],"mappings":"AAAA"}}]
+}

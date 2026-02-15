@@ -1,0 +1,11 @@
+/* [project]/client/src/shared/ui/divider/styles/divider.module.scss.module.css [app-client] (css) */
+.divider-module-scss-module__eDlp7a__divider {
+  background-color: var(--border-default);
+  width: 99vw;
+  height: 1px;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/*# sourceMappingURL=client_src_shared_ui_divider_styles_divider_module_scss_module_css_bad6b30c._.single.css.map*/

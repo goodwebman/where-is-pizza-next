@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///C:/codding/where-is-pizza-next/client/src/shared/ui/buttons/icon-button/styles/icon-button.module.scss"],"sourcesContent":[".button {\r\n  display: inline-flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  border: none;\r\n  border-radius: 8px;\r\n  cursor: pointer;\r\n  background-color: var(--bg-primary);\r\n  transition: background-color 0.2s ease, transform 0.1s ease;\r\n\r\n  &:hover {\r\n    background-color: var(--bg-primary-hover);\r\n  }\r\n\r\n  &:focus {\r\n    background-color: var(--bg-primary);\r\n\r\n    &:hover {\r\n      background-color: var(--bg-primary-hover);\r\n    }\r\n  }\r\n\r\n  &:active {\r\n    transform: scale(0.97);\r\n  }\r\n\r\n  &.disabled {\r\n    cursor: not-allowed;\r\n    opacity: 0.5;\r\n    pointer-events: none;\r\n  }\r\n\r\n  &.circle {\r\n    border-radius: 100%;\r\n  }\r\n}\r\n\r\n.small {\r\n  padding: 10px;\r\n}\r\n\r\n.medium {\r\n  padding: 16px;\r\n}\r\n\r\n.large {\r\n  padding: 20px;\r\n}\r\n\r\n.icon {\r\n  display: inline-flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  width: 16px;\r\n  height: 16px;\r\n}\r\n"],"names":[],"mappings":"AAAA;;;;;;;;;;;AAUE;;;;AAIA;;;;AAGE;;;;AAKF;;;;AAIA;;;;;;AAMA;;;;AAKF;;;;AAIA;;;;AAIA;;;;AAIA"}}]
+}

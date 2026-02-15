@@ -1,0 +1,171 @@
+/* [project]/client/src/shared/ui/buttons/button/styles/button.module.scss.module.css [app-client] (css) */
+.button-module-scss-module__Fv9FmG__button {
+  white-space: nowrap;
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+  max-height: 48px;
+  transition: background-color .3s, transform .1s;
+  display: inline-flex;
+  position: relative;
+}
+
+.button-module-scss-module__Fv9FmG__button:active {
+  transform: scale(.97);
+}
+
+.button-module-scss-module__Fv9FmG__title {
+  font-family: SFProText;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.button-module-scss-module__Fv9FmG__small {
+  padding: 8px 16px;
+}
+
+.button-module-scss-module__Fv9FmG__small .button-module-scss-module__Fv9FmG__title {
+  font-family: SFProText;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.button-module-scss-module__Fv9FmG__medium {
+  padding: 13px 40px;
+}
+
+.button-module-scss-module__Fv9FmG__medium .button-module-scss-module__Fv9FmG__title {
+  font-family: SFProText;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.button-module-scss-module__Fv9FmG__large {
+  padding: 20px 60px;
+}
+
+.button-module-scss-module__Fv9FmG__large .button-module-scss-module__Fv9FmG__title {
+  font-family: SFProText;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.button-module-scss-module__Fv9FmG__full-width {
+  align-items: center;
+  width: 100%;
+  display: flex;
+}
+
+.button-module-scss-module__Fv9FmG__primary {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.button-module-scss-module__Fv9FmG__primary:hover:not(:disabled) {
+  background-color: var(--bg-primary-hover);
+}
+
+.button-module-scss-module__Fv9FmG__primary:focus:not(:disabled) {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  outline: none;
+}
+
+.button-module-scss-module__Fv9FmG__primary:focus:not(:disabled):hover {
+  background-color: var(--bg-primary-hover);
+}
+
+.button-module-scss-module__Fv9FmG__primary:disabled {
+  cursor: not-allowed;
+  opacity: .85;
+  background-color: var(--bg-disabled);
+  color: var(--text-primary);
+  transform: none;
+}
+
+.button-module-scss-module__Fv9FmG__danger {
+  background-color: var(--bg-danger);
+  color: var(--text-primary);
+}
+
+.button-module-scss-module__Fv9FmG__danger:hover:not(:disabled) {
+  background-color: var(--bg-danger-hover);
+}
+
+.button-module-scss-module__Fv9FmG__danger:focus:not(:disabled) {
+  background-color: var(--bg-danger);
+  color: var(--text-primary);
+  outline: none;
+}
+
+.button-module-scss-module__Fv9FmG__danger:focus:not(:disabled):hover {
+  background-color: var(--bg-danger-hover);
+}
+
+.button-module-scss-module__Fv9FmG__danger:disabled {
+  cursor: not-allowed;
+  opacity: .9;
+  background-color: var(--bg-danger-hover);
+  color: var(--text-primary);
+  transform: none;
+}
+
+.button-module-scss-module__Fv9FmG__ghost {
+  background-color: var(--bg-ghost);
+  color: var(--text-inverted);
+  border: 2px solid var(--border-primary);
+}
+
+.button-module-scss-module__Fv9FmG__ghost:hover:not(:disabled) {
+  color: var(--text-inverted);
+  background-color: var(--bg-ghost);
+}
+
+.button-module-scss-module__Fv9FmG__ghost:focus:not(:disabled) {
+  background-color: var(--bg-ghost);
+  color: var(--text-inverted);
+  outline: none;
+}
+
+.button-module-scss-module__Fv9FmG__ghost:focus:not(:disabled):hover {
+  background-color: var(--bg-ghost);
+  color: var(--text-inverted);
+}
+
+.button-module-scss-module__Fv9FmG__ghost:disabled {
+  cursor: not-allowed;
+  opacity: .9;
+  background-color: var(--bg-ghost);
+  color: var(--text-inverted);
+  transform: none;
+}
+
+.button-module-scss-module__Fv9FmG__loading {
+  cursor: not-allowed;
+}
+
+.button-module-scss-module__Fv9FmG__spinner {
+  position: absolute;
+  top: 50%;
+  left: 13%;
+  transform: translate(-50%, -50%);
+}
+
+.button-module-scss-module__Fv9FmG__icon {
+  justify-content: center;
+  align-items: center;
+  display: inline-flex;
+}
+
+.button-module-scss-module__Fv9FmG__icon.button-module-scss-module__Fv9FmG__left {
+  margin-right: .5rem;
+}
+
+.button-module-scss-module__Fv9FmG__icon.button-module-scss-module__Fv9FmG__right {
+  margin-left: .5rem;
+}
+
+/*# sourceMappingURL=5cf68_src_shared_ui_buttons_button_styles_button_module_scss_module_css_bad6b30c._.single.css.map*/

@@ -1,0 +1,56 @@
+/* [project]/client/src/widgets/navigation/header/ui/views/mobile/top-info-mobile/styles/top-info-desktop.module.scss.module.css [app-client] (css) */
+.top-info-desktop-module-scss-module__qy9i1W__root {
+  background-color: var(--bg-inverted);
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  display: flex;
+}
+
+.top-info-desktop-module-scss-module__qy9i1W__left-side {
+  gap: 8px;
+  display: flex;
+}
+
+@media (max-width: 850px) {
+  .top-info-desktop-module-scss-module__qy9i1W__left-side {
+    gap: 2px;
+  }
+}
+
+.top-info-desktop-module-scss-module__qy9i1W__delivery-time {
+  font-weight: bold;
+}
+
+.top-info-desktop-module-scss-module__qy9i1W__info {
+  white-space: nowrap;
+  font-family: SFProText;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+@media (max-width: 1200px) {
+  .top-info-desktop-module-scss-module__qy9i1W__info {
+    font-family: SFProText;
+    font-size: 12px;
+    font-weight: 400;
+  }
+}
+
+@media (max-width: 420px) {
+  .top-info-desktop-module-scss-module__qy9i1W__info {
+    font-family: SFProText;
+    font-size: 10px;
+    font-weight: 400;
+  }
+
+  .top-info-desktop-module-scss-module__qy9i1W__dropdown {
+    width: 80px;
+  }
+}
+
+.top-info-desktop-module-scss-module__qy9i1W__dropdown-label {
+  font-size: 12px;
+}
+
+/*# sourceMappingURL=e7094_mobile_top-info-mobile_styles_top-info-desktop_module_scss_module_css_bad6b30c._.single.css.map*/
