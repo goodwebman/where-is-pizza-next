@@ -1,0 +1,43 @@
+# Node modules
+node_modules/
+**/node_modules/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env files
+.env
+.env.local
+.env.*.local
+
+# Next.js
+.next/
+out/
+dist/
+build/
+
+# Prisma
+prisma/migrations/
+prisma/dev.db
+
+# VSCode
+.vscode/
+
+# Yarn
+.yarn/cache/
+.yarn/unplugged/
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+
+# Misc
+*.tsbuildinfo
+.idea/
