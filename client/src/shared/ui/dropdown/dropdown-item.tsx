@@ -27,10 +27,8 @@ export const DropdownItem: FC<DropdownItemProps> = ({
 
   const renderContent = href ? (
     <li role="menuitem">
-      <Link href={href} passHref>
-        <a className={cnItem} onClick={handleClick}>
-          {children}
-        </a>
+      <Link className={cnItem} onClick={handleClick} href={href} passHref>
+        {children}
       </Link>
     </li>
   ) : (

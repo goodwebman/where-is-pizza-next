@@ -1,0 +1,44 @@
+import { LoginForm, RegisterForm } from '@/src/features/auth-forms';
+import { Buttons, Modal } from '@/src/shared/ui';
+import { FC, useState } from 'react';
+import { getClasses } from './styles/get-classes';
+
+enum ToggleAuthState {
+  LOGIN = 'login',
+  REGISTER = 'register',
+}
+
+type AuthState = 'login' | 'register';
+
+type AuthSwitcherProps = {
+  className?: string;
+  isOpen: boolean;
+  onClose: () => void;
+};
+
+export const AuthSwitcherModal: FC<AuthSwitcherProps> = ({
+  className,
+  isOpen,
+  onClose,
+}) => {
+  const [mode, setMode] = useState<AuthState>(ToggleAuthState.LOGIN);
+  const { cnRoot } = getClasses({ className });
+  return (
+    <Modal isOpen={isOpen} onClose={onClose}>
+      <section className={cnRoot}>
+        {mode === ToggleAuthState.LOGIN ? <LoginForm /> : <RegisterForm />}
+        <Buttons.DefaultButton
+          onClick={() =>
+            setMode(
+              mode === ToggleAuthState.LOGIN
+                ? ToggleAuthState.REGISTER
+                : ToggleAuthState.LOGIN,
+            )
+          }
+        >
+          {mode === ToggleAuthState.LOGIN ? 'No account?' : 'Have an account?'}
+        </Buttons.DefaultButton>
+      </section>
+    </Modal>
+  );
+};

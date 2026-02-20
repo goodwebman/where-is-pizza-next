@@ -1,13 +1,18 @@
 'use client';
 
 import { CartBadge } from '@/src/entities/cart/ui';
-import { UserInfo } from '@/src/entities/user/ui';
+
 import { Icons } from '@/src/shared/assets/svg/components';
+import { useLockBodyScroll } from '@/src/shared/hooks';
 import { Divider, SocialInfo } from '@/src/shared/ui';
+import {
+  AuthSwitcherModal,
+  useAuthSwitcherModal,
+} from '@/src/widgets/auth-switcher-modal';
 import { NAV_ITEMS } from '../../../../model';
 import { Navigation } from '../../desktop';
 import { getClasses } from './styles/get-classes';
-import { useLockBodyScroll } from '@/src/shared/hooks'
+import { UserMenu } from '@/src/features/user/user-menu/ui'
 
 interface MobileNavigationProps {
   className?: string;
@@ -35,13 +40,15 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
 
   if (!isOpen) return null;
 
-  useLockBodyScroll(isOpen)
+  useLockBodyScroll(isOpen);
+
+  const { isOpen: isAuthSwitcherModalOpen, open } = useAuthSwitcherModal();
 
   return (
     <nav className={cnRoot}>
       <div className={cnContent}>
         <div className={cnUserCartWrapper}>
-          <UserInfo />
+          <UserMenu onClick={open} />
           <CartBadge />
         </div>
         <Divider />
@@ -86,9 +93,11 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
       </div>
       <div className={cnTimeWork}>
         <Divider />
-        <p >Время работы: с 11:00 до 23:00</p>
+        <p>Время работы: с 11:00 до 23:00</p>
         <Divider />
       </div>
+
+      <AuthSwitcherModal isOpen={isAuthSwitcherModalOpen} onClose={close} />
     </nav>
   );
 };

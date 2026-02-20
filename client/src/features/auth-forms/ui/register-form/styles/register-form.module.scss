@@ -1,0 +1,43 @@
+@use '@/src/shared/styles/typography/typography.module' as typo;
+
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+ 
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width:560px; 
+}
+
+.input {
+  width: 100%; 
+}
+
+.title {
+  text-align: center;
+  @include typo.h2;
+  color: var(--text-secondary);
+}
+
+.subtitle {
+  text-align: center;
+  @include typo.b3;
+  color: var(--text-secondary);
+}
+
+.suptitle {
+  text-align: center;
+  @include typo.b4;
+  color: var(--text-placeholder);
+}
+

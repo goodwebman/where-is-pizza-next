@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 
-import classes from './user-info.module.scss';
+import classes from './user-menu.module.scss';
 
 const cn = classNames.bind(classes);
 

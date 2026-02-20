@@ -2,12 +2,15 @@
 
 import { LOCATION_OPTIONS } from '@/src/entities/location/config/location-options';
 import { useLocation } from '@/src/entities/location/model/use-location';
-import { UserInfo } from '@/src/entities/user/ui';
+
 import { Icons } from '@/src/shared/assets/svg/components';
 
+import { Dropdown } from '@/src/shared/ui';
+import { useAuthSwitcherModal } from '@/src/widgets/auth-switcher-modal';
+import { AuthSwitcherModal } from '@/src/widgets/auth-switcher-modal/ui/auth-switcher-modal';
 import { FC } from 'react';
 import { getClasses } from './styles/get-classes';
-import { Dropdown } from '@/src/shared/ui'
+import { UserMenu } from '@/src/features/user/user-menu/ui'
 
 type TopInfoProps = {
   className?: string;
@@ -25,6 +28,7 @@ export const TopInfoDesktop: FC<TopInfoProps> = ({ className }) => {
   } = getClasses({ className });
 
   const { selected, setSelected } = useLocation();
+  const { isOpen, close, open } = useAuthSwitcherModal();
 
   return (
     <section className={cnRoot}>
@@ -54,8 +58,10 @@ export const TopInfoDesktop: FC<TopInfoProps> = ({ className }) => {
       <div className={cnWrapper}>
         <span className={cnInfo}>Время работы: с 11:00 до 23:00</span>
 
-        <UserInfo />
+        <UserMenu onClick={open} />
       </div>
+
+      <AuthSwitcherModal isOpen={isOpen} onClose={close} />
     </section>
   );
 };
