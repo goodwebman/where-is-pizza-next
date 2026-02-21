@@ -1,3 +1,4 @@
+'use client'
 import { LoginForm, RegisterForm } from '@/src/features/auth-forms';
 import { Buttons, Modal } from '@/src/shared/ui';
 import { FC, useState } from 'react';
