@@ -2,6 +2,7 @@
 
 import { CartBadge } from '@/src/entities/cart/ui';
 
+import { UserMenu } from '@/src/features/user/user-menu/ui';
 import { Icons } from '@/src/shared/assets/svg/components';
 import { useLockBodyScroll } from '@/src/shared/hooks';
 import { Divider, SocialInfo } from '@/src/shared/ui';
@@ -12,7 +13,6 @@ import {
 import { NAV_ITEMS } from '../../../../model';
 import { Navigation } from '../../desktop';
 import { getClasses } from './styles/get-classes';
-import { UserMenu } from '@/src/features/user/user-menu/ui'
 
 interface MobileNavigationProps {
   className?: string;
@@ -42,7 +42,11 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
 
   useLockBodyScroll(isOpen);
 
-  const { isOpen: isAuthSwitcherModalOpen, open } = useAuthSwitcherModal();
+  const {
+    isOpen: isAuthSwitcherModalOpen,
+    open,
+    close,
+  } = useAuthSwitcherModal();
 
   return (
     <nav className={cnRoot}>

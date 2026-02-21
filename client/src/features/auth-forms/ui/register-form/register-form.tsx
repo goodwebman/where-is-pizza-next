@@ -15,9 +15,13 @@ import { getClasses } from './styles/get-classes';
 
 type RegisterFormProps = {
   className?: string;
+  onSuccess?: () => void;
 };
 
-export const RegisterForm: FC<RegisterFormProps> = ({ className }) => {
+export const RegisterForm: FC<RegisterFormProps> = ({
+  className,
+  onSuccess,
+}) => {
   const {
     handleSubmit,
     control,
@@ -40,7 +44,7 @@ export const RegisterForm: FC<RegisterFormProps> = ({ className }) => {
         password: data.password,
         email: data.email,
       });
-      console.log('вы успешно зарегались');
+      onSuccess?.();
       // toast('Registration successful!', {
       //   position: 'top-center',
       // });
@@ -96,7 +100,7 @@ export const RegisterForm: FC<RegisterFormProps> = ({ className }) => {
         />
 
         <Buttons.DefaultButton>
-          {authStatus === 'pending' ? 'Registering...' : 'Register'}
+          {authStatus === 'pending' ? 'Регистрируем...' : 'Регистрация'}
         </Buttons.DefaultButton>
       </form>
       <p className={cnSuptitle}>

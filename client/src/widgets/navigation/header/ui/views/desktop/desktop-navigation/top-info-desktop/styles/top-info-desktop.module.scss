@@ -36,7 +36,7 @@
   display: flex;
   gap: 8px;
   @include media-max($breakpoint-lg) {
-    gap: 0;
+    gap: 2px;
   }
 }
 

@@ -26,7 +26,11 @@ export const AuthSwitcherModal: FC<AuthSwitcherProps> = ({
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <section className={cnRoot}>
-        {mode === ToggleAuthState.LOGIN ? <LoginForm /> : <RegisterForm />}
+        {mode === ToggleAuthState.LOGIN ? (
+          <LoginForm onSuccess={onClose} />
+        ) : (
+          <RegisterForm onSuccess={onClose} />
+        )}
         <Buttons.DefaultButton
           onClick={() =>
             setMode(
@@ -36,7 +40,7 @@ export const AuthSwitcherModal: FC<AuthSwitcherProps> = ({
             )
           }
         >
-          {mode === ToggleAuthState.LOGIN ? 'No account?' : 'Have an account?'}
+          {mode === ToggleAuthState.LOGIN ? 'Нет аккаунта?' : 'Есть аккаунт?'}
         </Buttons.DefaultButton>
       </section>
     </Modal>

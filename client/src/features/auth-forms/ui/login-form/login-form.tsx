@@ -16,9 +16,10 @@ import { getClasses } from './styles/get-classes';
 
 type LoginFormProps = {
   className?: string;
+  onSuccess?: () => void;
 };
 
-export const LoginForm: FC<LoginFormProps> = ({ className }) => {
+export const LoginForm: FC<LoginFormProps> = ({ className, onSuccess }) => {
   const {
     handleSubmit,
     control,
@@ -39,6 +40,7 @@ export const LoginForm: FC<LoginFormProps> = ({ className }) => {
         email: data.email,
         password: data.password,
       });
+      onSuccess?.();
     } catch (e) {
       console.log(e);
     }
@@ -76,7 +78,7 @@ export const LoginForm: FC<LoginFormProps> = ({ className }) => {
         />
 
         <Buttons.DefaultButton>
-          {authStatus === 'pending' ? 'Logining...' : 'Login'}
+          {authStatus === 'pending' ? 'Входим...' : 'Войти'}
         </Buttons.DefaultButton>
       </form>
       <p className={cnSuptitle}>

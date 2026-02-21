@@ -1,5 +1,6 @@
 @use '@/src/shared/styles/typography/typography.module' as typo;
 @use '@/src/shared//styles/shadows/shadows.module' as *;
+@use '@/src/shared/styles/breakpoints/breakpoints.module' as *;
 .container {
   position: relative;
   display: inline-block;
@@ -12,15 +13,13 @@
   color: var(--text-secondary);
   user-select: none;
   width: 100%;
-
 }
 .label {
-  width: 100px;
-  min-width: 0; 
-  flex: 1;
+  max-width: 200px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  padding-right: 15px;
 }
 
 .arrow-icon {
@@ -31,9 +30,9 @@
   }
 }
 .menu {
-  position: absolute;
+  position: fixed;
   top: 130%;
-  left: 0;
+
   z-index: 10000;
   max-width: 600px;
   border-radius: 4px;
