@@ -2,6 +2,7 @@
 
 import Account from './account';
 import ArrowDown from './arrow-down';
+import BackDropXMark from './back-drop-x-mark';
 import CartBag from './cart-bag';
 import Check from './check';
 import Facebook from './facebook';
@@ -18,6 +19,7 @@ import XMark from './x-mark';
 export const Icons = {
   Account,
   ArrowDown,
+  BackDropXMark,
   CartBag,
   Check,
   Facebook,

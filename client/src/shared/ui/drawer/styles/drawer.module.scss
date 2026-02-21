@@ -1,0 +1,80 @@
+@use '@/src/shared/styles/typography/typography.module' as typo;
+@use '@/src/shared/styles/breakpoints/breakpoints.module' as *;
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  background: var(--bg-inverted);
+  box-shadow: -4px 0 12px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease-in-out;
+  padding: 32px 20px;
+  width: 30%;
+
+  @include media-max($breakpoint-laptop) {
+    width: 50%;
+  }
+
+  @include media-max($breakpoint-tablet) {
+    width: 100%;
+  }
+
+  &.open {
+    animation: slideInRight 0.4s forwards;
+  }
+  &.closed {
+    animation: slideOutRight 0.4s forwards;
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @include typo.h2;
+  
+}
+
+.closeButton {
+  background: transparent;
+  border: none;
+
+  cursor: pointer;
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  backdrop-filter: blur(8px);
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 999;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+
+  &.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
