@@ -3,6 +3,7 @@
 import { useLogout } from '@/src/entities/session';
 import { useRouter } from 'next/navigation';
 import { useCallback, useMemo } from 'react';
+import toast from 'react-hot-toast';
 
 export const useOptionsSelect = () => {
   const router = useRouter();
@@ -21,6 +22,9 @@ export const useOptionsSelect = () => {
     async (value: string, href?: string) => {
       if (value === 'logout') {
         logout();
+        toast.success('Вы успешно вышли из аккаунта!', {
+          position: 'top-center',
+        });
       }
 
       if (href) {

@@ -18,3 +18,4 @@ export { SocialInfo } from './social-info';
 export { Spinner } from './spinner';
 export { Tabs } from './tabs';
 export { TagSelector } from './tag-selector';
+export { Toaster } from './toaster';

@@ -11,6 +11,7 @@ import { Buttons, InputDefaultField } from '@/src/shared/ui';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { loginSchema, LoginSchemaValues } from '../../model';
 import { getClasses } from './styles/get-classes';
 
@@ -40,9 +41,16 @@ export const LoginForm: FC<LoginFormProps> = ({ className, onSuccess }) => {
         email: data.email,
         password: data.password,
       });
+
+      toast.success('Вы успешно вошли!', {
+        position: 'top-center',
+      });
+
       onSuccess?.();
-    } catch (e) {
-      console.log(e);
+    } catch  {
+      toast.error('Ошибка авторизации', {
+        position: 'top-center',
+      });
     }
   };
 

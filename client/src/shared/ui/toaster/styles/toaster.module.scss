@@ -1,0 +1,23 @@
+@use '@/src/shared/styles/typography/typography.module' as typo;
+
+
+.root {
+  border-radius: 12px;
+  padding: 12px 16px;
+  @include typo.b3;
+}
+
+.success {
+  background-color: var(--color-lime);
+  color: var(--color-white)
+}
+
+.error {
+  background-color: var(--bg-danger);
+  color: var(--color-white)
+}
+
+.default {
+  background-color: var( --bg-inverted);
+  color: var(--color-dark)
+}

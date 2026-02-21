@@ -8,8 +8,8 @@ export const useLogout = () => {
   const dispatch = useAppDispatch();
 
   const logout = useCallback(async () => {
-    const result = await dispatch(logoutSession());
-    return result;
+    return await dispatch(logoutSession()).unwrap();
+  
   }, [dispatch]);
 
   return { logout };

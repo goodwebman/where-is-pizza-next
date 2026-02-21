@@ -9,8 +9,7 @@ export const useRegister = () => {
 
   const register = useCallback(
     async (data: RegisterData) => {
-      const result = await dispatch(registerSession(data));
-      return result;
+      return await dispatch(registerSession(data)).unwrap();
     },
     [dispatch],
   );

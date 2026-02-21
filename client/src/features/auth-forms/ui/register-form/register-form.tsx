@@ -10,6 +10,7 @@ import { Buttons, InputDefaultField } from '@/src/shared/ui';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { registerSchema, RegisterSchemaValues } from '../../model';
 import { getClasses } from './styles/get-classes';
 
@@ -45,14 +46,13 @@ export const RegisterForm: FC<RegisterFormProps> = ({
         email: data.email,
       });
       onSuccess?.();
-      // toast('Registration successful!', {
-      //   position: 'top-center',
-      // });
-    } catch (e) {
-      // toast('Registration failed', {
-      //   position: 'top-center',
-      // });
-      console.log(e);
+      toast.success('Вы успешно зарегестрированы!', {
+        position: 'top-center',
+      });
+    } catch (error) {
+      toast.error(`${error}`, {
+        position: 'top-center',
+      });
     }
   };
 
