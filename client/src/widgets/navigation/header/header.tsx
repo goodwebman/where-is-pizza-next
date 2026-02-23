@@ -6,7 +6,10 @@ import { CartBadge } from '@/src/entities/cart/ui';
 import { ROUTES } from '@/src/shared/config/routes/routes';
 import { Logo } from '@/src/shared/ui/logo';
 
-
+import { CATEGORIES_NAV_ITEMS } from '@/src/shared/config/categories/categories';
+import { useLockBodyScroll } from '@/src/shared/hooks';
+import { getCategorySectionId } from '@/src/shared/lib';
+import { useMobileMenu } from './model';
 import {
   BurgerButton,
   HeaderContainer,
@@ -15,9 +18,6 @@ import {
   TopInfoDesktop,
   TopInfoMobile,
 } from './ui';
-import { useMobileMenu } from './model'
-import { CATEGORIES_NAV_ITEMS } from '@/src/shared/config/categories/categories'
-import { getCategorySectionId } from '@/src/shared/lib'
 
 const TABLET_BREAKPOINT = 768;
 
@@ -27,6 +27,8 @@ export const Header = () => {
   );
 
   const { isOpen, toggleMenu } = useMobileMenu();
+
+  useLockBodyScroll(isOpen);
 
   return (
     <HeaderContainer
@@ -46,16 +48,15 @@ export const Header = () => {
             CATEGORIES_NAV_ITEMS.map(item => (
               <Navigation.Item
                 key={item.anchor}
-               scrollToId={getCategorySectionId(item.anchor)}
+                scrollToId={getCategorySectionId(item.anchor)}
               >
                 {item.label}
               </Navigation.Item>
             ))}
 
-          <MobileNavigation
-            isOpen={isOpen && isTabletOrMobile}
-            onClose={toggleMenu}
-          />
+          {isTabletOrMobile && (
+            <MobileNavigation isOpen={isOpen} onClose={toggleMenu} />
+          )}
         </Navigation.Container>
       }
     />

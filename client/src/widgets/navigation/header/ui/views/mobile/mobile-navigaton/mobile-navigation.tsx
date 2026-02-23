@@ -4,7 +4,6 @@ import { CartBadge } from '@/src/entities/cart/ui';
 
 import { UserMenu } from '@/src/features/user/user-menu/ui';
 import { Icons } from '@/src/shared/assets/svg/components';
-import { useLockBodyScroll } from '@/src/shared/hooks';
 import { Divider, SocialInfo } from '@/src/shared/ui';
 import {
   AuthSwitcherModal,
@@ -40,8 +39,6 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
   });
 
   if (!isOpen) return null;
-
-  useLockBodyScroll(isOpen);
 
   const {
     isOpen: isAuthSwitcherModalOpen,
