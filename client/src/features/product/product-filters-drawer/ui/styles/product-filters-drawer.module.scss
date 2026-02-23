@@ -1,4 +1,5 @@
 @use '@/src/shared/styles/typography/typography.module' as typo;
+@use '@/src/shared/styles/breakpoints/breakpoints.module' as *;
 .drawerContent {
   display: flex;
   flex-direction: column;
@@ -7,6 +8,10 @@
   gap: 24px;
   padding-top: 20px;
   overflow-y: auto;
+
+  @include media-max($breakpoint-sm) {
+    padding-right: 0px;
+  }
 }
 
 .filterGroup {
@@ -34,5 +39,9 @@
 
   button {
     flex: 1;
+
+    @include media-max($breakpoint-sm) {
+      padding: 10px;
+    }
   }
 }

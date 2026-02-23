@@ -1,7 +1,7 @@
 import { Buttons } from '@/src/shared/ui';
 import Image from 'next/image';
 import React from 'react';
-import { Product } from '../../model/types';
+import { Product } from '../../../model/types';
 import { getProductCardClasses } from './styles/get-classes';
 
 type ProductCardProps = {
@@ -26,9 +26,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({
     cnTitle,
     cnIngredients,
     cnFooter,
-    cnButton,
     cnPrice,
     cnBadge,
+    cnDesktopFooter,
+    cnMobileFooter,
   } = getProductCardClasses({ badge, className });
 
   return (
@@ -58,11 +59,18 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         </p>
 
         <div className={cnFooter}>
-          <Buttons.DefaultButton onClick={onSelect}>
-            Выбрать
-          </Buttons.DefaultButton>
+          <div className={cnDesktopFooter}>
+            <Buttons.DefaultButton onClick={onSelect}>
+              Выбрать
+            </Buttons.DefaultButton>
+            <span className={cnPrice}>от {price} ₽</span>
+          </div>
 
-          <span className={cnPrice}>от {price} ₽</span>
+          <div className={cnMobileFooter}>
+            <Buttons.DefaultButton onClick={onSelect}>
+               от {price} ₽
+            </Buttons.DefaultButton>
+          </div>
         </div>
       </div>
     </article>

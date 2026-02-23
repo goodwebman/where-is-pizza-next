@@ -32,8 +32,12 @@
   padding: 32px 20px;
   width: 30%;
 
-  @include media-max($breakpoint-laptop) {
+  @include media-max($breakpoint-hds) {
     width: 50%;
+  }
+
+  @include media-max($breakpoint-laptop) {
+    width: 60%;
   }
 
   @include media-max($breakpoint-tablet) {

@@ -1,5 +1,6 @@
 @use '@/src/shared//styles/shadows/shadows.module' as *;
 @use '@/src/shared/styles/typography/typography.module' as typo;
+@use '@/src/shared/styles/breakpoints/breakpoints.module' as *;
 
 .card {
   width: 100%;
@@ -18,6 +19,10 @@
   &:hover {
     transform: translateY(-6px);
   }
+
+  @include media-max($breakpoint-tablet) {
+    flex-direction: row;
+  }
 }
 
 .imageWrapper {
@@ -31,6 +36,14 @@
   -webkit-user-drag: none;
 
   user-select: none;
+
+  @include media-max($breakpoint-tablet) {
+    max-width: 200px;
+  }
+
+  @include media-max($breakpoint-sm) {
+    max-width: 120px;
+  }
 }
 
 .image {
@@ -61,14 +74,6 @@
   background: var(--bg-danger);
 }
 
-.content {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  flex: 1;
-  min-height: 0;
-}
-
 .title {
   @include typo.b1;
   font-weight: bold;
@@ -83,12 +88,55 @@
 }
 
 .footer {
-  display: inline-flex;
+  display: flex;
   justify-content: space-between;
   align-items: center;
   padding-top: 8px;
   margin-top: auto;
   gap: 12px;
+
+  .mobile-footer {
+    display: none;
+  }
+
+  .desktop-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  @include media-max($breakpoint-tablet) {
+    .desktop-footer {
+      display: none;
+    }
+
+    .mobile-footer {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-start; // чтобы кнопка сжималась вместе с контентом
+    }
+
+    .mobile-footer button {
+      background-color: var(--bg-primary-low);
+      color: var(--text-inverted);
+
+      padding: 10px;
+    }
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+  min-height: 0;
+
+  @include media-max($breakpoint-tablet) {
+    flex: 1;
+    gap: 6px;
+  }
 }
 
 .price {

@@ -1,4 +1,3 @@
-@use '@/src/shared/styles/breakpoints/breakpoints.module' as *;
 @use '@/src/shared/styles/typography/typography.module' as typo;
 .item {
   @include typo.b3;

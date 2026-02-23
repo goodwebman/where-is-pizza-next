@@ -13,6 +13,7 @@ import {
 import { CATEGORIES_NAV_ITEMS } from '@/src/shared/config/categories/categories';
 import { Navigation } from '../../desktop';
 import { getClasses } from './styles/get-classes';
+import { getCategorySectionId } from '@/src/shared/lib'
 
 interface MobileNavigationProps {
   className?: string;
@@ -58,7 +59,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
           {CATEGORIES_NAV_ITEMS.map(item => (
             <Navigation.Item
               key={item.anchor}
-              scrollToId={item.anchor}
+             scrollToId={getCategorySectionId(item.anchor)}
               onClick={onClose}
               className={cnItem}
             >

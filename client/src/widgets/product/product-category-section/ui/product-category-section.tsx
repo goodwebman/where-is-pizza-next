@@ -7,12 +7,12 @@ import {
   ProductCardError,
   ProductCardSkeleton,
 } from '@/src/entities/product/ui';
-import { ProductCardEmpty } from '@/src/entities/product/ui/product-card-empty';
+import { ProductCardEmpty } from '@/src/entities/product/ui/product-card-views/product-card-empty';
 import { Icons } from '@/src/shared/assets/svg/components';
+import { CategoryId } from '@/src/shared/config';
 import { WithClassNames } from '@/src/shared/types';
 import { FC, useMemo } from 'react';
 import { getClasses } from './styles/get-classes';
-import { CategoryId } from '@/src/shared/config'
 
 type ProductCategorySectionProps = {
   id?: string;

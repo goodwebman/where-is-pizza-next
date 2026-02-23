@@ -16,6 +16,8 @@ export const getProductCardClasses = ({ badge, className }: CardArgs) => {
   const cnTitle = cn('title')
   const cnIngredients = cn('ingredients')
   const cnFooter = cn('footer')
+  const cnDesktopFooter = cn('desktop-footer'); 
+  const cnMobileFooter = cn('mobile-footer');   
   const cnButton = cn('button')
   const cnPrice = cn('price')
 
@@ -35,6 +37,8 @@ export const getProductCardClasses = ({ badge, className }: CardArgs) => {
     cnButton,
     cnPrice,
     cnBadge,
+    cnDesktopFooter,
+    cnMobileFooter
   }
 }
 
