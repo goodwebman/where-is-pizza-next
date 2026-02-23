@@ -1,8 +1,6 @@
 'use client';
 
 import {
-  CATEGORIES,
-  CategoryId,
   EMPTY_FILTERS,
   FiltersMap,
 } from '@/src/entities/filters/model/types';
@@ -11,6 +9,7 @@ import { useQueries } from '@tanstack/react-query';
 
 import { Product } from '@/src/entities/product/model/types';
 import { QUERY_KEYS } from '@/src/shared/api';
+import { CATEGORIES, CategoryId } from '@/src/shared/config'
 
 type SelectedFiltersMap = Partial<Record<CategoryId, FiltersMap>>;
 

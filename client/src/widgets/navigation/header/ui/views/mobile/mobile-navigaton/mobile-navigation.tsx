@@ -10,7 +10,8 @@ import {
   AuthSwitcherModal,
   useAuthSwitcherModal,
 } from '@/src/widgets/auth-switcher-modal';
-import { NAV_ITEMS } from '../../../../model';
+
+import { CATEGORIES_NAV_ITEMS } from '@/src/shared/config/categories/categories';
 import { Navigation } from '../../desktop';
 import { getClasses } from './styles/get-classes';
 
@@ -57,7 +58,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
         </div>
         <Divider />
         <ul className={cnWrapper}>
-          {NAV_ITEMS.map(item => (
+          {CATEGORIES_NAV_ITEMS.map(item => (
             <Navigation.Item
               key={item.anchor}
               scrollToId={item.anchor}

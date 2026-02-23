@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { CategoryId, FiltersMap, SelectedFilters, CATEGORIES } from './types';
+import {  FiltersMap, SelectedFilters } from './types';
+import { CATEGORIES, CategoryId } from '@/src/shared/config'
 
 export interface FiltersState {
   openDrawerCategory: CategoryId | null;

@@ -1,6 +1,6 @@
 'use client';
 
-import { CategoryId, FiltersMap } from '@/src/entities/filters/model/types';
+import { FiltersMap } from '@/src/entities/filters/model/types';
 import { Product } from '@/src/entities/product/model/types';
 import {
   ProductCard,
@@ -12,8 +12,10 @@ import { Icons } from '@/src/shared/assets/svg/components';
 import { WithClassNames } from '@/src/shared/types';
 import { FC, useMemo } from 'react';
 import { getClasses } from './styles/get-classes';
+import { CategoryId } from '@/src/shared/config'
 
 type ProductCategorySectionProps = {
+  id?: string;
   categoryId: CategoryId;
   label: string;
   products: Product[];
@@ -26,6 +28,7 @@ type ProductCategorySectionProps = {
 export const ProductCategorySection: FC<
   WithClassNames<ProductCategorySectionProps>
 > = ({
+  id,
   categoryId,
   label,
   products,
@@ -49,7 +52,7 @@ export const ProductCategorySection: FC<
     }
 
     if (isError) {
-        return Array.from({ length: 5 }).map((_, i) => (
+      return Array.from({ length: 5 }).map((_, i) => (
         <ProductCardError key={i} />
       ));
     }
@@ -72,7 +75,7 @@ export const ProductCategorySection: FC<
   }, [isLoading, isError, emptyProducts, products]);
 
   return (
-    <section className="product-category-section">
+    <section id={id}>
       <div className={cnHeader}>
         <h2 className={cnHeaderLabel}>{label}</h2>
 

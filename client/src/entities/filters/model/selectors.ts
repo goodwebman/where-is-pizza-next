@@ -1,5 +1,6 @@
 import { RootState } from '@/src/shared/store/redux-store';
-import { CategoryId, FiltersMap } from './types';
+import {  FiltersMap } from './types';
+import { CategoryId } from '@/src/shared/config'
 
 export const selectOpenDrawerCategory = (state: RootState) =>
   state.filters.openDrawerCategory;

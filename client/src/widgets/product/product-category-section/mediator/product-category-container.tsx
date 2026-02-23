@@ -10,19 +10,20 @@ import {
 } from '@/src/entities/filters/model/selectors';
 import { openFiltersDrawer } from '@/src/entities/filters/model/slice';
 import {
-  CATEGORIES,
-  CATEGORY_NAMES,
-  CategoryId,
   EMPTY_FILTERS,
   FiltersMap,
 } from '@/src/entities/filters/model/types';
-import { getCategoryLabel } from '@/src/entities/product/model/category-label';
+
 import { ProductFiltersDrawer } from '@/src/features/product/product-filters-drawer/ui/product-filters-drawer';
 import { useAppDispatch, useAppSelector } from '@/src/shared/store/redux-store';
 import { FC } from 'react';
 import { getFiltersForCategory } from '../model/get-filters-for-category';
 import { useCategoryProducts } from '../model/use-category-products';
 import { ProductCategorySection } from '../ui/product-category-section';
+
+import { CATEGORIES, CATEGORY_NAMES, CategoryId } from '@/src/shared/config'
+import { getCategoryLabel } from '@/src/shared/config/categories/categories'
+import { getCategorySectionId } from '@/src/shared/lib'
 
 export const ProductCategoryContainer: FC = () => {
   const dispatch = useAppDispatch();
@@ -58,6 +59,7 @@ export const ProductCategoryContainer: FC = () => {
 
         return (
           <ProductCategorySection
+            id={getCategorySectionId(categoryId)}
             key={categoryId}
             categoryId={categoryId}
             label={getCategoryLabel(categoryId)}
