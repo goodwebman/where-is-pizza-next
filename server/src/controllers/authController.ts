@@ -1,10 +1,9 @@
-import { PrismaClient } from '@prisma/client'
 import bcrypt from 'bcrypt'
 import { Request, Response } from 'express'
+import { prisma } from '../../lib/prisma'
 import { JWTHandler } from '../jwt'
 import { LoginData, RegisterData } from './types'
 
-const prisma = new PrismaClient()
 const jwt = new JWTHandler(process.env.JWT_SECRET || 'secret')
 
 const REFRESH_EXPIRY = 30 * 24 * 60 * 60 * 1000 // 30 дней
@@ -26,108 +25,110 @@ const createTokens = async (userId: number, username: string) => {
 }
 
 export const register = async (req: Request, res: Response) => {
-  try {
-    const { email, username, password } = req.body as RegisterData
+	try {
+		const { email, username, password } = req.body as RegisterData
 
-    if (!email || !username || !password) {
-      return res.status(400).json({ error: 'Missing fields' })
-    }
+		if (!email || !username || !password) {
+			return res.status(400).json({ error: 'Missing fields' })
+		}
 
-    const existingEmail = await prisma.user.findUnique({ where: { email } })
-    if (existingEmail) {
-      return res.status(400).json({ error: 'Email already registered' })
-    }
+		const existingEmail = await prisma.user.findUnique({ where: { email } })
+		if (existingEmail) {
+			return res.status(400).json({ error: 'Email already registered' })
+		}
 
-    const existingUsername = await prisma.user.findUnique({ where: { username } })
-    if (existingUsername) {
-      return res.status(400).json({ error: 'Username already taken' })
-    }
+		const existingUsername = await prisma.user.findUnique({
+			where: { username },
+		})
+		if (existingUsername) {
+			return res.status(400).json({ error: 'Username already taken' })
+		}
 
-    const hashed = await bcrypt.hash(password, 10)
+		const hashed = await bcrypt.hash(password, 10)
 
-    const user = await prisma.user.create({
-      data: { email, username, password: hashed },
-    })
+		const user = await prisma.user.create({
+			data: { email, username, password: hashed },
+		})
 
-    const tokens = await createTokens(user.id, user.username)
+		const tokens = await createTokens(user.id, user.username)
 
-    res.cookie('refreshToken', tokens.refreshToken, {
-      httpOnly: true,
-      secure: false,
-      sameSite: 'lax',
-      maxAge: REFRESH_EXPIRY,
-    })
+		res.cookie('refreshToken', tokens.refreshToken, {
+			httpOnly: true,
+			secure: false,
+			sameSite: 'lax',
+			maxAge: REFRESH_EXPIRY,
+		})
 
-    res.json({
-      token: tokens.accessToken,
-      user: {
-        id: user.id,
-        email: user.email,
-        username: user.username,
-      },
-    })
-  } catch (e) {
-    console.error('REGISTER ERROR:', e)
-    res.status(500).json({ error: 'Server error' })
-  }
+		res.json({
+			token: tokens.accessToken,
+			user: {
+				id: user.id,
+				email: user.email,
+				username: user.username,
+			},
+		})
+	} catch (e) {
+		console.error('REGISTER ERROR:', e)
+		res.status(500).json({ error: 'Server error' })
+	}
 }
 
 export const login = async (req: Request, res: Response) => {
-  try {
-    const { email, password } = req.body as LoginData
+	try {
+		const { email, password } = req.body as LoginData
 
-    if (!email || !password) {
-      return res.status(400).json({ error: 'Missing fields' })
-    }
+		if (!email || !password) {
+			return res.status(400).json({ error: 'Missing fields' })
+		}
 
-    const user = await prisma.user.findUnique({ where: { email } })
-    if (!user) return res.status(401).json({ error: 'Invalid credentials' })
+		const user = await prisma.user.findUnique({ where: { email } })
+		if (!user) return res.status(401).json({ error: 'Invalid credentials' })
 
-    const valid = await bcrypt.compare(password, user.password)
-    if (!valid) return res.status(401).json({ error: 'Invalid credentials' })
+		const valid = await bcrypt.compare(password, user.password)
+		if (!valid) return res.status(401).json({ error: 'Invalid credentials' })
 
-    const tokens = await createTokens(user.id, user.username)
+		const tokens = await createTokens(user.id, user.username)
 
-    res.cookie('refreshToken', tokens.refreshToken, {
-      httpOnly: true,
-      secure: false,
-      sameSite: 'lax',
-      maxAge: REFRESH_EXPIRY,
-    })
+		res.cookie('refreshToken', tokens.refreshToken, {
+			httpOnly: true,
+			secure: false,
+			sameSite: 'lax',
+			maxAge: REFRESH_EXPIRY,
+		})
 
-    res.json({
-      token: tokens.accessToken,
-      user: {
-        id: user.id,
-        email: user.email,
-        username: user.username,
-      },
-    })
-  } catch (e) {
-    console.error('LOGIN ERROR:', e)
-    res.status(500).json({ error: 'Server error' })
-  }
+		res.json({
+			token: tokens.accessToken,
+			user: {
+				id: user.id,
+				email: user.email,
+				username: user.username,
+			},
+		})
+	} catch (e) {
+		console.error('LOGIN ERROR:', e)
+		res.status(500).json({ error: 'Server error' })
+	}
 }
 
 export const logout = async (req: Request, res: Response) => {
-  try {
-    const refreshToken = req.cookies?.refreshToken;
-    if (refreshToken) {
-      await prisma.refreshToken.deleteMany({
-        where: { token: refreshToken },
-      });
-    }
+	try {
+		const refreshToken = req.cookies?.refreshToken
+		if (refreshToken) {
+			await prisma.refreshToken.deleteMany({
+				where: { token: refreshToken },
+			})
+		}
 
-    // Чистим cookie
-    res.clearCookie('refreshToken', {
-      httpOnly: true,
-      secure: false,
-      sameSite: 'lax',
-    });
+		// Чистим cookie
+		res.clearCookie('refreshToken', {
+			httpOnly: true,
+			secure: false,
+			sameSite: 'lax',
+		})
 
-    res.json({ success: true });
-  } catch (e) {
-    console.error('LOGOUT ERROR:', e);
-    res.status(500).json({ error: 'Server error' });
-  }
-};
+		res.json({ success: true })
+	} catch (e) {
+		console.error('LOGOUT ERROR:', e)
+		res.status(500).json({ error: 'Server error' })
+	}
+}

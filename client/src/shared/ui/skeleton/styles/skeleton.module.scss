@@ -1,0 +1,53 @@
+.skeleton {
+  --accents-1: #fafafa;
+  --accents-2: #eaeaea;
+
+  display: inline-block;
+  min-width: 16px;
+  min-height: 16px;
+  animation: animation 8s ease-in-out infinite;
+  background: linear-gradient(
+    10deg,
+    var(--skeleton-100),
+    var(--skeleton-100),
+    var(--skeleton-300),
+    var(--skeleton-200)
+  );
+  background-size: 400% 100%;
+  cursor: default;
+  pointer-events: none;
+  user-select: none;
+  vertical-align: bottom;
+
+  &--pill {
+    border-radius: 9999px;
+  }
+
+  &--superellipse {
+    border-radius: 8px;
+  }
+
+  &--circle {
+    border-radius: 50%;
+  }
+
+  &--square {
+    border-radius: 0;
+  }
+}
+
+.skeleton__inner {
+  color: transparent;
+  opacity: 0;
+  visibility: hidden;
+}
+
+@keyframes animation {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}

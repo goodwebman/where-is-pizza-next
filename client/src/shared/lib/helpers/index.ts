@@ -1,0 +1,1 @@
+export { formatIngredients } from './formaters';

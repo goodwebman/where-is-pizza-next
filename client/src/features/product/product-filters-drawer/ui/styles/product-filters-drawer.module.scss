@@ -1,0 +1,38 @@
+@use '@/src/shared/styles/typography/typography.module' as typo;
+.drawerContent {
+  display: flex;
+  flex-direction: column;
+  height: 95%;
+  padding-right: 100px;
+  gap: 24px;
+  padding-top: 20px;
+  overflow-y: auto;
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.groupLabel {
+  @include typo.b1;
+  color: var(--text-placeholder);
+}
+
+.groupOptions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.drawerFooter {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+
+  button {
+    flex: 1;
+  }
+}

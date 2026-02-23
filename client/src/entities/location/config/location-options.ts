@@ -1,3 +1,4 @@
+// TODO API CALL
 export const LOCATION_OPTIONS = [
   { value: 'Moscow', label: 'Москва' },
   { value: 'Omsk', label: 'Омск' },

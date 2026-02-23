@@ -37,3 +37,4 @@ export const getProductCardClasses = ({ badge, className }: CardArgs) => {
     cnBadge,
   }
 }
+

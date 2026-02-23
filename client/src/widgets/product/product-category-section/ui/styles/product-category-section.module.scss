@@ -1,0 +1,62 @@
+@use '@/src/shared/styles/typography/typography.module' as typo;
+@use '@/src/shared/styles/breakpoints/breakpoints.module' as *;
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 32px 0;
+  gap: 15px;
+
+  &--label {
+    @include typo.h1;
+    color: var(--text-secondary);
+    white-space: nowrap;
+  }
+}
+
+.filter-button {
+  display: inline-flex;
+  padding: 0 12px;
+  align-items: center;
+  border-radius: 8px;
+  gap: 8px;
+  background-color: var(--bg-inverted);
+  border: 1px var(--border-default) solid;
+
+  &:active {
+    transform: scale(0.97);
+    background-color: var(--bg-inverted);
+  }
+
+  &:hover {
+    background-color: var(--bg-secondary);
+  }
+
+  span {
+    @include typo.b2;
+    color: var(--text-secondary);
+    white-space: nowrap;
+  }
+}
+
+.products-container {
+  display: grid;
+
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 32px;
+  @include media-max($breakpoint-fhd) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  @include media-max($breakpoint-xxl) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+
+  @include media-max($breakpoint-laptop) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include media-max($breakpoint-tablet) {
+     grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}

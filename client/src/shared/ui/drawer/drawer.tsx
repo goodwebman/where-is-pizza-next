@@ -1,13 +1,13 @@
 'use client';
 
 import { FC, ReactNode, useRef } from 'react';
+import { Icons } from '../../assets/svg/components';
 import { useClickOutside, useLockBodyScroll } from '../../hooks';
 import {
   getDrawerBackdropClasses,
   getDrawerClasses,
   getDrawerHeaderClasses,
 } from './styles/get-classes';
-import { Icons } from '../../assets/svg/components'
 
 type DrawerProps = {
   isOpen: boolean;
@@ -36,7 +36,7 @@ export const Drawer: FC<DrawerProps> = ({
 
   const { cnDrawer } = getDrawerClasses({ isOpen, className });
   const { cnHeader, cnCloseButton } = getDrawerHeaderClasses({});
-  const { cnBackdrop } = getDrawerBackdropClasses({ isOpen });
+  const { cnBackdrop, cnContent } = getDrawerBackdropClasses({ isOpen });
 
   return (
     <>
@@ -55,12 +55,14 @@ export const Drawer: FC<DrawerProps> = ({
               onClick={onClose}
               aria-label="Закрыть"
             >
-              <Icons.BackDropXMark width={24} hanging={24}/>
+              <Icons.BackDropXMark width={24} hanging={24} />
             </button>
           </div>
         )}
-        <div style={{ flex: 1, overflowY: 'auto' }}>{children}</div>
+        <div className={cnContent}>{children}</div>
       </aside>
     </>
   );
 };
+
+Drawer.displayName = 'Drawer';

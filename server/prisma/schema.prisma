@@ -1,11 +1,10 @@
-// prisma-ignore-warning
-datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
 }
 
-generator client {
-  provider = "prisma-client-js"
+datasource db {
+  provider = "sqlite"
 }
 
 model User {
@@ -23,4 +22,13 @@ model RefreshToken {
   user      User     @relation(fields: [userId], references: [id])
   expiresAt DateTime
   createdAt DateTime @default(now())
+}
+
+model Product {
+  id          Int    @id @default(autoincrement())
+  title       String
+  categoryId  String
+  price       Int
+  imageSrc    String
+  ingredients String
 }

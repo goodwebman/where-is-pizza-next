@@ -25,8 +25,10 @@ export const getDrawerClasses = ({ isOpen, size = 'medium', className }: DrawerA
 export const getDrawerHeaderClasses = ({ className }: HeaderArgs) => ({
   cnHeader: cn('header', className),
   cnCloseButton: cn('closeButton', className),
+  
 });
 
 export const getDrawerBackdropClasses = ({ isOpen, className }: BackdropArgs) => ({
   cnBackdrop: cn('backdrop', { hidden: !isOpen }, className),
+  cnContent: cn('content')
 });

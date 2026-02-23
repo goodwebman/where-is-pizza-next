@@ -12,8 +12,9 @@
   background-color: var(--bg-inverted);
   color: var(--text-default);
   cursor: pointer;
-    @include typo.b2;
+  @include typo.b2;
   transition: all 0.2s ease;
+  white-space: nowrap;
 
   &:hover {
     border-color: var(--border-primary);

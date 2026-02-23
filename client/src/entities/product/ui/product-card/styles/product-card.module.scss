@@ -1,23 +1,44 @@
+@use '@/src/shared//styles/shadows/shadows.module' as *;
+@use '@/src/shared/styles/typography/typography.module' as typo;
+
 .card {
   width: 100%;
-  max-width: 280px;
+
   border-radius: 16px;
-  background: #fff;
-  padding: 16px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  background: var(--bg-inverted);
+  padding: 20px;
+  @include shadow(medium-glow);
   display: flex;
   flex-direction: column;
   gap: 12px;
+  -webkit-user-drag: none;
+
+  user-select: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  &:hover {
+    transform: translateY(-6px);
+  }
 }
 
 .imageWrapper {
+  user-select: none;
   position: relative;
   width: 100%;
-  height: 180px;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 12px;
+  flex-shrink: 0;
+  -webkit-user-drag: none;
+
+  user-select: none;
 }
 
 .image {
   object-fit: contain;
+  user-select: none;
+  object-position: center;
+  -webkit-user-drag: none;
+  user-select: none;
 }
 
 .badge {
@@ -29,59 +50,50 @@
   font-weight: 600;
   padding: 4px 8px;
   border-radius: 6px;
-  color: #fff;
+  color: var(--text-primary);
 }
 
 .new {
-  background: #ff3b30;
+  background: var(--bg-danger);
 }
 
 .popular {
-  background: #6c5ce7;
+  background: var(--bg-danger);
 }
 
 .content {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  flex: 1;
+  min-height: 0;
 }
 
 .title {
-  font-size: 16px;
-  font-weight: 600;
+  @include typo.b1;
+  font-weight: bold;
 }
 
 .ingredients {
-  font-size: 13px;
-  color: #777;
-  line-height: 1.4;
-  height: 36px;
+  @include typo.b2;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
 .footer {
-  display: flex;
+  display: inline-flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 6px;
-}
-
-.button {
-  background: #ff7a00;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  padding: 8px 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.2s;
-
-  &:hover {
-    background: #ff8f26;
-  }
+  padding-top: 8px;
+  margin-top: auto;
+  gap: 12px;
 }
 
 .price {
-  color: #ff7a00;
-  font-weight: 600;
+  @include typo.b1;
+  font-weight: bold;
+  color: var(--text-inverted);
+  white-space: nowrap;
 }

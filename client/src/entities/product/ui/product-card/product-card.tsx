@@ -1,16 +1,13 @@
+import { Buttons } from '@/src/shared/ui';
 import Image from 'next/image';
 import React from 'react';
+import { Product } from '../../model/types';
 import { getProductCardClasses } from './styles/get-classes';
 
 type ProductCardProps = {
-  title: string;
-  imageSrc: string;
-  ingredients: string[];
-  price: number;
-  badge?: 'new' | 'popular';
   className?: string;
   onSelect?: () => void;
-};
+} & Product;
 
 export const ProductCard: React.FC<ProductCardProps> = ({
   title,
@@ -46,7 +43,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           alt={title}
           fill
           className={cnImage}
-          sizes="(max-width: 768px) 50vw, 280px"
           priority={false}
         />
       </div>
@@ -54,12 +50,17 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       <div className={cnContent}>
         <h3 className={cnTitle}>{title}</h3>
 
-        <p className={cnIngredients}>{ingredients.join(', ')}</p>
+        <p className={cnIngredients}>
+          {(Array.isArray(ingredients)
+            ? ingredients
+            : JSON.parse(ingredients)
+          ).join(', ')}
+        </p>
 
         <div className={cnFooter}>
-          <button className={cnButton} onClick={onSelect}>
+          <Buttons.DefaultButton onClick={onSelect}>
             Выбрать
-          </button>
+          </Buttons.DefaultButton>
 
           <span className={cnPrice}>от {price} ₽</span>
         </div>

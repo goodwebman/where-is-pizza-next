@@ -1,3 +1,4 @@
+import { filtersSlice } from '@/src/entities/filters/model/slice';
 import { sessionSlice } from '@/src/entities/session/model/slice';
 import {
   combineReducers,
@@ -25,12 +26,13 @@ import storage from 'redux-persist/lib/storage';
 
 const rootReducer = combineReducers({
   session: sessionSlice.reducer,
+  filters: filtersSlice.reducer,
 });
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['session'],
+  whitelist: ['session', 'filters'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

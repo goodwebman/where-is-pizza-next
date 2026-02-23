@@ -6,6 +6,7 @@ import BackDropXMark from './back-drop-x-mark';
 import CartBag from './cart-bag';
 import Check from './check';
 import Facebook from './facebook';
+import Filter from './filter';
 import Instagram from './instagram';
 import LeftArrow from './left-arrow';
 import LocationSmall from './location-small';
@@ -23,6 +24,7 @@ export const Icons = {
   CartBag,
   Check,
   Facebook,
+  Filter,
   Instagram,
   LeftArrow,
   LocationSmall,

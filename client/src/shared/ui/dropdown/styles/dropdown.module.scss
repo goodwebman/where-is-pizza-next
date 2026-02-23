@@ -1,6 +1,6 @@
 @use '@/src/shared/styles/typography/typography.module' as typo;
 @use '@/src/shared//styles/shadows/shadows.module' as *;
-@use '@/src/shared/styles/breakpoints/breakpoints.module' as *;
+
 .container {
   position: relative;
   display: inline-block;
