@@ -49,6 +49,7 @@ export const Header = () => {
               <Navigation.Item
                 key={item.anchor}
                 scrollToId={getCategorySectionId(item.anchor)}
+                offset={80}
               >
                 {item.label}
               </Navigation.Item>

@@ -62,6 +62,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
              scrollToId={getCategorySectionId(item.anchor)}
               onClick={onClose}
               className={cnItem}
+              offset={80}
             >
               {item.label}
             </Navigation.Item>

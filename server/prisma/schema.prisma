@@ -25,10 +25,48 @@ model RefreshToken {
 }
 
 model Product {
-  id          Int    @id @default(autoincrement())
+  id          String   @id @default(uuid())
+  categoryId    String
   title       String
-  categoryId  String
-  price       Int
   imageSrc    String
-  ingredients String
+  ingredients Json
+  price       Int
+  badge       String?
+
+  nutrition Nutrition?
+  options   ProductOption[]
+}
+
+model Nutrition {
+  id              String @id @default(uuid())
+  caloriesPer100g Int
+
+  productId String  @unique
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model ProductOption {
+  id       String     @id @default(uuid())
+  title    String
+  type     OptionType
+  required Boolean    @default(false)
+
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  values ProductOptionValue[]
+}
+
+model ProductOptionValue {
+  id    String @id @default(uuid())
+  title String
+  price Int?
+
+  optionId String
+  option   ProductOption @relation(fields: [optionId], references: [id], onDelete: Cascade)
+}
+
+enum OptionType {
+  single
+  multiple
 }
