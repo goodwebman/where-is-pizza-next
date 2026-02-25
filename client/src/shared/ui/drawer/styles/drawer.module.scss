@@ -1,5 +1,6 @@
 @use '@/src/shared/styles/typography/typography.module' as typo;
 @use '@/src/shared/styles/breakpoints/breakpoints.module' as *;
+@use '@/src/shared//styles/shadows/shadows.module' as *;
 @keyframes slideInRight {
   from {
     transform: translateX(100%);
@@ -24,7 +25,7 @@
   right: 0;
   height: 100vh;
   background: var(--bg-inverted);
-  box-shadow: -4px 0 12px rgba(0, 0, 0, 0.2);
+ @include shadow(medium-glow);
   z-index: 1000;
   display: flex;
   flex-direction: column;
@@ -84,5 +85,5 @@
 
 .content {
   flex: 1;
-  overflow-y: 'auto';
+  overflow-y: auto;
 }

@@ -1,5 +1,5 @@
-import { ProductDetails } from '@/src/entities/product/model/types';
-import { useMemo } from 'react';
+import { ProductDetails } from '@/src/entities/product/model/types'
+import { useMemo } from 'react'
 
 type Selected = Record<string, string[]>;
 const SIZE_TITLES = ['размер', 'размер порции', 'объём', 'size', 'volume'];
@@ -19,13 +19,13 @@ export const useProductImageSize = (
       SIZE_TITLES.includes(o.title.trim().toLowerCase()),
     );
 
-    if (!sizeOption) return { width: 180, height: 180 };
+    if (!sizeOption) return { width: 250, height: 250 };
 
     const selectedId = selected[sizeOption.id]?.[0];
     const value = sizeOption.values.find(v => v.id === selectedId);
     const slug = value?.slug;
 
-    const w = sizeMap[product.categoryId]?.[slug ?? ''] ?? 180;
+    const w = sizeMap[product.categoryId]?.[slug ?? ''] ?? 250;
 
     return { width: w, height: w };
   }, [product, selected]);

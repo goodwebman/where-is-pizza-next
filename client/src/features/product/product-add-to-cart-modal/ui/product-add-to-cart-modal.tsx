@@ -89,6 +89,7 @@ export const ProductAddToCartModal: FC<
                   }))}
                   activeTab={selected[option.id]?.[0]}
                   onChange={value => handleOptionClick(option, value as string)}
+                  
                 />
               ) : (
                 <div className={cnIngredientsWrapper}>
