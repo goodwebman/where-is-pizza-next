@@ -27,7 +27,7 @@ export const Modal = ({ isOpen, onClose, children, className }: ModalProps) => {
         {children}
 
         <button className={cnCloseBtn} onClick={onClose}>
-          <Icons.ModalXMark width={32} height={32} />
+          <Icons.ModalXMark color='var(--icon-primary)' width={32} height={32} />
         </button>
       </div>
     </div>,

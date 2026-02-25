@@ -39,5 +39,8 @@ module.exports = {
     '#000': '{color}',
     '#000000': '{color}',
     '#1C212D': '{color}',
+    '#141B34': '{color}',
+    '#1A1A1A': '{color}',
+    black: '{color}',
   },
 };

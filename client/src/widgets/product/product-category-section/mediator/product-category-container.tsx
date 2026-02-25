@@ -1,5 +1,7 @@
 'use client';
 
+import { FC } from 'react';
+
 import {
   usePizzaFiltersQuery,
   useSushiFiltersQuery,
@@ -9,21 +11,17 @@ import {
   selectSelectedFiltersByCategory,
 } from '@/src/entities/filters/model/selectors';
 import { openFiltersDrawer } from '@/src/entities/filters/model/slice';
-import {
-  EMPTY_FILTERS,
-  FiltersMap,
-} from '@/src/entities/filters/model/types';
-
+import { EMPTY_FILTERS, FiltersMap } from '@/src/entities/filters/model/types';
+import { useProductAddToCartModalToggle } from '@/src/features/product/product-add-to-cart-modal/model';
+import { ProductAddToCartModal } from '@/src/features/product/product-add-to-cart-modal/ui/product-add-to-cart-modal';
 import { ProductFiltersDrawer } from '@/src/features/product/product-filters-drawer/ui/product-filters-drawer';
+import { CATEGORIES, CATEGORY_NAMES, CategoryId } from '@/src/shared/config';
+import { getCategoryLabel } from '@/src/shared/config/categories/categories';
+import { getCategorySectionId } from '@/src/shared/lib';
 import { useAppDispatch, useAppSelector } from '@/src/shared/store/redux-store';
-import { FC } from 'react';
 import { getFiltersForCategory } from '../model/get-filters-for-category';
 import { useCategoryProducts } from '../model/use-category-products';
 import { ProductCategorySection } from '../ui/product-category-section';
-
-import { CATEGORIES, CATEGORY_NAMES, CategoryId } from '@/src/shared/config'
-import { getCategoryLabel } from '@/src/shared/config/categories/categories'
-import { getCategorySectionId } from '@/src/shared/lib'
 
 export const ProductCategoryContainer: FC = () => {
   const dispatch = useAppDispatch();
@@ -52,6 +50,12 @@ export const ProductCategoryContainer: FC = () => {
 
   const productsMap = useCategoryProducts(selectedFiltersMap);
 
+  const {
+    product,
+    open: openAddToCartModal,
+    close: closeAddToCartModal,
+  } = useProductAddToCartModalToggle();
+
   return (
     <>
       {CATEGORIES.map(categoryId => {
@@ -59,8 +63,8 @@ export const ProductCategoryContainer: FC = () => {
 
         return (
           <ProductCategorySection
-            id={getCategorySectionId(categoryId)}
             key={categoryId}
+            id={getCategorySectionId(categoryId)}
             categoryId={categoryId}
             label={getCategoryLabel(categoryId)}
             products={productsMap[categoryId].products}
@@ -68,9 +72,17 @@ export const ProductCategoryContainer: FC = () => {
             isError={productsMap[categoryId].isError}
             filters={filters}
             onOpenFilters={handleOpenFilters}
+            onProductClick={openAddToCartModal}
           />
         );
       })}
+
+      {product && (
+        <ProductAddToCartModal
+          product={product}
+          onClose={closeAddToCartModal}
+        />
+      )}
 
       {openDrawerCategory && (
         <ProductFiltersDrawer

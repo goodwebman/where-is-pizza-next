@@ -3,7 +3,7 @@ const SvgArrowDown: FC<
   SVGProps<SVGSVGElement> & {
     color?: string,
   },
-> = ({ color = 'var(--text-primary)', ...props }) => (
+> = ({ color = 'var(--icon-secondary)', ...props }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="none" viewBox="0 0 12 12" {...props}>
     <g clipPath="url(#clip0_25081_3521)">
       <path

@@ -8,9 +8,9 @@ type Args = {
 };
 
 export const getClasses = ({ className }: Args) => {
-  const cnRoot = cn('root', className);
+  const cnRoot = cn('root');
   const cnOverlay = cn('overlay');
-  const cnContent = cn('content');
+  const cnContent = cn('content', className);
   const cnCloseBtn = cn('close-btn');
 
 

@@ -3,7 +3,7 @@ const customTemplate = ({ componentName, jsx }, { tpl }) => {
     import { FC, SVGProps } from 'react';
 
     const ${componentName}: FC<SVGProps<SVGSVGElement> & { color?: string }> = ({
-      color = 'var(--text-primary)',
+      color = 'var(--icon-secondary)',
       ...props
     }) => ${jsx};
 

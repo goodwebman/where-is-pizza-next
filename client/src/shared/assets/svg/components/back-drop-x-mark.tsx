@@ -3,7 +3,7 @@ const SvgBackDropXMark: FC<
   SVGProps<SVGSVGElement> & {
     color?: string,
   },
-> = ({ color = 'var(--text-primary)', ...props }) => (
+> = ({ color = 'var(--icon-secondary)', ...props }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="none" viewBox="0 0 24 24" {...props}>
     <g clipPath="url(#clip0_230_22549)">
       <path

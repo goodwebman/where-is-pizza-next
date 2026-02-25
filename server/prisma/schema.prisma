@@ -25,8 +25,8 @@ model RefreshToken {
 }
 
 model Product {
-  id          String   @id @default(uuid())
-  categoryId    String
+  id          String  @id @default(uuid())
+  categoryId  String
   title       String
   imageSrc    String
   ingredients Json
@@ -58,10 +58,11 @@ model ProductOption {
 }
 
 model ProductOptionValue {
-  id    String @id @default(uuid())
-  title String
-  price Int?
-
+  id       String        @id @default(uuid())
+  slug     String
+  title    String
+  price    Int?
+  weight   Int?
   optionId String
   option   ProductOption @relation(fields: [optionId], references: [id], onDelete: Cascade)
 }

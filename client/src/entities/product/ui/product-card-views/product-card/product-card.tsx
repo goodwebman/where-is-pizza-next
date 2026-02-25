@@ -1,3 +1,5 @@
+import { parseIngredientsToString } from '@/src/shared/lib/helpers/formaters/ingredients';
+import { WithClassNames } from '@/src/shared/types';
 import { Buttons } from '@/src/shared/ui';
 import Image from 'next/image';
 import React from 'react';
@@ -5,18 +7,17 @@ import { Product } from '../../../model/types';
 import { getProductCardClasses } from './styles/get-classes';
 
 type ProductCardProps = {
-  className?: string;
-  onSelect?: () => void;
+  onClick?: () => void;
 } & Product;
 
-export const ProductCard: React.FC<ProductCardProps> = ({
+export const ProductCard: React.FC<WithClassNames<ProductCardProps>> = ({
   title,
   imageSrc,
   ingredients,
   price,
   badge,
   className,
-  onSelect,
+  onClick,
 }) => {
   const {
     cnCard,
@@ -51,24 +52,19 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       <div className={cnContent}>
         <h3 className={cnTitle}>{title}</h3>
 
-        <p className={cnIngredients}>
-          {(Array.isArray(ingredients)
-            ? ingredients
-            : JSON.parse(ingredients)
-          ).join(', ')}
-        </p>
+        <p className={cnIngredients}>{parseIngredientsToString(ingredients)}</p>
 
         <div className={cnFooter}>
           <div className={cnDesktopFooter}>
-            <Buttons.DefaultButton onClick={onSelect}>
+            <Buttons.DefaultButton onClick={onClick}>
               Выбрать
             </Buttons.DefaultButton>
             <span className={cnPrice}>от {price} ₽</span>
           </div>
 
           <div className={cnMobileFooter}>
-            <Buttons.DefaultButton onClick={onSelect}>
-               от {price} ₽
+            <Buttons.DefaultButton onClick={onClick}>
+              от {price} ₽
             </Buttons.DefaultButton>
           </div>
         </div>

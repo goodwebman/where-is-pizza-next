@@ -2,8 +2,10 @@ import { CategoryId } from '@/src/shared/config';
 
 export type ProductOptionValue = {
   id: string;
+  slug: string;
   title: string;
   price?: number;
+  weight?: number;
 };
 
 export type ProductOption = {
@@ -14,12 +16,17 @@ export type ProductOption = {
   values: ProductOptionValue[];
 };
 
+export type Ingredients = {
+  id: string;
+  label: string;
+};
+
 export type Product = {
   id: string;
   categoryId: CategoryId;
   title: string;
   imageSrc: string;
-  ingredients: string[];
+  ingredients: Ingredients[];
   price: number;
   badge?: 'new' | 'popular';
 };
@@ -30,7 +37,6 @@ export type NutritionInfo = {
   fatsPer100g?: number;
   carbsPer100g?: number;
 };
-
 
 export type ProductDetails = Product & {
   nutrition?: NutritionInfo;

@@ -1,0 +1,149 @@
+@use '@/src/shared/styles/typography/typography.module' as typo;
+@use '@/src/shared/styles/breakpoints/breakpoints.module' as *;
+
+.modal {
+  width: 70%;
+  max-height: 85vh;
+
+  @include media-max($breakpoint-tablet) {
+    width: 100%;
+  }
+
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.root {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+
+  @include media-max($breakpoint-xxl) {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  @include media-max($breakpoint-md) {
+    display: block;
+  }
+}
+
+.image-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 400px;
+  min-height: 400px;
+}
+
+.image {
+  max-width: 100%;
+  object-fit: contain;
+  @include media-max($breakpoint-xs) {
+    scale: 0.8;
+    margin-right: 50px;
+  }
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  &--header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+  }
+
+  &--label {
+    @include typo.b1;
+    font-size: 25px;
+    font-weight: bold;
+    color: var(--text-secondary);
+  }
+
+  &--sublabel {
+    @include typo.b2;
+
+    font-weight: bold;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+  }
+}
+
+.ingredients {
+  background-color: var(--bg-inverted);
+  padding: 36px;
+  border-radius: 20px;
+  border: 1px var(--border-default) solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @include media-max($breakpoint-laptop) {
+    padding: 20px;
+  }
+
+  &--selected {
+    border: 1px var(--border-primary) solid;
+  }
+
+  &--label {
+    @include typo.b3;
+    padding-top: 10px;
+    text-align: center;
+    color: var(--text-secondary);
+  }
+
+  &--wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+
+    @include media-max($breakpoint-md) {
+      display: grid;
+
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  button {
+    padding: 16px 25px;
+  }
+
+  &--left {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    align-items: center;
+
+    h1 {
+      @include typo.b1;
+      color: var(--text-inverted);
+    }
+
+    p {
+      @include typo.b3;
+      color: var(--text-placeholder);
+    }
+  }
+
+  &--price {
+    @include typo.b3;
+  }
+}

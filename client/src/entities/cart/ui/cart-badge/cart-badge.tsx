@@ -10,7 +10,7 @@ export const CartBadge: FC<CartBadgeProps> = ({ className }) => {
   const { cnRoot, cnValue } = getClasses({ className });
   return (
     <button className={cnRoot}>
-      <Icons.CartBag width={24} height={24} />
+      <Icons.CartBag color="var(--icon-primary)" width={24} height={24} />
       <span className={cnValue}>0 ₽</span>
     </button>
   );

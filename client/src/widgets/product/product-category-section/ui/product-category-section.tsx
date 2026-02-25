@@ -1,7 +1,7 @@
 'use client';
 
 import { FiltersMap } from '@/src/entities/filters/model/types';
-import { Product } from '@/src/entities/product/model/types';
+import { Product, ProductDetails } from '@/src/entities/product/model/types';
 import {
   ProductCard,
   ProductCardError,
@@ -23,6 +23,7 @@ type ProductCategorySectionProps = {
   isLoading?: boolean;
   isError?: boolean;
   onOpenFilters?: (categoryId: CategoryId) => void;
+  onProductClick: (product: ProductDetails) => void;
 };
 
 export const ProductCategorySection: FC<
@@ -36,6 +37,7 @@ export const ProductCategorySection: FC<
   onOpenFilters,
   isLoading,
   isError,
+  onProductClick,
   className,
 }) => {
   const { cnHeader, cnHeaderLabel, cnFilterButton, cnProductsContainer } =
@@ -63,6 +65,8 @@ export const ProductCategorySection: FC<
 
     return products.map(product => (
       <ProductCard
+        onClick={() => onProductClick(product)}
+        categoryId={product.categoryId}
         key={product.id}
         id={product.id}
         title={product.title}
