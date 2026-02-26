@@ -12,6 +12,7 @@ import Image from 'next/image';
 import { useProductOptions } from '../model';
 import { useProductImageSize } from '../model/use-product-image-size';
 import { getClasses } from './styles/get-classes';
+import { Icons } from '@/src/shared/assets/svg/components'
 
 export type ProductAddToCartModalProps = {
   product: ProductDetails | null;
@@ -36,6 +37,10 @@ export const ProductAddToCartModal: FC<
     cnOptionsLabel,
     cnIngredientsWrapper,
     cnFooterLeft,
+    cnCalories,
+    cnCaloriesIcon,
+    cnCaloriesOverlay,
+    cnTitleRow,
   } = getClasses({ className });
 
   const { selected, handleOptionClick, totalPrice, totalWeight } =
@@ -62,7 +67,31 @@ export const ProductAddToCartModal: FC<
           />
         </div>
         <aside className={cnOptions}>
-          <h2 className={cnOptionsLabel}>{product.title}</h2>
+          <div className={cnTitleRow}>
+            <h2 className={cnOptionsLabel}>{product.title}</h2>
+
+            <div className={cnCalories}>
+              <button
+                className={cnCaloriesIcon}
+                aria-label="Информация о калориях"
+                type="button"
+              >
+                <Icons.Info />
+              </button>
+
+              <div className={cnCaloriesOverlay}>
+                {product.nutrition?.caloriesPer100g && (
+                  <p>Белки: {product.nutrition?.caloriesPer100g} г</p>
+                )}
+                {product.nutrition?.fatsPer100g && (
+                  <p>Жиры: {product.nutrition?.fatsPer100g} г</p>
+                )}
+                {product.nutrition?.carbsPer100g && (
+                  <p>Углеводы: {product.nutrition?.carbsPer100g} г</p>
+                )}
+              </div>
+            </div>
+          </div>
           <div>
             <ul className={cnIngredientsWrapper}>
               {product.ingredients.map(ing => (
@@ -89,7 +118,6 @@ export const ProductAddToCartModal: FC<
                   }))}
                   activeTab={selected[option.id]?.[0]}
                   onChange={value => handleOptionClick(option, value as string)}
-                  
                 />
               ) : (
                 <div className={cnIngredientsWrapper}>

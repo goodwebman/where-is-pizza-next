@@ -17,6 +17,7 @@ import Facebook from './facebook';
 import Filter from './filter';
 import Garlic from './garlic';
 import Grapes from './grapes';
+import Info from './info';
 import Instagram from './instagram';
 import LeftArrow from './left-arrow';
 import LocationSmall from './location-small';
@@ -59,6 +60,7 @@ export const Icons = {
   Filter,
   Garlic,
   Grapes,
+  Info,
   Instagram,
   LeftArrow,
   LocationSmall,

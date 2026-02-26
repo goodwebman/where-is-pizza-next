@@ -9,23 +9,33 @@ type Args = {
 };
 
 export const getClasses = ({ className, selected }: Args) => {
-  const cnModal = cn('modal')
+  const cnModal = cn('modal');
   const cnRoot = cn('root', className);
   const cnImage = cn('image');
   const cnImageWrapper = cn('image-wrapper');
   const cnOptions = cn('options');
+
   const cnOptionsHeader = cn('options--header');
+
   const cnOptionsLabel = cn('options--label');
   const cnOptionsSublabel = cn('options--sublabel');
+
+
+  const cnTitleRow = cn('title--row');
+
+
+  const cnCalories = cn('calories');
+  const cnCaloriesIcon = cn('calories--icon');
+  const cnCaloriesOverlay = cn('calories--overlay');
+
   const cnIngredients = cn('ingredients', {
     'ingredients--selected': selected,
   });
   const cnIngredientsLabel = cn('ingredients--label');
-
   const cnIngredientsWrapper = cn('ingredients--wrapper');
 
-  const cnFooter = cn('footer')
-  const cnFooterLeft = cn('footer--left')
+  const cnFooter = cn('footer');
+  const cnFooterLeft = cn('footer--left');
 
   return {
     cnModal,
@@ -35,11 +45,18 @@ export const getClasses = ({ className, selected }: Args) => {
     cnOptions,
     cnOptionsHeader,
     cnOptionsLabel,
-    cnIngredients,
-    cnFooterLeft,
     cnOptionsSublabel,
+
+ 
+    cnTitleRow,
+    cnCalories,
+    cnCaloriesIcon,
+    cnCaloriesOverlay,
+
+    cnIngredients,
     cnIngredientsLabel,
     cnIngredientsWrapper,
-    cnFooter
+    cnFooter,
+    cnFooterLeft,
   };
 };

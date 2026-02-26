@@ -154,3 +154,43 @@
     @include typo.b3;
   }
 }
+
+
+.title--row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  position: relative;
+}
+
+.calories {
+  position: relative;
+  display: flex;
+}
+.calories--overlay {
+  position: absolute;
+  top: 150%;
+  right: 0;
+  
+  min-width: 180px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  @include typo.b2;
+ 
+
+  opacity: 0;
+  transform: translateY(-6px);
+  pointer-events: none;
+  transition: 0.2s ease;
+  z-index: 10;
+}
+
+.calories:hover .calories--overlay,
+.calories:focus-within .calories--overlay {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
