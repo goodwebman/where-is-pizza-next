@@ -1,5 +1,5 @@
 'use client';
-import { useGetCartInfo } from '@/src/entities/cart/hooks/use-get-cart-info';
+
 import { selectOpenDrawerCart } from '@/src/entities/cart/model/selectors';
 import { closeCartDrawer } from '@/src/entities/cart/model/slice';
 
@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from '@/src/shared/store/redux-store';
 import { Buttons, Drawer } from '@/src/shared/ui';
 import Image from 'next/image';
 import { getClasses } from './styles/get-classes';
+import { useGetCartInfo } from '../../get-cart-info'
 
 export const CartDrawer = () => {
   const dispatch = useAppDispatch();

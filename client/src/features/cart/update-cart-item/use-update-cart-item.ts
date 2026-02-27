@@ -1,6 +1,6 @@
 import { QUERY_KEYS } from '@/src/shared/api';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { cartApi } from '../api';
+import { cartApi } from '@/src/entities/cart'
 
 export const useUpdateCartItem = () => {
   const queryClient = useQueryClient();

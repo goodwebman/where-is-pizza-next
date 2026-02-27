@@ -4,10 +4,10 @@ import { getOptionsText } from '@/src/shared/lib/helpers/formaters';
 import { WithClassNames } from '@/src/shared/types';
 import { Counter } from '@/src/shared/ui';
 import { FC } from 'react';
-import { useDeleteProductFromCart } from '../../../hooks';
-import { useUpdateCartItem } from '../../../hooks/use-update-cart-item';
+
 import { SelectedOptions } from '../../../model';
 import { getCartItemClasses } from './styles/get-classes';
+import { useDeleteProductFromCart, useUpdateCartItem } from '@/src/features/cart'
 
 type CartItemProps = {
   product: ProductDetails;

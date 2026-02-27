@@ -1,7 +1,7 @@
 import { QUERY_KEYS } from '@/src/shared/api';
 import { useQuery } from '@tanstack/react-query';
-import { cartApi } from '../api';
-import { Cart } from '../model';
+import { Cart, cartApi } from '@/src/entities/cart'
+
 
 export const useGetCartInfo = () => {
   const query = useQuery<Cart | null>({

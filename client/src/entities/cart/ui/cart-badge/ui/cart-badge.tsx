@@ -3,9 +3,10 @@ import { WithClassNames } from '@/src/shared/types';
 import { FC } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { useGetCartInfo } from '../../../hooks';
+
 import { toggleCartDrawer } from '../../../model/slice';
 import { getClasses } from './styles/get-classes';
+import { useGetCartInfo } from '@/src/features/cart'
 
 
 export const CartBadge: FC<WithClassNames> = ({

@@ -1,8 +1,9 @@
 'use client';
 
 import { SelectedOptions } from '@/src/entities/cart';
-import { useAddProductToCart } from '@/src/entities/cart/hooks/use-add-product-to-cart';
+
 import { ProductDetails, ProductOption } from '@/src/entities/product/model/types';
+import { useAddProductToCart } from '@/src/features/cart'
 
 export const useAddProductToCartHandler = (onClose: () => void) => {
   const { addToCart, loading } = useAddProductToCart();

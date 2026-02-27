@@ -4,8 +4,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { QUERY_KEYS } from '@/src/shared/api';
 import toast from 'react-hot-toast';
-import { cartApi } from '../api';
-import { AddToCartPayload } from '../model/types';
+import { AddToCartPayload, cartApi } from '@/src/entities/cart'
+
 
 export const useAddProductToCart = () => {
   const queryClient = useQueryClient();
