@@ -1,0 +1,54 @@
+@use '@/src/shared/styles/typography/typography.module' as typo;
+@use '@/src/shared/styles/breakpoints/breakpoints.module' as *;
+@use '@/src/shared//styles/shadows/shadows.module' as *;
+.root {
+  padding-bottom: 120px;
+  overflow: hidden;
+ 
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: var(--bg-inverted);
+  border-top: 1px solid var(--border-default);
+  padding: 16px;
+  @include shadow(medium-glow);
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.totalLabel {
+  @include typo.b2;
+  color: var(--text-secondary);
+}
+
+.totalPrice {
+  @include typo.b2;
+  color: var(--text-secondary);
+}
+
+.button {
+  width: 100%;
+}
+
+.empty-cart {
+    display: flex;
+    padding-top: 100px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+
+    p {
+        @include typo.b1;
+        color: var(--text-secondary);
+    }
+}

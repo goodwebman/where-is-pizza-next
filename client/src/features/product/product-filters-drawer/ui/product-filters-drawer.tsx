@@ -6,9 +6,9 @@ import { Buttons, Drawer } from '@/src/shared/ui';
 import { TagButton } from '@/src/shared/ui/tag-selector/tag-button';
 import { TagContainer } from '@/src/shared/ui/tag-selector/tag-container';
 import { FC, useMemo } from 'react';
+import { GROUP_TRANSLATIONS } from '../model/group-translations';
 import { useProductFiltersDrawer } from '../model/use-product-filters';
 import { getProductFiltersDrawerClasses } from './styles/get-classes';
-import { GROUP_TRANSLATIONS } from '../model/group_translations'
 
 type ProductFiltersDrawerProps = { filters: FiltersMap };
 

@@ -11,9 +11,8 @@ export const getProducts = async (req: Request, res: Response) => {
 		let products = await prisma.product.findMany({
 			where: categoryId ? { categoryId } : {},
 			include: {
-				nutrition: true, 
+				nutrition: true,
 				options: {
-					
 					include: {
 						values: true,
 					},
@@ -23,10 +22,15 @@ export const getProducts = async (req: Request, res: Response) => {
 
 		if (filters && Object.keys(filters).length > 0) {
 			products = products.filter(product => {
-				const ingredients: string[] = product.ingredients as string[]
+				const ingredients = product.ingredients as {
+					id: string
+					label: string
+				}[]
+
 				return Object.entries(filters).every(([_, options]) => {
 					if (!options.length) return true
-					return options.some(opt => ingredients.includes(opt))
+
+					return options.some(opt => ingredients.some(i => i.label === opt))
 				})
 			})
 		}

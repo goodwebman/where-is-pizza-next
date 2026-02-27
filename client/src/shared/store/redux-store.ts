@@ -1,3 +1,4 @@
+import { cartDrawerSlice } from '@/src/entities/cart/model/slice';
 import { filtersSlice } from '@/src/entities/filters/model/slice';
 import { sessionSlice } from '@/src/entities/session/model/slice';
 import {
@@ -27,6 +28,7 @@ import storage from 'redux-persist/lib/storage';
 const rootReducer = combineReducers({
   session: sessionSlice.reducer,
   filters: filtersSlice.reducer,
+  cartDrawer: cartDrawerSlice.reducer,
 });
 
 const persistConfig = {

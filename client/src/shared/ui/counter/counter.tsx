@@ -1,5 +1,4 @@
 'use client'
-import { useState } from 'react';
 import { getCounterClasses } from './styles/get-classes';
 
 type CounterProps = {
@@ -19,42 +18,33 @@ export const Counter = ({
   step = 1,
   size = 'medium',
 }: CounterProps) => {
-  const [internalValue, setInternalValue] = useState(value);
 
   const handleDecrement = () => {
-    const newValue = Math.max(internalValue - step, min);
-    setInternalValue(newValue);
+    const newValue = Math.max(value - step, min);
     onChange?.(newValue);
   };
 
   const handleIncrement = () => {
-    const newValue = Math.min(internalValue + step, max);
-    setInternalValue(newValue);
+    const newValue = Math.min(value + step, max);
     onChange?.(newValue);
   };
 
   const { cnRoot, cnValue, cnButtonDecrement, cnButtonIncrement } =
     getCounterClasses({
       size,
-      disabledDecrement: internalValue <= min,
-      disabledIncrement: internalValue >= max,
+      disabledDecrement: value <= min,
+      disabledIncrement: value >= max,
     });
 
   return (
     <div className={cnRoot}>
-      <button
-        type="button"
-        className={cnButtonDecrement}
-        onClick={handleDecrement}
-      >
+      <button type="button" className={cnButtonDecrement} onClick={handleDecrement}>
         -
       </button>
-      <span className={cnValue}>{internalValue}</span>
-      <button
-        type="button"
-        className={cnButtonIncrement}
-        onClick={handleIncrement}
-      >
+
+      <span className={cnValue}>{value}</span>
+
+      <button type="button" className={cnButtonIncrement} onClick={handleIncrement}>
         +
       </button>
     </div>

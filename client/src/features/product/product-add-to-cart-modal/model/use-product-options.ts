@@ -1,12 +1,11 @@
 'use client';
 
+import { SelectedOptions } from '@/src/entities/cart/model/types';
 import {
   ProductDetails,
   ProductOption,
 } from '@/src/entities/product/model/types';
 import { useCallback, useMemo, useState } from 'react';
-
-export type SelectedOptions = Record<string, string[]>;
 
 export const useProductOptions = (product: ProductDetails) => {
   const [selected, setSelected] = useState<SelectedOptions>(() => {

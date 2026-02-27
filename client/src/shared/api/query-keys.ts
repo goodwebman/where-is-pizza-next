@@ -2,5 +2,6 @@ export const QUERY_KEYS = {
     FILTERS: 'filters',
     PRODUCTS: 'products',
     PIZZA: 'pizza',
-    SUSHI: 'sushi'
+    SUSHI: 'sushi',
+    CART: 'cart'
 };

@@ -1,1 +1,1 @@
-export {CartBadge} from './cart-badge'
+export { CartBadge } from './ui/cart-badge';

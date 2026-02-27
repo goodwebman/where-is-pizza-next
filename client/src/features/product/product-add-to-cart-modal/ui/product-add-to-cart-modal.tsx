@@ -6,13 +6,14 @@ import { TabsRoot } from '@/src/shared/ui/tabs/tabs';
 import { FC } from 'react';
 
 import { IngredientIcon } from '@/src/entities/ingredient';
+import { Icons } from '@/src/shared/assets/svg/components';
 import { useLockBodyScroll } from '@/src/shared/hooks';
 import { WithClassNames } from '@/src/shared/types';
 import Image from 'next/image';
 import { useProductOptions } from '../model';
+import { useAddProductToCartHandler } from '../model/use-add-product-to-cart';
 import { useProductImageSize } from '../model/use-product-image-size';
 import { getClasses } from './styles/get-classes';
-import { Icons } from '@/src/shared/assets/svg/components'
 
 export type ProductAddToCartModalProps = {
   product: ProductDetails | null;
@@ -50,9 +51,7 @@ export const ProductAddToCartModal: FC<
 
   useLockBodyScroll(!!product);
 
-  const handleAddToCart = () => {
-    onClose();
-  };
+  const { handleAddToCart, loading } = useAddProductToCartHandler(onClose);
 
   return (
     <Modal className={cnModal} isOpen={!!product} onClose={onClose}>
@@ -76,7 +75,7 @@ export const ProductAddToCartModal: FC<
                 aria-label="Информация о калориях"
                 type="button"
               >
-                <Icons.Info />
+                <Icons.Info width={24} height={24} />
               </button>
 
               <div className={cnCaloriesOverlay}>
@@ -152,8 +151,11 @@ export const ProductAddToCartModal: FC<
               <h1>Итого: {totalPrice}₽</h1>
               <p>{totalWeight} г</p>
             </div>
-            <Buttons.DefaultButton onClick={handleAddToCart}>
-              Добавить
+            <Buttons.DefaultButton
+              onClick={() => product && handleAddToCart(product, selected)}
+              disabled={loading}
+            >
+              {loading ? 'Добавление...' : 'Добавить'}
             </Buttons.DefaultButton>
           </div>
         </aside>

@@ -6,4 +6,5 @@ export const GROUP_TRANSLATIONS: Record<string, string> = {
   fish: 'Рыба',
   sauce: 'Соусы',
   extras: 'Добавки',
+  vegetables: 'Овощи'
 };

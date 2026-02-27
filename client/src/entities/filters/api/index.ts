@@ -1,1 +1,1 @@
-export { filtersApi } from './filters-api';
+export { filtersApi } from './filters.api';

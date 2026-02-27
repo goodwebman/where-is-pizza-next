@@ -9,5 +9,5 @@
 		"outDir": "dist",
 		"skipLibCheck": true
 	},
-	"include": ["src", "lib", "generated", "prisma"]
+	"include": ["src", "lib", "generated", "prisma", "./src/types"]
 }

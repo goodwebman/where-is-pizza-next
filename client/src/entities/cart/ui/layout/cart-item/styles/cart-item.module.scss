@@ -1,0 +1,68 @@
+@use '@/src/shared//styles/shadows/shadows.module' as *;
+@use '@/src/shared/styles/typography/typography.module' as typo;
+@use '@/src/shared/styles/breakpoints/breakpoints.module' as *;
+.container {
+  display: flex;
+  gap: 16px;
+  padding-top: 20px;
+  padding-right: 20px;
+  width: 100%;
+  min-height: 128px;
+}
+
+.leftBlock {
+  height: 128px;
+  width: 128px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.rightBlock {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 128px;
+  min-width: 128px;
+  
+}
+
+.label {
+  @include typo.b1;
+  color: var(--text-secondary);
+
+  overflow: hidden;
+}
+
+.options {
+  @include typo.b3;
+  color: var(--text-tertiary);
+
+  min-height: 18px;
+
+  @include media-max($breakpoint-sm) {
+    @include typo.b4;
+  }
+}
+
+.quantity--with--price {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  
+}
+
+.price {
+  @include typo.b2;
+  color: var(--text-inverted);
+  white-space: nowrap;
+ 
+}

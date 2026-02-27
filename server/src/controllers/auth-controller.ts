@@ -2,6 +2,7 @@ import bcrypt from 'bcrypt'
 import { Request, Response } from 'express'
 import { prisma } from '../../lib/prisma'
 import { JWTHandler } from '../jwt'
+import { mergeGuestCart } from './cart-controller'
 import { LoginData, RegisterData } from './types'
 
 const jwt = new JWTHandler(process.env.JWT_SECRET || 'secret')
@@ -50,6 +51,12 @@ export const register = async (req: Request, res: Response) => {
 			data: { email, username, password: hashed },
 		})
 
+		// --- Merge guest cart here ---
+		const guestCartId = req.cookies?.cartId
+		if (guestCartId) {
+			await mergeGuestCart(guestCartId, user.id)
+		}
+
 		const tokens = await createTokens(user.id, user.username)
 
 		res.cookie('refreshToken', tokens.refreshToken, {
@@ -86,6 +93,11 @@ export const login = async (req: Request, res: Response) => {
 
 		const valid = await bcrypt.compare(password, user.password)
 		if (!valid) return res.status(401).json({ error: 'Invalid credentials' })
+
+		const guestCartId = req.cookies?.cartId
+		if (guestCartId) {
+			await mergeGuestCart(guestCartId, user.id)
+		}
 
 		const tokens = await createTokens(user.id, user.username)
 

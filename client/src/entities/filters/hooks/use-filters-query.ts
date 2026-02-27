@@ -1,6 +1,6 @@
 import { QUERY_KEYS } from '@/src/shared/api';
 import { useQuery } from '@tanstack/react-query';
-import { filtersApi } from '../api/filters-api';
+import { filtersApi } from '../api/filters.api';
 import { FiltersMap } from '../model/types';
 
 export const usePizzaFiltersQuery = () => {

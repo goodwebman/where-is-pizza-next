@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 
 import { Footer } from '@/src/widgets/navigation/footer/footer';
 import { Header } from '@/src/widgets/navigation/header';
+import { CartDrawer } from '../features/cart/cart-drawer/ui/cart-drawer';
 import './globals.css';
 import { Providers } from './providers';
 
@@ -35,6 +36,7 @@ export default function RootLayout({
                 <Footer />
               </div>
             </div>
+            <CartDrawer />
           </div>
         </Providers>
       </body>

@@ -1,48 +1,117 @@
 import { Request, Response } from 'express'
 
 const FILTERS_MAP: Record<string, Record<string, string[]>> = {
-	pizza: {
-		base: ['Тонкое', 'Пышное'],
+  pizza: {
+    meat: [
+      'Курица',
+      'Мясо',
+      'Колбаски',
+      'Острая колбаса',
+      'Пепперони',
+    ],
 
-		cheese: ['Моцарелла', 'Чеддер', 'Пармезан', 'Дорблю', 'Сыр'],
+    cheese: [
+      'Сыр',
+      'Маздам',
+      'Маскарпоне',
+      'Советский',
+      'Белорусский',
+    ],
 
-		meat: ['Курица', 'Бекон', 'Пепперони', 'Ветчина', 'Говядина'],
+    sauce: [
+      'Томатный соус',
+      'Соус',
+      'Соус BBQ',
+    ],
 
-		components: [
-			'Ананас',
-			'Лук',
-			'Томаты',
-			'Базилик',
-			'Грибы',
-			'Соус BBQ',
-			'Томатный соус',
-		],
-	},
+    vegetables: [
+      'Лук',
+      'Томаты черри',
+      'Шампиньоны',
+      'Ананас',
+    ],
+  },
 
-	sushi: {
-		fish: ['Лосось', 'Тунец', 'Угорь', 'Треска', 'Осётр'],
+  sushi: {
+    base: ['Рис'],
 
-		sauce: ['Спайси', 'Терияки', 'Соус унаги', 'Кунжутный', 'Соевый'],
+    fish: [
+      'Рыба/морепродукты',
+      'Краб/морепродукты',
+      'Угорь',
+      'Креветка',
+    ],
 
-		extras: [
-			'Авокадо',
-			'Сливочный сыр',
-			'Сыр',
-			'Огурец',
-			'Темпура',
-			'Креветка',
-			'Рис',
-		],
-	},
+    cheese: ['Сливочный сыр'],
+
+    extras: [
+      'Авокадо',
+      'Овощи',
+    ],
+  },
+
+  snacks: {
+    meat: ['Курица'],
+
+    vegetables: [
+      'Лук',
+      'Овощи',
+    ],
+
+    sauce: ['Соус BBQ'],
+  },
+
+  drinks: {
+    base: [
+      'Апельсин',
+      'Цитрус',
+      'Напиток',
+      'Молоко',
+      'Растительный ингредиент',
+    ],
+  },
+
+  dessert: {
+    base: [
+      'Сыр',
+      'Апельсин',
+      'Крем',
+      'Молоко',
+      'Вишня',
+      'Клубника',
+    ],
+  },
+
+  sauce: {
+    base: [
+      'Сыр',
+      'Чеснок',
+      'Томатная основа',
+      'Соус',
+      'Перец',
+    ],
+  },
+
+  combos: {
+    base: [
+      'Пицца',
+      'Напиток',
+      'Сет роллов',
+      'Фри',
+      'Наггетсы',
+      'Мини пицца',
+      'Соус',
+    ],
+  },
 }
 
 export const getFiltersByCategory = (req: Request, res: Response) => {
-	const { categoryId } = req.params
-	const filters = FILTERS_MAP[categoryId]
+  const { categoryId } = req.params
+  const filters = FILTERS_MAP[categoryId]
 
-	if (!filters) {
-		return res.status(404).json({ error: 'Category not found' })
-	}
+  if (!filters) {
+    return res.status(404).json({ error: 'Category not found' })
+  }
 
-	res.json(filters)
+  res.json(filters)
 }

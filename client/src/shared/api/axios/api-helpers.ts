@@ -16,6 +16,11 @@ export const api = {
     return data;
   },
 
+  patch: async <T>(url: string, body?: unknown) => {
+    const { data } = await axiosInstance.patch<T>(url, body);
+    return data;
+  },
+
   delete: async <T>(url: string) => {
     const { data } = await axiosInstance.delete<T>(url);
     return data;
