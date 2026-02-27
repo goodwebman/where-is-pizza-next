@@ -48,7 +48,7 @@ export const TopInfoDesktop: FC<TopInfoProps> = ({ className }) => {
           </div>
         </div>
 
-        <a className={cnCheckAddress}>Проверить адрес</a>
+       
 
         <span className={cnInfo}>
           Среднее время доставки*:

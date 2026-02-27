@@ -40,7 +40,7 @@ export const ProductCategorySection: FC<
   onProductClick,
   className,
 }) => {
-  const { cnHeader, cnHeaderLabel, cnFilterButton, cnProductsContainer } =
+  const { cnHeader, cnHeaderLabel, cnFilterButton, cnProductsContainer, cnSection } =
     getClasses({ className });
 
   const hasFilters = Boolean(filters && Object.keys(filters).length);
@@ -79,7 +79,7 @@ export const ProductCategorySection: FC<
   }, [isLoading, isError, emptyProducts, products]);
 
   return (
-    <section id={id}>
+    <section className={cnSection} id={id}>
       <div className={cnHeader}>
         <h2 className={cnHeaderLabel}>{label}</h2>
 

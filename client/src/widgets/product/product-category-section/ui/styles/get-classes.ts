@@ -8,14 +8,16 @@ type Args = {
 };
 
 export const getClasses = ({ className }: Args) => {
-  const cnHeader = cn('header', className);
+  const cnSection = cn('section', className);
+  const cnHeader = cn('header');
   const cnHeaderLabel = cn('header--label');
-  const cnFilterButton = cn('filter-button')
-  const cnProductsContainer = cn('products-container')
+  const cnFilterButton = cn('filter-button');
+  const cnProductsContainer = cn('products-container');
   return {
     cnHeader,
     cnHeaderLabel,
     cnFilterButton,
-    cnProductsContainer
+    cnProductsContainer,
+    cnSection,
   };
 };
