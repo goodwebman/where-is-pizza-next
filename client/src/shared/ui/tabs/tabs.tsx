@@ -1,16 +1,25 @@
-import { Dispatch, FC, SetStateAction } from 'react';
 import { Tab } from './tab';
 import { TabsContainer } from './tabs-container';
-import { TabItem, TabValue } from './types';
 
-type TabsProps = {
-  tabs: TabItem[];
-  activeTab: TabValue;
-  onChange: Dispatch<SetStateAction<TabValue>>;
+type TabItem<T extends string> = {
+  label: string;
+  value: T;
+  disabled?: boolean;
+};
+
+type TabsProps<T extends string> = {
+  tabs: TabItem<T>[];
+  activeTab: T;
+  onChange: (value: T) => void;
   className?: string;
 };
 
-export const TabsRoot: FC<TabsProps> = ({ tabs, activeTab, onChange, className }) => {
+export const TabsRoot = <T extends string>({
+  tabs,
+  activeTab,
+  onChange,
+  className,
+}: TabsProps<T>) => {
   return (
     <TabsContainer className={className}>
       {tabs.map(tab => (
@@ -26,6 +35,3 @@ export const TabsRoot: FC<TabsProps> = ({ tabs, activeTab, onChange, className }
     </TabsContainer>
   );
 };
-
-TabsRoot.displayName = 'Tabs';
-

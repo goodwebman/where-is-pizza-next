@@ -12,7 +12,8 @@ import {
 } from '@/src/entities/filters/model/selectors';
 import { openFiltersDrawer } from '@/src/entities/filters/model/slice';
 import { EMPTY_FILTERS, FiltersMap } from '@/src/entities/filters/model/types';
-import { useProductAddToCartModalToggle } from '@/src/features/product/product-add-to-cart-modal/model';
+
+import { useProductModalContext } from '@/src/features/product/product-add-to-cart-modal/model/context/hooks';
 import { ProductAddToCartModal } from '@/src/features/product/product-add-to-cart-modal/ui/product-add-to-cart-modal';
 import { ProductFiltersDrawer } from '@/src/features/product/product-filters-drawer/ui/product-filters-drawer';
 import { CATEGORIES, CATEGORY_NAMES, CategoryId } from '@/src/shared/config';
@@ -50,11 +51,7 @@ export const ProductCategoryContainer: FC = () => {
 
   const productsMap = useCategoryProducts(selectedFiltersMap);
 
-  const {
-    product,
-    open: openAddToCartModal,
-    close: closeAddToCartModal,
-  } = useProductAddToCartModalToggle();
+  const { open: openAddToCartModal } = useProductModalContext();
 
   return (
     <>
@@ -77,12 +74,7 @@ export const ProductCategoryContainer: FC = () => {
         );
       })}
 
-      {product && (
-        <ProductAddToCartModal
-          product={product}
-          onClose={closeAddToCartModal}
-        />
-      )}
+      <ProductAddToCartModal />
 
       {openDrawerCategory && (
         <ProductFiltersDrawer

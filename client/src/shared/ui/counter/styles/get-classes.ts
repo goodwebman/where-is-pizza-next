@@ -4,17 +4,17 @@ import classes from './counter.module.scss';
 const cn = classNames.bind(classes);
 
 type CounterClassesArgs = {
-  size?: 'small' | 'medium' | 'large';
+  className?: string;
   disabledDecrement?: boolean;
   disabledIncrement?: boolean;
 };
 
 export const getCounterClasses = ({
-  size = 'medium',
+  className,
   disabledDecrement,
   disabledIncrement,
 }: CounterClassesArgs = {}) => {
-  const cnRoot = cn('counter', size);
+  const cnRoot = cn('counter', className);
   const cnButton = cn('button');
   const cnValue = cn('value');
 

@@ -9,6 +9,7 @@
   background: var(--bg-inverted);
   padding: 20px;
   @include shadow(medium-glow);
+
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -22,6 +23,10 @@
 
   @include media-max($breakpoint-tablet) {
     flex-direction: row;
+  }
+
+  &.for-slider {
+    flex-direction: column;
   }
 }
 
@@ -43,7 +48,13 @@
 
   @include media-max($breakpoint-sm) {
     max-width: 120px;
+
+    &.for-slider {
+     max-width: 200px;
+    }
   }
+
+  
 }
 
 .image {
@@ -77,6 +88,16 @@
 .title {
   @include typo.b1;
   font-weight: bold;
+  &.for-slider {
+    text-align: center;
+  }
+
+  @include media-max($breakpoint-md) {
+    &.for-slider {
+      @include typo.b2;
+      font-weight: bold;
+    }
+  }
 }
 
 .ingredients {
@@ -85,6 +106,9 @@
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  &.for-slider {
+    text-align: center;
+  }
 }
 
 .footer {
@@ -104,17 +128,32 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
+
+    &.for-slider {
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      text-align: center;
+    }
   }
 
   @include media-max($breakpoint-tablet) {
     .desktop-footer {
       display: none;
+
+      &.for-slider {
+        display: flex;
+      }
     }
 
     .mobile-footer {
       display: flex;
       gap: 8px;
-      justify-content: flex-start; // чтобы кнопка сжималась вместе с контентом
+      justify-content: flex-start;
+
+      &.for-slider {
+        display: none;
+      }
     }
 
     .mobile-footer button {
@@ -144,4 +183,11 @@
   font-weight: bold;
   color: var(--text-inverted);
   white-space: nowrap;
+
+  @include media-max($breakpoint-md) {
+    &.for-slider {
+      font-size: 16px;
+      font-weight: bold;
+    }
+  }
 }

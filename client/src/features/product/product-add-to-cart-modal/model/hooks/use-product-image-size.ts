@@ -1,5 +1,7 @@
-import { ProductDetails } from '@/src/entities/product/model/types'
-import { useMemo } from 'react'
+'use client';
+
+import { ProductDetails } from '@/src/entities/product/model/types';
+import { useMemo } from 'react';
 
 type Selected = Record<string, string[]>;
 const SIZE_TITLES = ['размер', 'размер порции', 'объём', 'size', 'volume'];
@@ -11,10 +13,12 @@ const sizeMap: Record<string, Record<string, number>> = {
 };
 
 export const useProductImageSize = (
-  product: ProductDetails,
-  selected: Selected,
+  product?: ProductDetails | null,
+  selected?: Selected,
 ) => {
   return useMemo(() => {
+    if (!product || !selected) return { width: 250, height: 250 };
+
     const sizeOption = product.options?.find(o =>
       SIZE_TITLES.includes(o.title.trim().toLowerCase()),
     );

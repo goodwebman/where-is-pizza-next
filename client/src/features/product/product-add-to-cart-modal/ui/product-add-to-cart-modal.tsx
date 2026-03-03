@@ -1,60 +1,62 @@
 'use client';
-
-import { ProductDetails } from '@/src/entities/product/model/types';
+import { IngredientIcon } from '@/src/entities/ingredient';
+import { useLockBodyScroll } from '@/src/shared/hooks';
 import { Buttons, Modal } from '@/src/shared/ui';
 import { TabsRoot } from '@/src/shared/ui/tabs/tabs';
-import { FC } from 'react';
-
-import { IngredientIcon } from '@/src/entities/ingredient';
-import { Icons } from '@/src/shared/assets/svg/components';
-import { useLockBodyScroll } from '@/src/shared/hooks';
-import { WithClassNames } from '@/src/shared/types';
 import Image from 'next/image';
-import { useProductOptions } from '../model';
-import { useAddProductToCartHandler } from '../model/use-add-product-to-cart';
-import { useProductImageSize } from '../model/use-product-image-size';
 import { getClasses } from './styles/get-classes';
 
-export type ProductAddToCartModalProps = {
-  product: ProductDetails | null;
-  onClose: () => void;
+import { ProductDetails } from '@/src/entities/product/model/types';
+import { useProductModalContext } from '../model/context/hooks';
+import {
+  useAddProductToCartHandler,
+  useProductImageSize,
+  useProductOptions,
+} from '../model/hooks';
+import { Icons } from '@/src/shared/assets/svg/components'
+
+export const ProductAddToCartModal = () => {
+  const { product, isOpen, close } = useProductModalContext();
+  useLockBodyScroll(isOpen);
+
+  const modalContent = product ? (
+    <ProductModalContent key={product.id} product={product} close={close} />
+  ) : null;
+
+  return <>{modalContent}</>;
 };
 
-export const ProductAddToCartModal: FC<
-  WithClassNames<ProductAddToCartModalProps>
-> = ({ product, className, onClose }) => {
-  if (!product) return null;
-
+type ProductModalContentProps = {
+  product: ProductDetails;
+  close: () => void;
+};
+const ProductModalContent = ({ product, close }: ProductModalContentProps) => {
+  const { selected, handleOptionClick, totalPrice, totalWeight } =
+    useProductOptions(product);
+  const { width, height } = useProductImageSize(product, selected);
+  const { handleAddToCart, loading } = useAddProductToCartHandler(close);
   const {
     cnModal,
     cnRoot,
-    cnImage,
-    cnImageWrapper,
-    cnOptions,
-    cnIngredients,
-    cnIngredientsLabel,
-    cnFooter,
-    cnOptionsSublabel,
-    cnOptionsLabel,
-    cnIngredientsWrapper,
-    cnFooterLeft,
     cnCalories,
+    cnImageWrapper,
+    cnImage,
+    cnOptions,
     cnCaloriesIcon,
     cnCaloriesOverlay,
-    cnTitleRow,
-  } = getClasses({ className });
-
-  const { selected, handleOptionClick, totalPrice, totalWeight } =
-    useProductOptions(product);
-
-  const { width, height } = useProductImageSize(product, selected);
-
-  useLockBodyScroll(!!product);
-
-  const { handleAddToCart, loading } = useAddProductToCartHandler(onClose);
+    cnOptionsSublabel,
+    cnOptionsLabel,
+    cnFooter,
+    cnIngredientsButton,
+    cnFooterLeft,
+    cnIngredients,
+    cnIngredientsLabel,
+    cnIngredientsWrapper,
+    cnTitleRow
+  } = getClasses({});
 
   return (
-    <Modal className={cnModal} isOpen={!!product} onClose={onClose}>
+    <Modal className={cnModal} isOpen={!!product} onClose={close}>
       <section className={cnRoot}>
         <div className={cnImageWrapper}>
           <Image
@@ -130,6 +132,7 @@ export const ProductAddToCartModal: FC<
                         <button
                           key={value.id}
                           onClick={() => handleOptionClick(option, value.id)}
+                          className={cnIngredientsButton}
                         >
                           <div className={cnIngredients}>
                             <IngredientIcon id={value.slug} />

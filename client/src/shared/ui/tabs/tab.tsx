@@ -1,24 +1,20 @@
-import { FC } from 'react';
 import { getClasses } from './styles/get-classes';
-import { TabValue } from './types'
 
-
-
-type TabProps = {
+type TabProps<T extends string> = {
   label: string;
-  value: TabValue;
+  value: T;
   isActive: boolean;
   disabled?: boolean;
-  onClick: (value: TabValue) => void;
+  onClick: (value: T) => void;
 };
 
-export const Tab: FC<TabProps> = ({
+export const Tab = <T extends string>({
   label,
   value,
   isActive,
   disabled,
   onClick,
-}) => {
+}: TabProps<T>) => {
   const { cnTab } = getClasses({});
 
   return (
@@ -27,6 +23,7 @@ export const Tab: FC<TabProps> = ({
         active: isActive,
         disabled,
       })}
+      type="button"
       onClick={() => !disabled && onClick(value)}
       disabled={disabled}
     >
@@ -34,5 +31,3 @@ export const Tab: FC<TabProps> = ({
     </button>
   );
 };
-
-Tab.displayName = 'Tab';

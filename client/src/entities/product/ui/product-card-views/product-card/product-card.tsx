@@ -8,6 +8,7 @@ import { getProductCardClasses } from './styles/get-classes';
 
 type ProductCardProps = {
   onClick?: () => void;
+  forSlider?: boolean;
 } & Product;
 
 export const ProductCard: React.FC<WithClassNames<ProductCardProps>> = ({
@@ -18,6 +19,7 @@ export const ProductCard: React.FC<WithClassNames<ProductCardProps>> = ({
   badge,
   className,
   onClick,
+  forSlider,
 }) => {
   const {
     cnCard,
@@ -31,7 +33,7 @@ export const ProductCard: React.FC<WithClassNames<ProductCardProps>> = ({
     cnBadge,
     cnDesktopFooter,
     cnMobileFooter,
-  } = getProductCardClasses({ badge, className });
+  } = getProductCardClasses({ badge, className, forSlider });
 
   return (
     <article className={cnCard}>

@@ -1,7 +1,5 @@
-export type TabValue = string ;
-
 export type TabItem = {
   label: string;
-  value: TabValue;
+  value: string;
   disabled?: boolean;
 };

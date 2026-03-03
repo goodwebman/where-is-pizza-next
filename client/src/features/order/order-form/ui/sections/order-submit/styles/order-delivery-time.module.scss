@@ -1,0 +1,23 @@
+@use '@/src/shared/styles/typography/typography.module' as typo;
+@use '@/src/shared/styles/breakpoints/breakpoints.module' as *;
+.submit {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+
+  &--price {
+    @include typo.b1;
+    font-weight: bold;
+    color: var(--text-inverted);
+    max-width: 200px;
+    overflow-x: auto;
+  }
+
+   @include media-max(1093px) {
+      button {
+        padding: 10px 20px;
+      }
+    }
+}

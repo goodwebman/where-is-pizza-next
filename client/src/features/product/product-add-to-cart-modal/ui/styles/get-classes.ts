@@ -20,9 +20,7 @@ export const getClasses = ({ className, selected }: Args) => {
   const cnOptionsLabel = cn('options--label');
   const cnOptionsSublabel = cn('options--sublabel');
 
-
   const cnTitleRow = cn('title--row');
-
 
   const cnCalories = cn('calories');
   const cnCaloriesIcon = cn('calories--icon');
@@ -31,6 +29,7 @@ export const getClasses = ({ className, selected }: Args) => {
   const cnIngredients = cn('ingredients', {
     'ingredients--selected': selected,
   });
+  const cnIngredientsButton = cn('ingredients--button');
   const cnIngredientsLabel = cn('ingredients--label');
   const cnIngredientsWrapper = cn('ingredients--wrapper');
 
@@ -46,8 +45,7 @@ export const getClasses = ({ className, selected }: Args) => {
     cnOptionsHeader,
     cnOptionsLabel,
     cnOptionsSublabel,
-
- 
+    cnIngredientsButton,
     cnTitleRow,
     cnCalories,
     cnCaloriesIcon,

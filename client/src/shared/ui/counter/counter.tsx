@@ -1,4 +1,6 @@
-'use client'
+'use client';
+import { FC } from 'react';
+import { WithClassNames } from '../../types';
 import { getCounterClasses } from './styles/get-classes';
 
 type CounterProps = {
@@ -7,18 +9,16 @@ type CounterProps = {
   min?: number;
   max?: number;
   step?: number;
-  size?: 'small' | 'medium' | 'large';
 };
 
-export const Counter = ({
+export const Counter: FC<WithClassNames<CounterProps>> = ({
   value = 0,
   onChange,
   min = 0,
   max = 100,
   step = 1,
-  size = 'medium',
-}: CounterProps) => {
-
+  className,
+}) => {
   const handleDecrement = () => {
     const newValue = Math.max(value - step, min);
     onChange?.(newValue);
@@ -31,20 +31,28 @@ export const Counter = ({
 
   const { cnRoot, cnValue, cnButtonDecrement, cnButtonIncrement } =
     getCounterClasses({
-      size,
+      className,
       disabledDecrement: value <= min,
       disabledIncrement: value >= max,
     });
 
   return (
     <div className={cnRoot}>
-      <button type="button" className={cnButtonDecrement} onClick={handleDecrement}>
+      <button
+        type="button"
+        className={cnButtonDecrement}
+        onClick={handleDecrement}
+      >
         -
       </button>
 
       <span className={cnValue}>{value}</span>
 
-      <button type="button" className={cnButtonIncrement} onClick={handleIncrement}>
+      <button
+        type="button"
+        className={cnButtonIncrement}
+        onClick={handleIncrement}
+      >
         +
       </button>
     </div>

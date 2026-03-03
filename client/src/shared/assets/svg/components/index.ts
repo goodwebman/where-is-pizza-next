@@ -34,6 +34,7 @@ import Prawn from './prawn';
 import ProductDefault from './product-default';
 import RedOnion from './red-onion';
 import RiceBowl from './rice-bowl';
+import RightArrow from './right-arrow';
 import Sausage from './sausage';
 import Spinner from './spinner';
 import Steak from './steak';
@@ -77,6 +78,7 @@ export const Icons = {
   ProductDefault,
   RedOnion,
   RiceBowl,
+  RightArrow,
   Sausage,
   Spinner,
   Steak,

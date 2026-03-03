@@ -1,8 +1,8 @@
 'use client';
 
 import { useHandleScroll } from '@/src/shared/hooks/ui/use-handle-scroll';
-import Link from 'next/link';
-import { RefObject } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
+import { RefObject, useCallback } from 'react';
 import { getItemClasses } from './styles/get-classes';
 
 type NavigationItemProps = {
@@ -27,6 +27,8 @@ export function NavigationItem({
   offset,
 }: NavigationItemProps) {
   const { cnItem, cnLink } = getItemClasses({ className, active });
+  const router = useRouter();
+  const pathname = usePathname();
 
   const handleScroll = useHandleScroll({
     scrollRef,
@@ -35,25 +37,28 @@ export function NavigationItem({
     onClick,
   });
 
+  const handleClick = useCallback(async () => {
+    if (href && scrollToId) {
+      if (pathname !== href) {
+        router.push(href);
+
+        setTimeout(() => {
+          handleScroll();
+        }, 50);
+      } else {
+        handleScroll();
+      }
+    } else if (href) {
+      router.push(href);
+      onClick?.();
+    } else {
+      handleScroll();
+    }
+  }, [href, scrollToId, pathname, router, handleScroll, onClick]);
+
   const renderContent = () => {
-    if (scrollRef || scrollToId) {
-      return (
-        <button type="button" className={cnLink} onClick={handleScroll}>
-          {children}
-        </button>
-      );
-    }
-
-    if (href) {
-      return (
-        <Link href={href} className={cnLink} onClick={onClick}>
-          {children}
-        </Link>
-      );
-    }
-
     return (
-      <button type="button" className={cnLink} onClick={onClick}>
+      <button type="button" className={cnLink} onClick={handleClick}>
         {children}
       </button>
     );

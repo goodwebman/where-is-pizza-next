@@ -7,11 +7,15 @@ import { CartLayout } from '@/src/entities/cart/ui/layout';
 import { useAppDispatch, useAppSelector } from '@/src/shared/store/redux-store';
 import { Buttons, Drawer } from '@/src/shared/ui';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useDeleteProductFromCart } from '../../delete-product-from-cart';
+import { useGetCartInfo } from '../../get-cart-info';
+import { useUpdateCartItem } from '../../update-cart-item';
 import { getClasses } from './styles/get-classes';
-import { useGetCartInfo } from '../../get-cart-info'
 
 export const CartDrawer = () => {
   const dispatch = useAppDispatch();
+  const router = useRouter();
   const isOpen = useAppSelector(selectOpenDrawerCart);
   const { cart, totalPrice, totalItems, isLoading } = useGetCartInfo();
 
@@ -25,9 +29,17 @@ export const CartDrawer = () => {
     cnEmptyCart,
   } = getClasses({});
 
-  if (!isOpen) return null;
-
   const isCartEmpty = !cart || !cart.items || cart.items.length === 0;
+
+  const { removeFromCart } = useDeleteProductFromCart();
+  const { updateQuantity } = useUpdateCartItem();
+
+  const handleCreateOrder = () => {
+    dispatch(closeCartDrawer());
+    router.push('/checkout');
+  };
+
+  if (!isOpen) return null;
   return (
     <Drawer
       label="Ваш заказ"
@@ -49,12 +61,15 @@ export const CartDrawer = () => {
           cart?.items.map(item => (
             <CartLayout.CartItem
               key={item.id}
-              mode="default"
               product={item.product}
               selectedOptions={item.selectedOptions}
               quantity={item.quantity}
               cartItemId={item.id}
               price={item.price}
+              onRemove={removeFromCart}
+              onChangeQuantity={(id, qty) =>
+                updateQuantity({ cartItemId: id, quantity: qty })
+              }
             />
           ))
         ) : (
@@ -77,7 +92,10 @@ export const CartDrawer = () => {
             <span className={cnTotalPrice}>{totalPrice}₽</span>
           </div>
 
-          <Buttons.DefaultButton className={cnButton}>
+          <Buttons.DefaultButton
+            className={cnButton}
+            onClick={handleCreateOrder}
+          >
             Заказать
           </Buttons.DefaultButton>
         </div>

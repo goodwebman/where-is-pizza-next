@@ -5,7 +5,7 @@
   width: 70%;
   max-height: 85vh;
 
-  @include media-max($breakpoint-lg) {
+  @include media-max($breakpoint-md) {
     width: 100%;
   }
 
@@ -22,10 +22,10 @@
 
   @include media-max($breakpoint-xxl) {
     flex-direction: column;
-    gap: 0;
+    gap: 10px;
   }
 
-  @include media-max($breakpoint-md) {
+  @include media-max($breakpoint-tablet) {
     display: block;
   }
 }
@@ -42,9 +42,14 @@
 .image {
   max-width: 100%;
   object-fit: contain;
+
+  @include media-max($breakpoint-lg) {
+    scale: 0.8;
+  }
+
   @include media-max($breakpoint-xs) {
     scale: 0.8;
-    margin-right: 50px;
+    margin-right: 60px;
   }
 }
 
@@ -88,6 +93,12 @@
   align-items: center;
   justify-content: center;
 
+  &--button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   @include media-max($breakpoint-laptop) {
     padding: 20px;
     max-width: 80px;
@@ -112,13 +123,9 @@
     justify-content: center;
     gap: 20px;
     align-items: center;
-    min-width: 500px;
 
-    @include media-max($breakpoint-md) {
-      align-items: start;
-      justify-content: start;
-       min-width: auto;
-    }
+
+    
   }
 }
 
@@ -155,7 +162,6 @@
   }
 }
 
-
 .title--row {
   display: flex;
   align-items: center;
@@ -172,14 +178,13 @@
   position: absolute;
   top: 150%;
   right: 0;
-  
+
   min-width: 180px;
   padding: 10px 12px;
   border-radius: 12px;
   background: var(--bg-secondary);
   color: var(--text-secondary);
   @include typo.b2;
- 
 
   opacity: 0;
   transform: translateY(-6px);

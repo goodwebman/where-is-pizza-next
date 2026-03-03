@@ -7,29 +7,14 @@
   background-color: var(--bg-primary-low);
 
   padding: 4px 8px;
-  gap: 12px;
-
-  &.small {
-    padding: 2px 6px;
-    font-size: 14px;
-  }
-
-  &.medium {
-    padding: 4px 8px;
-    font-size: 16px;
-  }
-
-  &.large {
-    padding: 6px 12px;
-    font-size: 18px;
-  }
+  gap: 4px;
 
   .button {
     @include typo.b2;
     background: transparent;
     border: none;
     color: var(--text-inverted);
-    
+
     cursor: pointer;
     width: 24px;
     height: 24px;
@@ -48,6 +33,5 @@
     min-width: 24px;
     text-align: center;
     color: var(--text-inverted);
-    
   }
 }

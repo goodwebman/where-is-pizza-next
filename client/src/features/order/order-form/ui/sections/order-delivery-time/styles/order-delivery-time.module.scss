@@ -1,0 +1,61 @@
+@use '@/src/shared/styles/typography/typography.module' as typo;
+@use '@/src/shared/styles/breakpoints/breakpoints.module' as *;
+.radio--section {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  height: 50px;
+
+  @include media-max(1093px) {
+    flex-direction: column;
+    height: auto;
+  }
+
+  &--rows {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+  
+    @include media-max(1093px) {
+      flex-direction: column;
+      align-items: start;
+    }
+  }
+
+  &--supLabel {
+    @include typo.b3;
+    color: var(--text-placeholder);
+  }
+
+  &--label {
+    @include typo.h2;
+    font-size: 25px;
+    color: var(--text-secondary);
+  }
+
+  &--input {
+    max-width: 170px;
+    display: flex;
+    gap: 20px;
+
+    &--field {
+      max-width: 120px;
+      width: 100%;
+      flex-shrink: 0;
+    }
+  }
+
+  &--wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    @include media-max(1093px) {
+      gap: 16px;
+    }
+  }
+
+  &--hidden {
+    display: none !important;
+  }
+}

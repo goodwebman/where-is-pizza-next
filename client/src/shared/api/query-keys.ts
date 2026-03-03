@@ -3,5 +3,6 @@ export const QUERY_KEYS = {
     PRODUCTS: 'products',
     PIZZA: 'pizza',
     SUSHI: 'sushi',
-    CART: 'cart'
+    CART: 'cart',
+    UPSELL_PRODUCTS: 'upsell_products'
 };

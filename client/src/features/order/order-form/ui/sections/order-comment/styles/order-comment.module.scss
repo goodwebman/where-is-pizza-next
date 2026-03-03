@@ -1,0 +1,12 @@
+@use '@/src/shared/styles/typography/typography.module' as typo;
+.comment {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  &--label {
+    @include typo.h2;
+    font-size: 25px;
+    color: var(--text-secondary);
+  }
+}

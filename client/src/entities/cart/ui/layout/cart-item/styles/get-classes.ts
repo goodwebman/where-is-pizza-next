@@ -5,21 +5,19 @@ const cn = classNames.bind(classes);
 
 export const getCartItemClasses = ({
   className,
-  mode,
+  orderView = false,
 }: {
   className?: string;
-  mode?: 'drawer' | 'default';
+  orderView?: boolean;
 }) => ({
-  cnContainer: cn(
-    'container',
-    mode === 'drawer' ? 'drawer' : 'default',
-    className,
-  ),
-  cnLeftBlock: cn('leftBlock'),
-  cnRightBlock: cn('rightBlock'),
+  cnContainer: cn('container', className),
+  cnLeftBlock: cn('leftBlock', { orderView }),
+  cnRightBlock: cn('rightBlock', { orderView }), 
+  cnRightBlockWrapper: cn('rightBlock--wrapper'),
   cnImage: cn('image'),
   cnLabel: cn('label'),
+  cnCounter: cn('counter'),
   cnOptions: cn('options'),
   cnPrice: cn('price'),
-  cnQuantityWithPrice: cn('quantity--with--price')
+  cnQuantityWithPrice: cn('quantity--with--price', { orderView }), 
 });

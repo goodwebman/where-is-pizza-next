@@ -8,7 +8,7 @@ type CustomIconButtonProps = {
   onClick?: () => void;
   className?: string;
   style?: React.CSSProperties;
-  circle?: boolean
+  circle?: boolean;
 };
 
 type IconButtonProps = CustomIconButtonProps & ComponentPropsWithRef<'button'>;
@@ -21,19 +21,26 @@ export const IconButton: FC<IconButtonProps> = ({
   style,
   disabled,
   circle,
+  type = 'button',
   ...props
 }) => {
   const { cnRoot, cnIcon } = getClasses({
     size,
     className,
     disabled,
-    circle
+    circle,
   });
   return (
-    <button className={cnRoot} onClick={onClick} disabled={disabled} {...props}>
+    <button
+      {...props}
+      type={type}
+      className={cnRoot}
+      onClick={onClick}
+      disabled={disabled}
+    >
       <span className={cnIcon}>{icon}</span>
     </button>
   );
 };
 
-IconButton.displayName = 'IconButton'
+IconButton.displayName = 'IconButton';

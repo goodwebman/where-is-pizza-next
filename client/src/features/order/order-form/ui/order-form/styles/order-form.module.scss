@@ -1,0 +1,7 @@
+@use '@/src/shared/styles/typography/typography.module' as typo;
+
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+}

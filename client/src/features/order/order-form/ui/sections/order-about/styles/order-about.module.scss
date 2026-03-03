@@ -1,0 +1,28 @@
+@use '@/src/shared/styles/typography/typography.module' as typo;
+@use '@/src/shared/styles/breakpoints/breakpoints.module' as *;
+.about {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  &--label {
+    @include typo.h2;
+    font-size: 25px;
+    color: var(--text-secondary);
+  }
+
+  &--inputs {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+
+    > * {
+      flex: 1;
+      min-width: 0;
+    }
+
+    @include media-max($breakpoint-lg) {
+      flex-direction: column;
+    }
+  }
+}

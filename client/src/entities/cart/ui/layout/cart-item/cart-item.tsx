@@ -7,15 +7,16 @@ import { FC } from 'react';
 
 import { SelectedOptions } from '../../../model';
 import { getCartItemClasses } from './styles/get-classes';
-import { useDeleteProductFromCart, useUpdateCartItem } from '@/src/features/cart'
 
 type CartItemProps = {
   product: ProductDetails;
   quantity: number;
   cartItemId: string;
   selectedOptions: SelectedOptions;
-  mode: 'drawer' | 'default';
   price: number;
+  orderView?: boolean;
+  onRemove: (cartItemId: string) => void;
+  onChangeQuantity: (cartItemId: string, quantity: number) => void;
 };
 
 export const CartItem: FC<WithClassNames<CartItemProps>> = ({
@@ -23,29 +24,33 @@ export const CartItem: FC<WithClassNames<CartItemProps>> = ({
   product,
   cartItemId,
   quantity,
-  mode,
+  orderView = false,
   selectedOptions,
   price,
+  onChangeQuantity,
+  onRemove,
 }) => {
-  const { cnContainer, cnLeftBlock, cnRightBlock, cnImage, cnLabel, cnPrice, cnOptions, cnQuantityWithPrice } =
-    getCartItemClasses({ className, mode });
-  const { removeFromCart } = useDeleteProductFromCart();
-
-  const { updateQuantity } = useUpdateCartItem();
-
+  const {
+    cnContainer,
+    cnLeftBlock,
+    cnRightBlock,
+    cnImage,
+    cnLabel,
+    cnPrice,
+    cnOptions,
+    cnQuantityWithPrice,
+    cnRightBlockWrapper,
+    cnCounter,
+  } = getCartItemClasses({ className, orderView });
   const debouncedUpdate = useDebounceCallback((value: number) => {
-    updateQuantity({
-      cartItemId,
-      quantity: value,
-    });
+    onChangeQuantity(cartItemId, value);
   }, 200);
 
   const handleChange = (value: number) => {
     if (value <= 0) {
-      removeFromCart(cartItemId);
+      onRemove(cartItemId);
       return;
     }
-
     debouncedUpdate(value);
   };
 
@@ -57,12 +62,19 @@ export const CartItem: FC<WithClassNames<CartItemProps>> = ({
         <img src={product.imageSrc} alt={product.title} className={cnImage} />
       </div>
       <div className={cnRightBlock}>
-        <div className={cnLabel}>{product.title}</div>
-
-        <div className={cnOptions}>{getOptionsText(selectedOptions)}</div>
+        <div className={cnRightBlockWrapper}>
+          <div className={cnLabel}>{product.title}</div>
+          <div className={cnOptions}>{getOptionsText(selectedOptions)}</div>
+        </div>
 
         <div className={cnQuantityWithPrice}>
-          <Counter max={20} value={quantity} onChange={handleChange} min={0} />
+          <Counter
+            max={20}
+            value={quantity}
+            onChange={handleChange}
+            min={0}
+            className={cnCounter}
+          />
           <div className={cnPrice}>{totalItemPrice}₽</div>
         </div>
       </div>

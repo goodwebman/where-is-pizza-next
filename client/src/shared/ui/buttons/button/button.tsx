@@ -29,6 +29,7 @@ export const DefaultButton: FC<ButtonProps> = ({
   onClick,
   className,
   style,
+  type = 'button',
   fullWidth = false,
   ...props
 }) => {
@@ -51,11 +52,12 @@ export const DefaultButton: FC<ButtonProps> = ({
 
   return (
     <button
+      {...props}
       className={cnRoot}
       aria-busy={isLoading}
       disabled={isDisabled}
       onClick={onClick}
-      {...props}
+      type={type}
     >
       {isLoading && (
         <span className={cnSpinnerWrapper}>
@@ -71,4 +73,4 @@ export const DefaultButton: FC<ButtonProps> = ({
   );
 };
 
-DefaultButton.displayName = 'DefaultButton'
+DefaultButton.displayName = 'DefaultButton';

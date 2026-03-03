@@ -3,7 +3,7 @@
 .root {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
 }
 
 .label {
@@ -15,9 +15,12 @@
   display: flex;
   align-items: center;
   border: 1px solid var(--border-default);
-  border-radius: 8px;
+  border-radius: 6px;
   padding: 4px 8px;
   gap: 8px;
+  overflow: hidden;
+  position: relative;
+  background: var(--bg-inverted);
 
   &.focused {
     border-color: var(--border-primary);
@@ -41,7 +44,7 @@
   flex: 1;
   border: none;
   outline: none;
-  background: transparent;
+  background: var(--bg-inverted);
   @include typo.h3;
   &.small {
     font-size: 14px;
@@ -66,6 +69,7 @@
 }
 
 .caption {
+  
   @include typo.b2;
   color: var(--text-secondary);
 
@@ -77,7 +81,6 @@
     color: var(--text-success);
   }
 }
-
 
 .textarea {
   min-height: 120px;

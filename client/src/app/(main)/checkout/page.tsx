@@ -1,5 +1,10 @@
+import { OrderBuilder } from '@/src/widgets/order/order-builder/ui/order-builder'
+
+
 const CheckoutPage = () => {
-  return <div>page</div>;
+  return <div>
+    <OrderBuilder />
+  </div>;
 };
 
-export default CheckoutPage
+export default CheckoutPage;

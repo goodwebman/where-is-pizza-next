@@ -1,0 +1,28 @@
+@use '@/src/shared/styles/typography/typography.module' as typo;
+@use '@/src/shared/styles/breakpoints/breakpoints.module' as *;
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.label {
+  @include typo.h2;
+  font-size: 25px;
+  color: var(--text-secondary);
+}
+
+.total {
+  @include typo.b2;
+  min-width: 50px;
+  color: var(--text-inverted);
+
+  &--wrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    border-radius: 20px;
+    background-color: var(--bg-inverted);
+    padding: 25px;
+  }
+}
