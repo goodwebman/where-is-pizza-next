@@ -9,6 +9,8 @@ import { Logo } from '@/src/shared/ui/logo';
 import { CATEGORIES_NAV_ITEMS } from '@/src/shared/config/categories/categories';
 import { useLockBodyScroll } from '@/src/shared/hooks';
 import { getCategorySectionId } from '@/src/shared/lib';
+import { usePathname } from 'next/navigation';
+import { useEffect } from 'react';
 import { useMobileMenu } from './model';
 import {
   BurgerButton,
@@ -22,13 +24,18 @@ import {
 const TABLET_BREAKPOINT = 768;
 
 export const Header = () => {
+  const pathname = usePathname();
   const isTabletOrMobile = useMediaQuery(
     `(max-width: ${TABLET_BREAKPOINT - 0.02}px)`,
   );
 
-  const { isOpen, toggleMenu } = useMobileMenu();
+  const { isOpen, toggleMenu, closeMenu } = useMobileMenu();
 
   useLockBodyScroll(isOpen);
+
+  useEffect(() => {
+    closeMenu();
+  }, [pathname]);
 
   return (
     <HeaderContainer
@@ -55,8 +62,6 @@ export const Header = () => {
                 {item.label}
               </Navigation.Item>
             ))}
-
-          
 
           {isTabletOrMobile && (
             <MobileNavigation isOpen={isOpen} onClose={toggleMenu} />

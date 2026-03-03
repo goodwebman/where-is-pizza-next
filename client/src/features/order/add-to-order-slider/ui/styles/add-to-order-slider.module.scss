@@ -35,13 +35,11 @@
       scale: 0.7;
     }
 
-    
-
-     @include media-max($breakpoint-sm) {
+    @include media-max($breakpoint-sm) {
       left: -10px;
     }
 
-     @include media-max($breakpoint-xs) {
+    @include media-max($breakpoint-xs) {
       left: -22px;
     }
   }
@@ -60,7 +58,7 @@
       right: -10px;
     }
 
-     @include media-max($breakpoint-xs) {
+    @include media-max($breakpoint-xs) {
       right: -22px;
     }
   }

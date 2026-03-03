@@ -37,14 +37,10 @@ export function NavigationItem({
     onClick,
   });
 
-  const handleClick = useCallback(async () => {
+  const handleClick = useCallback(() => {
     if (href && scrollToId) {
       if (pathname !== href) {
-        router.push(href);
-
-        setTimeout(() => {
-          handleScroll();
-        }, 50);
+        router.push(`${href}#${scrollToId}`);
       } else {
         handleScroll();
       }

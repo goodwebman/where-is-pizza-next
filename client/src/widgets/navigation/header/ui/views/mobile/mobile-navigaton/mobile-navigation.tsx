@@ -11,9 +11,10 @@ import {
 } from '@/src/widgets/auth-switcher-modal';
 
 import { CATEGORIES_NAV_ITEMS } from '@/src/shared/config/categories/categories';
+import { getCategorySectionId } from '@/src/shared/lib';
 import { Navigation } from '../../desktop';
 import { getClasses } from './styles/get-classes';
-import { getCategorySectionId } from '@/src/shared/lib'
+import { ROUTES } from '@/src/shared/config'
 
 interface MobileNavigationProps {
   className?: string;
@@ -59,7 +60,8 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
           {CATEGORIES_NAV_ITEMS.map(item => (
             <Navigation.Item
               key={item.anchor}
-             scrollToId={getCategorySectionId(item.anchor)}
+               href={ROUTES.HOME}
+              scrollToId={getCategorySectionId(item.anchor)}
               onClick={onClose}
               className={cnItem}
               offset={80}

@@ -1,14 +1,14 @@
 'use client';
 
 import { useGetCartInfo } from '@/src/features/cart';
+import { AddToOrderSlider } from '@/src/features/order/add-to-order-slider';
 import { OrderForm } from '@/src/features/order/order-form/ui';
+import { OrderPreview } from '@/src/features/order/order-preview/ui/order-preview';
 import { ProductAddToCartModal } from '@/src/features/product';
 import { ProductModalProvider } from '@/src/features/product/product-add-to-cart-modal/model/context/product-modal-context';
 import { WithClassNames } from '@/src/shared/types';
 import { FC } from 'react';
 import { getClasses } from './styles/get-classes';
-import { OrderPreview } from '@/src/features/order/order-preview/ui/order-preview'
-import { AddToOrderSlider } from '@/src/features/order/add-to-order-slider'
 
 export const OrderBuilder: FC<WithClassNames> = ({ className }) => {
   const { data: cart, isLoading, totalPrice, totalItems } = useGetCartInfo();
