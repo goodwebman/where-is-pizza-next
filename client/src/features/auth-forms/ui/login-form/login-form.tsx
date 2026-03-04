@@ -85,7 +85,7 @@ export const LoginForm: FC<LoginFormProps> = ({ className, onSuccess }) => {
           hasError={!!errors.password}
         />
 
-        <Buttons.DefaultButton>
+        <Buttons.DefaultButton  type='submit'>
           {authStatus === 'pending' ? 'Входим...' : 'Войти'}
         </Buttons.DefaultButton>
       </form>

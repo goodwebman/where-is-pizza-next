@@ -10,7 +10,6 @@ export const useOptionsSelect = () => {
   const { logout } = useLogout();
   const options = useMemo(
     () => [
-      { value: 'bonuses', children: 'Бонусы', href: '/profile/bonuses' },
       { value: 'orders', children: 'История заказов', href: '/profile/orders' },
       { value: 'settings', children: 'Настройки', href: '/profile/settings' },
       { value: 'logout', children: 'Выйти из аккаунта' },

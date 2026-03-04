@@ -99,7 +99,7 @@ export const RegisterForm: FC<RegisterFormProps> = ({
           hasError={!!errors.password}
         />
 
-        <Buttons.DefaultButton>
+        <Buttons.DefaultButton type='submit'>
           {authStatus === 'pending' ? 'Регистрируем...' : 'Регистрация'}
         </Buttons.DefaultButton>
       </form>
