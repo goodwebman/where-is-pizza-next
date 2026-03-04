@@ -29,7 +29,7 @@ export const OrderBuilder: FC<WithClassNames> = ({ className }) => {
         <AddToOrderSlider categoryId="snacks" />
         <AddToOrderSlider categoryId="sauce" />
 
-        <OrderForm fullPrice={totalPrice} />
+        <OrderForm fullPrice={totalPrice} totalItems={totalItems} />
 
         <ProductAddToCartModal />
       </section>

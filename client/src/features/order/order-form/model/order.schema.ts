@@ -1,10 +1,5 @@
+import { ChangeMethod, DeliveryMode, DeliveryTime, PaymentMethod } from '@/src/entities/order/model/types'
 import { z } from 'zod';
-import {
-  ChangeMethod,
-  DeliveryMode,
-  DeliveryTime,
-  PaymentMethod,
-} from './types';
 
 export const orderSchema = z
   .object({

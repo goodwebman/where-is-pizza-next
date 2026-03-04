@@ -7,17 +7,18 @@ import { getClasses } from './styles/get-classes';
 
 type OrderSubmitSectionProps = {
   fullPrice: number;
+  totalItems: number;
 };
 
 export const OrderSubmitSection: FC<
   WithClassNames<OrderSubmitSectionProps>
-> = ({ className, fullPrice }) => {
+> = ({ className, fullPrice, totalItems }) => {
   const { cnSubmit, cnSubmitPrice } = getClasses({ className });
-
+  const isDisabled = totalItems < 1
   return (
     <div className={cnSubmit}>
       <p className={cnSubmitPrice}>Итого: {fullPrice ?? 0}₽</p>
-      <Buttons.DefaultButton type="submit">
+      <Buttons.DefaultButton type="submit" disabled={isDisabled}>
         Оформить заказ
       </Buttons.DefaultButton>
     </div>

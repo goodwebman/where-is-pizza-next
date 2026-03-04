@@ -40,8 +40,13 @@ export const ProductCategorySection: FC<
   onProductClick,
   className,
 }) => {
-  const { cnHeader, cnHeaderLabel, cnFilterButton, cnProductsContainer, cnSection } =
-    getClasses({ className });
+  const {
+    cnHeader,
+    cnHeaderLabel,
+    cnFilterButton,
+    cnProductsContainer,
+    cnSection,
+  } = getClasses({ className });
 
   const hasFilters = Boolean(filters && Object.keys(filters).length);
   const emptyProducts = products.length === 0;

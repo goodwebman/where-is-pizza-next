@@ -1,16 +1,16 @@
 'use client';
 
+import {
+  ChangeMethod,
+  CreateOrderDTO,
+  DeliveryMode,
+  DeliveryTime,
+  PaymentMethod,
+} from '@/src/entities/order/model/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FC } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import {
-  ChangeMethod,
-  DeliveryMode,
-  DeliveryTime,
-  orderSchema,
-  OrderSchemaValues,
-  PaymentMethod,
-} from '../../model';
+import { orderSchema, OrderSchemaValues, useOrderSubmit } from '../../model';
 import { OrderAboutSection } from '../sections/order-about/order-about';
 import { OrderChangeSection } from '../sections/order-change/order-change';
 import { OrderCommentSection } from '../sections/order-comment/order-comment';
@@ -22,9 +22,10 @@ import { getClasses } from './styles/get-classes';
 
 type OrderFormProps = {
   fullPrice: number;
+  totalItems: number;
 };
 
-export const OrderForm: FC<OrderFormProps> = ({ fullPrice }) => {
+export const OrderForm: FC<OrderFormProps> = ({ fullPrice, totalItems }) => {
   const methods = useForm<OrderSchemaValues>({
     resolver: zodResolver(orderSchema),
     mode: 'onTouched',
@@ -55,25 +56,23 @@ export const OrderForm: FC<OrderFormProps> = ({ fullPrice }) => {
 
   const { handleSubmit } = methods;
 
-  const onSubmit = (data: OrderSchemaValues) => {
-    console.log('SUCCESS', data);
+  const { submitOrder } = useOrderSubmit();
+  const onSubmit = (data: CreateOrderDTO) => {
+    submitOrder(data);
   };
 
-  const onError = (errors: any) => {
-    console.log('FORM ERRORS', errors);
-  };
   const { cnRoot } = getClasses({});
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(onSubmit, onError)} className={cnRoot}>
+      <form onSubmit={handleSubmit(onSubmit)} className={cnRoot}>
         <OrderAboutSection />
         <OrderDeliverySection />
         <OrderDeliveryTimeSection />
         <OrderPaymentSection />
         <OrderChangeSection />
         <OrderCommentSection />
-        <OrderSubmitSection fullPrice={fullPrice} />
+        <OrderSubmitSection fullPrice={fullPrice} totalItems={totalItems} />
       </form>
     </FormProvider>
   );

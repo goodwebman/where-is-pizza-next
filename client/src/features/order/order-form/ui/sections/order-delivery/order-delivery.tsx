@@ -4,8 +4,9 @@ import { InputDefaultField } from '@/src/shared/ui';
 import { TabsRoot } from '@/src/shared/ui/tabs/tabs';
 import { FC, memo } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
-import { DeliveryMode, OrderSchemaValues } from '../../../model';
+import {  OrderSchemaValues } from '../../../model';
 import { getClasses } from './styles/get-classes';
+import { DeliveryMode } from '@/src/entities/order/model/types'
 
 export const OrderDeliverySection: FC = memo(() => {
   const { control, setValue } = useFormContext<OrderSchemaValues>();

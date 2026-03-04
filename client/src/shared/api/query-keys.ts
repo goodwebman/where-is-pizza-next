@@ -4,5 +4,6 @@ export const QUERY_KEYS = {
     PIZZA: 'pizza',
     SUSHI: 'sushi',
     CART: 'cart',
-    UPSELL_PRODUCTS: 'upsell_products'
+    UPSELL_PRODUCTS: 'upsell_products',
+    ORDER: 'order'
 };

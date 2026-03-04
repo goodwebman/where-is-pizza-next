@@ -3,8 +3,9 @@
 import { FC, memo } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
 import { InputDefaultField, Radio } from '@/src/shared/ui';
-import { DeliveryTime, OrderSchemaValues } from '../../../model';
+import {  OrderSchemaValues } from '../../../model';
 import { getClasses } from './styles/get-classes';
+import { DeliveryTime } from '@/src/entities/order/model/types'
 
 export const OrderDeliveryTimeSection: FC = memo(() => {
   const { control } = useFormContext<OrderSchemaValues>();

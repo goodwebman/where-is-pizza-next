@@ -2,6 +2,7 @@
 import { Request, Response } from 'express'
 import { prisma } from '../../lib/prisma'
 
+
 export const COOKIE_NAME = 'cartId'
 
 /** --- HELPERS --- **/
@@ -56,14 +57,11 @@ export const addItemToCart = async (
 	})
 }
 
-export const removeItemFromCart = async (
-	cartId: string,
-	cartItemId: string,
-) => {
+export const removeItemFromCart = async (cartId: string, cartItemId: string) => {
 	const item = await prisma.cartItem.findFirst({
 		where: { id: cartItemId, cartId },
 	})
-	if (!item) throw new Error('Item not found in this cart')
+	if (!item) return null // вместо throw
 
 	return prisma.cartItem.delete({ where: { id: cartItemId } })
 }
@@ -130,6 +128,16 @@ export const mergeGuestCart = async (guestCartId: string, userId: number) => {
 			})
 		}
 	}
+
+	await prisma.order.updateMany({
+		where: {
+			userId: null,
+			cartId: guestCart.id,
+		},
+		data: {
+			userId,
+		},
+	})
 
 	// удаляем гостевую корзину
 	await prisma.cart.delete({ where: { id: guestCart.id } })
@@ -246,39 +254,72 @@ export const deleteFromCart = async (req: Request, res: Response) => {
 }
 
 export const updateCartItemQuantity = async (
-  cartId: string,
-  cartItemId: string,
-  quantity: number,
+	cartId: string,
+	cartItemId: string,
+	quantity: number,
 ) => {
-  const item = await prisma.cartItem.findFirst({
-    where: { id: cartItemId, cartId },
-  })
+	const item = await prisma.cartItem.findFirst({
+		where: { id: cartItemId, cartId },
+	})
 
-  if (!item) throw new Error('Item not found in this cart')
+	if (!item) throw new Error('Item not found in this cart')
 
-  return prisma.cartItem.update({
-    where: { id: cartItemId },
-    data: { quantity },
-  })
+	return prisma.cartItem.update({
+		where: { id: cartItemId },
+		data: { quantity },
+	})
 }
 
 export const updateCartItem = async (req: Request, res: Response) => {
-  try {
-    const cartId = req.cookies?.[COOKIE_NAME]
-    if (!cartId) return res.status(400).json({ error: 'No cart' })
+	try {
+		const cartId = req.cookies?.[COOKIE_NAME]
+		if (!cartId) return res.status(400).json({ error: 'No cart' })
 
-    const { itemId } = req.params
-    const { quantity } = req.body
+		const { itemId } = req.params
+		const { quantity } = req.body
 
-    if (typeof quantity !== 'number' || quantity < 1) {
-      return res.status(400).json({ error: 'Invalid quantity' })
-    }
+		if (typeof quantity !== 'number' || quantity < 1) {
+			return res.status(400).json({ error: 'Invalid quantity' })
+		}
 
-    const updated = await updateCartItemQuantity(cartId, itemId, quantity)
+		const updated = await updateCartItemQuantity(cartId, itemId, quantity)
 
-    res.json(updated)
-  } catch (e) {
-    console.error(e)
-    res.status(500).json({ error: 'Server error' })
-  }
+		res.json(updated)
+	} catch (e) {
+		console.error(e)
+		res.status(500).json({ error: 'Server error' })
+	}
+}
+
+export const clearCart = async (cartId: string) => {
+	await prisma.cartItem.deleteMany({ where: { cartId } })
+}
+
+export const clearCartController = async (req: Request, res: Response) => {
+	try {
+		const userId = req.user?.id
+		let cartId = req.cookies?.[COOKIE_NAME]
+
+		// ищем корзину по пользователю
+		if (userId) {
+			const userCart = await prisma.cart.findUnique({ where: { userId } })
+			if (userCart) cartId = userCart.id
+		}
+
+		if (!cartId) {
+			return res.status(400).json({ error: 'Cart not found' })
+		}
+
+		const cartItems = await prisma.cartItem.findMany({ where: { cartId } })
+		if (!cartItems.length) {
+			return res.json({ success: true, message: 'Cart is already empty' })
+		}
+
+		await prisma.cartItem.deleteMany({ where: { cartId } })
+
+		res.json({ success: true })
+	} catch (e) {
+		console.error(e)
+		res.status(500).json({ error: 'Server error' })
+	}
 }

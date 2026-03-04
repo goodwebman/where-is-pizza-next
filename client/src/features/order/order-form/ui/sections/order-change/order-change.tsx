@@ -3,8 +3,9 @@
 import { InputDefaultField, Radio } from '@/src/shared/ui';
 import { FC, memo } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
-import { ChangeMethod, OrderSchemaValues } from '../../../model';
+import { OrderSchemaValues } from '../../../model';
 import { getClasses } from './styles/get-classes';
+import { ChangeMethod } from '@/src/entities/order/model/types'
 
 export const OrderChangeSection: FC = memo(() => {
   const { control } = useFormContext<OrderSchemaValues>();

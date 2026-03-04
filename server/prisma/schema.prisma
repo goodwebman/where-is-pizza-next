@@ -14,7 +14,8 @@ model User {
   password      String
   refreshTokens RefreshToken[]
 
-  carts Cart?
+  carts  Cart?
+  orders Order[]
 }
 
 model RefreshToken {
@@ -83,6 +84,8 @@ model Cart {
   items     CartItem[]
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
+
+  orders Order[]
 }
 
 model CartItem {
@@ -98,4 +101,86 @@ model CartItem {
   selectedOptions String
 
   createdAt DateTime @default(now())
+}
+
+model Order {
+  id String @id @default(uuid())
+
+  userId Int?
+  user   User? @relation(fields: [userId], references: [id])
+
+  cartId String?
+  cart   Cart?   @relation(fields: [cartId], references: [id])
+
+  status OrderStatus @default(PENDING)
+
+  fullPrice Int
+
+  name  String
+  phone String
+  email String
+
+  deliveryMode DeliveryMode
+  deliveryTime DeliveryTime
+
+  street    String?
+  house     String?
+  entrance  String?
+  floor     String?
+  apartment String?
+  intercom  String?
+
+  scheduledDate String?
+  scheduledTime String?
+
+  restaurantId String?
+
+  paymentMethod PaymentMethod
+  changeMethod  ChangeMethod
+  changeFrom    String?
+
+  comment String?
+
+  items OrderItem[]
+
+  createdAt DateTime @default(now())
+}
+
+model OrderItem {
+  id      String @id @default(uuid())
+  orderId String
+  order   Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  productId String
+  title     String
+  price     Float
+  quantity  Int
+
+  selectedOptions String
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+}
+
+enum DeliveryMode {
+  Delivery
+  Pickup
+}
+
+enum DeliveryTime {
+  ASAP
+  Scheduled
+}
+
+enum PaymentMethod {
+  Cash
+  Card
+}
+
+enum ChangeMethod {
+  WithoutChange
+  WithChange
 }

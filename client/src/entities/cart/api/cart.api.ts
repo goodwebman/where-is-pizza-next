@@ -20,4 +20,8 @@ export const cartApi = {
   ): Promise<CartItem> => {
     return await api.patch<CartItem>(`/cart/${cartItemId}`, { quantity });
   },
+
+  clearCart: async (): Promise<null> => {
+    return await api.delete('/cart/clear');
+  },
 };

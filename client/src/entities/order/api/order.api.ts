@@ -1,10 +1,12 @@
 import { api } from '@/src/shared/api';
-import { Order, OrderDraft } from '../model/types';
+import { CreateOrderDTO, Order } from '../model/types';
 
 export const orderApi = {
-  create: (data: OrderDraft) => {
-    api.post<Order>('/orders', data);
+  create: async (data: CreateOrderDTO) => {
+    return await api.post<Order>('/orders', data);
   },
 
-  getMyOrders: () => api.get<Order[]>('/orders/me'),
+  getMyOrders: async () => {
+    return await api.get<Order[]>('/orders/me');
+  },
 };

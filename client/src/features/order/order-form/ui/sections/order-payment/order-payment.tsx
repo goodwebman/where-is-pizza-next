@@ -3,9 +3,10 @@
 import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { Radio } from '@/src/shared/ui';
-import { OrderSchemaValues, PaymentMethod } from '../../../model';
+import { OrderSchemaValues} from '../../../model';
 import { getClasses } from './styles/get-classes';
 import { WithClassNames } from '@/src/shared/types';
+import { PaymentMethod } from '@/src/entities/order/model/types'
 
 export const OrderPaymentSection: FC<WithClassNames> = ({ className }) => {
   const { control } = useFormContext<OrderSchemaValues>();
