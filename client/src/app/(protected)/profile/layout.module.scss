@@ -1,0 +1,25 @@
+@use '@/src/shared/styles/typography/typography.module' as typo;
+@use '@/src/shared/styles/breakpoints/breakpoints.module' as *;
+.layout {
+  padding: 40px 280px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding-bottom: 100px;
+
+  @include media-max($breakpoint-desktop) {
+    padding: 40px 180px;
+  }
+
+  @include media-max($breakpoint-laptop) {
+    padding: 40px 90px;
+  }
+
+  @include media-max($breakpoint-tablet) {
+    padding: 40px 50px;
+  }
+
+  @include media-max($breakpoint-sm) {
+    padding: 40px 0px;
+  }
+}

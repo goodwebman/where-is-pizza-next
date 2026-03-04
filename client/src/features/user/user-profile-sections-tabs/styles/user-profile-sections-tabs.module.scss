@@ -1,13 +1,13 @@
 @use '@/src/shared/styles/typography/typography.module' as typo;
 @use '@/src/shared/styles/breakpoints/breakpoints.module' as *;
-.container {
+.root {
   display: flex;
-  flex-direction: column;
-  gap: 30px;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 20px;
 }
 
-.labelExtra {
-  @include typo.h2;
-  font-size: 25px;
+.label {
+  @include typo.h1;
   color: var(--text-secondary);
 }
