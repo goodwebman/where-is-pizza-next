@@ -1,8 +1,5 @@
-import type { User } from '@/src/entities/user';
-
 export type Session = {
   token: string;
-  user: User;
 };
 
 export type SessionState =

@@ -5,5 +5,6 @@ export const QUERY_KEYS = {
     SUSHI: 'sushi',
     CART: 'cart',
     UPSELL_PRODUCTS: 'upsell_products',
-    ORDER: 'order'
+    ORDER: 'order',
+    ME: 'me',
 };

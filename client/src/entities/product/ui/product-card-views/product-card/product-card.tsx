@@ -34,7 +34,7 @@ export const ProductCard: React.FC<WithClassNames<ProductCardProps>> = ({
     cnDesktopFooter,
     cnMobileFooter,
   } = getProductCardClasses({ badge, className, forSlider });
-
+  
   return (
     <article className={cnCard}>
       <div className={cnImageWrapper}>

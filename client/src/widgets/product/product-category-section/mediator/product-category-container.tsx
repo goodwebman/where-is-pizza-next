@@ -30,7 +30,7 @@ export const ProductCategoryContainer: FC = () => {
 
   const pizzaFiltersQuery = usePizzaFiltersQuery();
   const sushiFiltersQuery = useSushiFiltersQuery();
-
+  
   const allFilters: Partial<Record<CategoryId, FiltersMap>> = {
     pizza: pizzaFiltersQuery.data,
     sushi: sushiFiltersQuery.data,

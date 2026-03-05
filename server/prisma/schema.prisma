@@ -12,6 +12,8 @@ model User {
   email         String         @unique
   username      String         @unique
   password      String
+  phone         String?        @unique
+  birthDate     DateTime?
   refreshTokens RefreshToken[]
 
   carts  Cart?

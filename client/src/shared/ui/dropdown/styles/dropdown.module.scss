@@ -30,11 +30,9 @@
   }
 }
 .menu {
-  position: fixed;
-  top: 130%;
-
+  position: absolute; 
   z-index: 10000;
-  max-width: 600px;
+
   border-radius: 4px;
   @include shadow(medium-glow);
   border: 1px var(--border-default) solid;
@@ -44,6 +42,8 @@
   max-height: 200px;
   overflow-y: auto;
   background-color: var(--bg-inverted);
+
+  box-sizing: border-box;
 }
 
 .item {

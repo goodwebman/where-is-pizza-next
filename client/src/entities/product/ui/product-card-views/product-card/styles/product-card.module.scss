@@ -50,11 +50,9 @@
     max-width: 120px;
 
     &.for-slider {
-     max-width: 200px;
+      max-width: 200px;
     }
   }
-
-  
 }
 
 .image {
@@ -88,6 +86,7 @@
 .title {
   @include typo.b1;
   font-weight: bold;
+  overflow-x: auto;
   &.for-slider {
     text-align: center;
   }
@@ -105,7 +104,7 @@
   display: -webkit-box;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
-  overflow: hidden;
+ overflow-x: auto;
   &.for-slider {
     text-align: center;
   }

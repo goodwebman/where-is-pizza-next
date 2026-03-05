@@ -1,11 +1,10 @@
 import { Icons } from '@/src/shared/assets/svg/components';
-import { useAppSelector } from '@/src/shared/store/redux-store';
 import { DropdownContainer } from '@/src/shared/ui/dropdown/dropdown-container';
 import { FC } from 'react';
 
+import { useUserReturnData } from '../../user-return-data';
 import { useOptionsSelect } from '../model/use-options-select';
 import { getClasses } from './styles/get-classes';
-import { selectUser } from '@/src/entities/session/model'
 
 type UserMenuProps = {
   onClick?: () => void;
@@ -13,10 +12,10 @@ type UserMenuProps = {
 };
 
 export const UserMenu: FC<UserMenuProps> = ({ className, onClick }) => {
-  const user = useAppSelector(selectUser);
   const { options, handleSelect } = useOptionsSelect();
-
+  const { data: user, isLoading } = useUserReturnData();
   const { cnRoot, cnText } = getClasses({ className });
+
   return (
     <>
       {user ? (
@@ -26,6 +25,12 @@ export const UserMenu: FC<UserMenuProps> = ({ className, onClick }) => {
           onSelect={handleSelect}
           forNavigate
         />
+      ) : isLoading ? (
+        <button  className={cnRoot}>
+          <Icons.Account />
+
+          <span className={cnText}>Загрузка...</span>
+        </button>
       ) : (
         <button onClick={onClick} className={cnRoot}>
           <Icons.Account />

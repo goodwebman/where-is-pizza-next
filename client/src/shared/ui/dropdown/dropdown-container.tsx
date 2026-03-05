@@ -1,12 +1,16 @@
-import { useClickOutside } from '@/src/shared/hooks/ui';
+import { FC, ReactNode, useCallback, useMemo, useState } from 'react';
+
 import {
-  FC,
-  ReactNode,
-  useCallback,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from 'react';
+  autoUpdate,
+  flip,
+  offset,
+  shift,
+  useDismiss,
+  useFloating,
+  useInteractions,
+  useRole,
+} from '@floating-ui/react';
+
 import { Icons } from '../../assets/svg/components';
 import { DropdownItem } from './dropdown-item';
 import {
@@ -42,17 +46,35 @@ export const DropdownContainer: FC<DropdownContainerProps> = ({
   forNavigate = false,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [menuStyles, setMenuStyles] = useState<React.CSSProperties>({});
-  const dropdownRef = useRef<HTMLDivElement | null>(null);
-  const menuRef = useRef<HTMLUListElement | null>(null);
 
   const { cnContainer, cnMenu, cnLabel } = getDropdownClasses(
     className,
     labelClassName,
   );
+
   const { cnButton, cnArrowIcon } = getDropdownButtonClasses({ isOpen });
 
-  const handleToggle = () => setIsOpen(prev => !prev);
+  // 🔥 Floating logic
+  const { refs, floatingStyles, context } = useFloating({
+    open: isOpen,
+    onOpenChange: setIsOpen,
+    placement: 'bottom-start',
+    middleware: [
+      offset(8),
+      flip(), 
+      shift({ padding: 24 }),
+    ],
+    whileElementsMounted: autoUpdate,
+  });
+
+
+  const dismiss = useDismiss(context);
+  const role = useRole(context, { role: 'menu' });
+
+  const { getReferenceProps, getFloatingProps } = useInteractions([
+    dismiss,
+    role,
+  ]);
 
   const handleItemClick = useCallback(
     (value: string, href?: string) => {
@@ -62,56 +84,38 @@ export const DropdownContainer: FC<DropdownContainerProps> = ({
     [onSelect],
   );
 
-  const handleClickOutside = useCallback(() => setIsOpen(false), []);
-  useClickOutside(dropdownRef, handleClickOutside);
+  const selectedOptionLabel = useMemo(
+    () =>
+      selectedValue
+        ? options.find(option => option.value === selectedValue)?.children
+        : null,
+    [selectedValue, options],
+  );
 
-  const selectedOptionLabel = selectedValue
-    ? options.find(option => option.value === selectedValue)?.children
-    : null;
   const displayLabel = selectedOptionLabel || placeholder;
 
-  useLayoutEffect(() => {
-    if (isOpen && dropdownRef.current && menuRef.current) {
-      const buttonRect = dropdownRef.current.getBoundingClientRect();
-      const menuRect = menuRef.current.getBoundingClientRect();
-      const viewportHeight = window.innerHeight;
-      const viewportWidth = window.innerWidth;
-
-      let top = buttonRect.bottom + 4;
-      let left = buttonRect.left;
-
-      if (buttonRect.bottom + menuRect.height > viewportHeight) {
-        top = buttonRect.top - menuRect.height - 4;
-      }
-
-      if (buttonRect.left + menuRect.width > viewportWidth) {
-        left = viewportWidth - menuRect.width - 4;
-      }
-
-      if (left < 4) left = 4;
-
-      setMenuStyles({ top, left });
-    }
-  }, [isOpen]);
-
   return (
-    <div className={cnContainer} ref={dropdownRef}>
-      <button type="button" className={cnButton} onClick={handleToggle}>
+    <div className={cnContainer}>
+      <button
+        ref={refs.setReference}
+        type="button"
+        className={cnButton}
+        {...getReferenceProps({
+          onClick: () => setIsOpen(prev => !prev),
+        })}
+      >
         <span className={cnLabel}>{displayLabel}</span>
         <div className={cnArrowIcon}>
-          <Icons.ArrowDown width={12} height={12} className={cnArrowIcon} />
+          <Icons.ArrowDown width={12} height={12} />
         </div>
       </button>
 
       {isOpen && (
         <ul
-          role="menu"
-          ref={menuRef}
+          ref={refs.setFloating}
+          style={floatingStyles}
           className={cnMenu}
-          style={{
-            top: menuStyles.top,
-            left: menuStyles.left,
-          }}
+          {...getFloatingProps()}
         >
           {options.map(option => (
             <DropdownItem

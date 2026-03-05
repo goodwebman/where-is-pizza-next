@@ -3,7 +3,7 @@ import { JWTHandler } from '../jwt'
 
 const jwt = new JWTHandler(process.env.JWT_SECRET || 'secret')
 
-export type Session = { userId: number; username: string }
+export type Session = { userId: number }
 
 declare global {
 	namespace Express {
@@ -18,12 +18,16 @@ export const authenticateToken = (
 	res: Response,
 	next: NextFunction,
 ) => {
-	const token = req.headers.authorization?.split(' ')[1]
+	const authHeader = req.headers.authorization
+
+	const token = authHeader?.split(' ')[1]
+
 	if (!token) return res.status(401).json({ error: 'Auth required' })
+
 	if (!jwt.verifyToken(token))
 		return res.status(403).json({ error: 'Invalid token' })
 
 	const payload = jwt.getPayload(token) as Session
-	req.session = { userId: payload.userId, username: payload.username }
+	req.session = { userId: payload.userId }
 	next()
 }

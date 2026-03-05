@@ -8,21 +8,22 @@ import { LoginData, RegisterData } from './types'
 const jwt = new JWTHandler(process.env.JWT_SECRET || 'secret')
 
 const REFRESH_EXPIRY = 30 * 24 * 60 * 60 * 1000 // 30 дней
-const ACCESS_EXPIRY = 15 * 60 // 15 минут
+const ACCESS_EXPIRY = 15 * 60 * 60// 15 минут
 
-const createTokens = async (userId: number, username: string) => {
-	const accessToken = jwt.createAccessToken({ userId, username }, ACCESS_EXPIRY)
-	const refreshToken = jwt.createRefreshToken()
+const createTokens = async (userId: number) => {
+  const accessToken = jwt.createAccessToken({ userId }, ACCESS_EXPIRY)
 
-	await prisma.refreshToken.create({
-		data: {
-			token: refreshToken,
-			userId,
-			expiresAt: new Date(Date.now() + REFRESH_EXPIRY),
-		},
-	})
+  const refreshToken = jwt.createRefreshToken()
 
-	return { accessToken, refreshToken }
+  await prisma.refreshToken.create({
+    data: {
+      token: refreshToken,
+      userId,
+      expiresAt: new Date(Date.now() + REFRESH_EXPIRY),
+    },
+  })
+
+  return { accessToken, refreshToken }
 }
 
 export const register = async (req: Request, res: Response) => {
@@ -57,7 +58,7 @@ export const register = async (req: Request, res: Response) => {
 			await mergeGuestCart(guestCartId, user.id)
 		}
 
-		const tokens = await createTokens(user.id, user.username)
+		const tokens = await createTokens(user.id)
 
 		res.cookie('refreshToken', tokens.refreshToken, {
 			httpOnly: true,
@@ -68,11 +69,7 @@ export const register = async (req: Request, res: Response) => {
 
 		res.json({
 			token: tokens.accessToken,
-			user: {
-				id: user.id,
-				email: user.email,
-				username: user.username,
-			},
+			
 		})
 	} catch (e) {
 		console.error('REGISTER ERROR:', e)
@@ -99,7 +96,7 @@ export const login = async (req: Request, res: Response) => {
 			await mergeGuestCart(guestCartId, user.id)
 		}
 
-		const tokens = await createTokens(user.id, user.username)
+		const tokens = await createTokens(user.id)
 
 		res.cookie('refreshToken', tokens.refreshToken, {
 			httpOnly: true,
@@ -110,11 +107,7 @@ export const login = async (req: Request, res: Response) => {
 
 		res.json({
 			token: tokens.accessToken,
-			user: {
-				id: user.id,
-				email: user.email,
-				username: user.username,
-			},
+			
 		})
 	} catch (e) {
 		console.error('LOGIN ERROR:', e)
