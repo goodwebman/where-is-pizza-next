@@ -13,3 +13,8 @@ export type UpdateProfileDTO = {
   birthDate?: string
 }
 
+export type ChangePasswordDTO = {
+  currentPassword: string
+  newPassword: string
+}
+

@@ -1,5 +1,5 @@
 import { api } from '@/src/shared/api';
-import { UpdateProfileDTO, User } from '../model/types';
+import { ChangePasswordDTO, UpdateProfileDTO, User } from '../model/types';
 
 export const userApi = {
   getUser: async (): Promise<User> => {
@@ -8,4 +8,8 @@ export const userApi = {
   updateProfile: async (data: UpdateProfileDTO) => {
     return await api.patch<User>('/user/profile', data);
   },
+
+  changePassword: async (data: ChangePasswordDTO) => {
+    return await api.patch('/user/password', data)
+  }
 };

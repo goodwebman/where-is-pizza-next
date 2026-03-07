@@ -1,3 +1,4 @@
+'use client';
 import { Icons } from '@/src/shared/assets/svg/components';
 import { DropdownContainer } from '@/src/shared/ui/dropdown/dropdown-container';
 import { FC } from 'react';
@@ -26,7 +27,7 @@ export const UserMenu: FC<UserMenuProps> = ({ className, onClick }) => {
           forNavigate
         />
       ) : isLoading ? (
-        <button  className={cnRoot}>
+        <button className={cnRoot}>
           <Icons.Account />
 
           <span className={cnText}>Загрузка...</span>

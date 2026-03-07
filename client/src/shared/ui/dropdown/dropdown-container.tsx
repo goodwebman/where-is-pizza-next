@@ -1,3 +1,4 @@
+'use client'
 import { FC, ReactNode, useCallback, useMemo, useState } from 'react';
 
 import {

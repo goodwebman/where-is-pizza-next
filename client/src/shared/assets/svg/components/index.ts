@@ -27,6 +27,7 @@ import Milk from './milk';
 import ModalXMark from './modal-x-mark';
 import OnionRing from './onion-ring';
 import Orange from './orange';
+import Pencil from './pencil';
 import Pepperoni from './pepperoni';
 import Phone from './phone';
 import Pie from './pie';
@@ -71,6 +72,7 @@ export const Icons = {
   ModalXMark,
   OnionRing,
   Orange,
+  Pencil,
   Pepperoni,
   Phone,
   Pie,
