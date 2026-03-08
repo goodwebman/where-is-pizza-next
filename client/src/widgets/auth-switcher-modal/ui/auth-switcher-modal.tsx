@@ -1,5 +1,5 @@
-'use client'
-import { LoginForm, RegisterForm } from '@/src/features/auth';
+'use client';
+import { LoginForm, RegisterForm } from '@/src/features/auth/auth-forms';
 import { Buttons, Modal } from '@/src/shared/ui';
 import { FC, useState } from 'react';
 import { getClasses } from './styles/get-classes';

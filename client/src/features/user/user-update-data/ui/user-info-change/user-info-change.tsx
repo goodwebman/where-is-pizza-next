@@ -1,5 +1,7 @@
 'use client';
 
+import { selectIsAuthorized } from '@/src/entities/session';
+import { useAppSelector } from '@/src/shared/store/redux-store';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
 import { useUserReturnData } from '../../../user-return-data';
@@ -12,6 +14,10 @@ export const UserInfoChange = () => {
   const { data: user } = useUserReturnData();
 
   const { cnRoot } = getClasses({});
+
+  const isAuth = useAppSelector(selectIsAuthorized);
+
+  if (!isAuth) return null;
 
   return (
     <section className={cnRoot}>

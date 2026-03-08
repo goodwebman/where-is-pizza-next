@@ -47,7 +47,7 @@ export const LoginForm: FC<LoginFormProps> = ({ className, onSuccess }) => {
       });
 
       onSuccess?.();
-    } catch  {
+    } catch {
       toast.error('Ошибка авторизации', {
         position: 'top-center',
       });
@@ -85,7 +85,7 @@ export const LoginForm: FC<LoginFormProps> = ({ className, onSuccess }) => {
           hasError={!!errors.password}
         />
 
-        <Buttons.DefaultButton  type='submit'>
+        <Buttons.DefaultButton type="submit">
           {authStatus === 'pending' ? 'Входим...' : 'Войти'}
         </Buttons.DefaultButton>
       </form>

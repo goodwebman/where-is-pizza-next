@@ -7,13 +7,13 @@ import {
 
 const router = Router()
 
-// Создать заказ (для залогиненных и гостей)
-router.post('/', createOrder)
+// Сначала /me
+router.get('/me', getMyOrders)
 
-// Получить конкретный заказ по ID
+// Потом :orderId
 router.get('/:orderId', getOrderById)
 
-// Получить все заказы текущего пользователя
-router.get('/me', getMyOrders)
+// Создание заказа
+router.post('/', createOrder)
 
 export default router

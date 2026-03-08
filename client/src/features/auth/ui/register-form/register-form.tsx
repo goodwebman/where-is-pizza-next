@@ -1,9 +1,9 @@
 'use client';
 
 import {
-  selectAuthError,
-  selectAuthStatus,
-  useRegister,
+    selectAuthError,
+    selectAuthStatus,
+    useRegister,
 } from '@/src/entities/session';
 import { useAppSelector } from '@/src/shared/store/redux-store';
 import { Buttons, InputDefaultField } from '@/src/shared/ui';

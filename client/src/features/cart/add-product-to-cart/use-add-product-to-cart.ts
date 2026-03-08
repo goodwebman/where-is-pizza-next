@@ -2,10 +2,9 @@
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
+import { AddToCartPayload, cartApi } from '@/src/entities/cart';
 import { QUERY_KEYS } from '@/src/shared/api';
 import toast from 'react-hot-toast';
-import { AddToCartPayload, cartApi } from '@/src/entities/cart'
-
 
 export const useAddProductToCart = () => {
   const queryClient = useQueryClient();
@@ -18,8 +17,8 @@ export const useAddProductToCart = () => {
         position: 'top-center',
       });
     },
-    onError: () => {
-      toast.success('Ошибка добавления в корзину', {
+    onError: error => {
+      toast.error(JSON.stringify(error), {
         position: 'top-center',
       });
     },

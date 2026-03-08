@@ -16,7 +16,7 @@ export enum PaymentMethod {
 
 export enum ChangeMethod {
   WithoutChange = 'withoutChange',
-  WithChange = 'withChange'
+  WithChange = 'withChange',
 }
 
 export enum OrderStatus {
@@ -26,68 +26,76 @@ export enum OrderStatus {
 }
 
 export interface CreateOrderDTO {
-  name: string
-  phone: string
-  email: string
+  name: string;
+  phone: string;
+  email: string;
 
-  deliveryMode: DeliveryMode
-  deliveryTime: DeliveryTime
+  deliveryMode: DeliveryMode;
+  deliveryTime: DeliveryTime;
 
   address?: {
-    street?: string
-    house?: string
-    entrance?: string
-    floor?: string
-    apartment?: string
-    intercom?: string
-  }
+    street?: string;
+    house?: string;
+    entrance?: string;
+    floor?: string;
+    apartment?: string;
+    intercom?: string;
+  };
 
-  scheduledDate?: string
-  scheduledTime?: string
+  scheduledDate?: string;
+  scheduledTime?: string;
 
-  restaurantId?: string
+  restaurantId?: string;
 
-  paymentMethod: PaymentMethod
-  changeMethod: ChangeMethod
-  changeFrom?: string
+  paymentMethod: PaymentMethod;
+  changeMethod: ChangeMethod;
+  changeFrom?: string;
 
-  comment?: string
+  comment?: string;
 }
 
 export interface OrderItem {
-  id: string
-  productId: string
-  title: string
-  price: number
-  quantity: number
-  selectedOptions: string
+  id: string;
+  productId: string;
+  title: string;
+  price: number;
+  quantity: number;
+  selectedOptions: string;
 }
-
 
 export interface Order {
-  id: string
-  status: OrderStatus
-  fullPrice: number
+  id: string;
+  status: OrderStatus;
+  fullPrice: number;
 
-  name: string
-  phone: string
-  email: string
+  name: string;
+  phone: string;
+  email: string;
 
-  deliveryMode: DeliveryMode
-  deliveryTime: DeliveryTime
+  deliveryMode: DeliveryMode;
+  deliveryTime: DeliveryTime;
 
-  scheduledDate?: string | null
-  scheduledTime?: string | null
+  scheduledDate?: string | null;
+  scheduledTime?: string | null;
 
-  restaurantId?: string | null
+  restaurantId?: string | null;
 
-  paymentMethod: PaymentMethod
-  changeMethod: ChangeMethod
-  changeFrom?: string | null
+  paymentMethod: PaymentMethod;
+  changeMethod: ChangeMethod;
+  changeFrom?: string | null;
 
-  comment?: string | null
+  comment?: string | null;
 
-  items: OrderItem[]
+  items: OrderItem[];
 
-  createdAt: string
+  createdAt: string;
 }
+
+export type OrdersResponse = {
+  items: Order[];
+  total: number;
+  page: number;
+  limit: number;
+};
+
+export type GetOrdersParams = { page: number; limit: number };

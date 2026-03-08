@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 30px;
+}
+
+.button {
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: #f4f4f4;
+  cursor: pointer;
+}
+
+.active {
+  background: #ff6b00;
+  color: white;
+}
+
+.arrow {
+  background: #ff6b00;
+  color: white;
+}
+
+.disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}

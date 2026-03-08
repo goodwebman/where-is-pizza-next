@@ -63,6 +63,14 @@ export const Header = () => {
               </Navigation.Item>
             ))}
 
+          <Navigation.Item
+            href={ROUTES.PROFILE.ORDERS}
+        
+       
+          >
+           Заказы
+          </Navigation.Item>
+
           {isTabletOrMobile && (
             <MobileNavigation isOpen={isOpen} onClose={toggleMenu} />
           )}

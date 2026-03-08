@@ -2,8 +2,9 @@ import bcrypt from 'bcrypt'
 import { Request, Response } from 'express'
 import { prisma } from '../../lib/prisma'
 import { JWTHandler } from '../jwt'
-import { mergeGuestCart } from './cart-controller'
+
 import { LoginData, RegisterData } from './types'
+import { mergeGuestCart } from './cart-controller'
 
 const jwt = new JWTHandler(process.env.JWT_SECRET || 'secret')
 
@@ -136,4 +137,48 @@ export const logout = async (req: Request, res: Response) => {
 		console.error('LOGOUT ERROR:', e)
 		res.status(500).json({ error: 'Server error' })
 	}
+}
+
+export const session = async (req: Request, res: Response) => {
+  try {
+    const refreshToken = req.cookies?.refreshToken
+
+    if (!refreshToken) {
+      return res.status(401).json({ error: 'Unauthorized' })
+    }
+
+    const storedToken = await prisma.refreshToken.findUnique({
+      where: { token: refreshToken },
+    })
+
+    if (!storedToken || storedToken.expiresAt < new Date()) {
+      return res.status(401).json({ error: 'Invalid session' })
+    }
+
+    const user = await prisma.user.findUnique({
+      where: { id: storedToken.userId },
+      select: {
+        id: true,
+        email: true,
+        username: true,
+      },
+    })
+
+    if (!user) {
+      return res.status(401).json({ error: 'User not found' })
+    }
+
+    const accessToken = jwt.createAccessToken(
+      { userId: user.id },
+      ACCESS_EXPIRY
+    )
+
+    res.json({
+      user,
+      token: accessToken,
+    })
+  } catch (e) {
+    console.error('SESSION ERROR:', e)
+    res.status(500).json({ error: 'Server error' })
+  }
 }

@@ -5,13 +5,14 @@ import { Buttons } from '@/src/shared/ui';
 import { FC } from 'react';
 import { getClasses } from './styles/get-classes';
 import { formatBirthDate, formatPhone } from '@/src/shared/lib/helpers/formaters'
+import { User } from '@/src/entities/user'
 
-type Props = {
-  user: any;
+type UserInfoViewProps = {
+  user: User | null | undefined;
   onEdit: () => void;
 };
 
-export const UserInfoView: FC<Props> = ({ user, onEdit }) => {
+export const UserInfoView: FC<UserInfoViewProps> = ({ user, onEdit }) => {
   const {
     cnHeader,
     cnLabel,
@@ -20,6 +21,8 @@ export const UserInfoView: FC<Props> = ({ user, onEdit }) => {
     cnInfoWrapper,
     cnInfoItem,
   } = getClasses({});
+
+ 
 
   return (
     <>

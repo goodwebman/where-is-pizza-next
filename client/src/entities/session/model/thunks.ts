@@ -1,4 +1,4 @@
-import { api } from '@/src/shared/api/axios/api-helpers';
+
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import type {
   AuthResponse,
@@ -7,6 +7,7 @@ import type {
   RegisterData,
   Session,
 } from './types';
+import { api } from '@/src/shared/api'
 
 export const loginSession = createAsyncThunk<Session, LoginData>(
   'session/login',

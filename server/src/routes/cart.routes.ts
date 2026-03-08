@@ -1,10 +1,13 @@
 import { Router } from 'express'
 import {
   addToCart,
+
   clearCartController,
+
   deleteFromCart,
   getCart,
   updateCartItem,
+
 } from '../controllers/cart-controller'
 
 const router = Router()

@@ -1,23 +1,18 @@
 import { UserProfileSectionsTabs } from '@/src/features/user/user-profile-sections-tabs/user-profile-sections-tabs';
-import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
-import styles from './layout.module.scss'
+import { checkSession } from '@/src/shared/lib/helpers/auth';
+import styles from './layout.module.scss';
 
 export default async function ProfileLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const cookieStore = await cookies();
-  const refreshToken = cookieStore.get('refreshToken');
-
-  if (!refreshToken) {
-    redirect('/');
-  }
+  const session = await checkSession();
 
   return (
     <section className={styles.layout}>
-      <UserProfileSectionsTabs />
+      {session && <UserProfileSectionsTabs />}
+
       {children}
     </section>
   );
