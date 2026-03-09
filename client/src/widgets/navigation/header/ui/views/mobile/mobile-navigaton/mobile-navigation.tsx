@@ -10,11 +10,11 @@ import {
   useAuthSwitcherModal,
 } from '@/src/widgets/auth-switcher-modal';
 
+import { ROUTES } from '@/src/shared/config';
 import { CATEGORIES_NAV_ITEMS } from '@/src/shared/config/categories/categories';
 import { getCategorySectionId } from '@/src/shared/lib';
 import { Navigation } from '../../desktop';
 import { getClasses } from './styles/get-classes';
-import { ROUTES } from '@/src/shared/config'
 
 interface MobileNavigationProps {
   className?: string;
@@ -60,7 +60,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
           {CATEGORIES_NAV_ITEMS.map(item => (
             <Navigation.Item
               key={item.anchor}
-               href={ROUTES.HOME}
+              href={ROUTES.HOME}
               scrollToId={getCategorySectionId(item.anchor)}
               onClick={onClose}
               className={cnItem}
@@ -69,6 +69,13 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
               {item.label}
             </Navigation.Item>
           ))}
+          <Navigation.Item
+            href={ROUTES.PROFILE.ORDERS}
+            onClick={onClose}
+            className={cnItem}
+          >
+            Заказы
+          </Navigation.Item>
         </ul>
         <Divider />
         <section className={cnContactsWrapper}>

@@ -55,7 +55,7 @@ export const DropdownContainer: FC<DropdownContainerProps> = ({
 
   const { cnButton, cnArrowIcon } = getDropdownButtonClasses({ isOpen });
 
-  // 🔥 Floating logic
+
   const { refs, floatingStyles, context } = useFloating({
     open: isOpen,
     onOpenChange: setIsOpen,

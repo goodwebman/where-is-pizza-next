@@ -29,7 +29,6 @@ export enum OrderStatus {
   CANCELLED = 'CANCELLED',
 }
 
-// Prisma enum mappings
 const deliveryModeMap = {
   [DeliveryMode.Delivery]: 'Delivery',
   [DeliveryMode.Pickup]: 'Pickup',
@@ -51,7 +50,29 @@ const changeMethodMap = {
   [ChangeMethod.WithChange]: 'WithChange',
 } as const
 
-/** CREATE ORDER (userId или guestId) */
+/** Преобразование selectedOptions id -> titles */
+function transformOptions(rawOptions: string, product: any) {
+  const parsed = rawOptions ? JSON.parse(rawOptions) : {}
+
+  const readable: Record<string, string[]> = {}
+
+  for (const option of product.options ?? []) {
+    const selectedIds = (parsed as Record<string, any>)[option.id]
+    if (!selectedIds?.length) continue
+
+    const titles = option.values
+      .filter((v: any) => selectedIds.includes(v.id))
+      .map((v: any) => v.title)
+
+    if (titles.length) {
+      readable[option.title] = titles
+    }
+  }
+
+  return readable
+}
+
+/** CREATE ORDER */
 export const createOrder = async (req: Request, res: Response) => {
   try {
     const userId = req.user?.id || null
@@ -65,7 +86,19 @@ export const createOrder = async (req: Request, res: Response) => {
 
     const cart = await prisma.cart.findFirst({
       where: { OR: [{ guestId: cartId }, { id: cartId }] },
-      include: { items: { include: { product: true } } },
+      include: {
+        items: {
+          include: {
+            product: {
+              include: {
+                options: {
+                  include: { values: true },
+                },
+              },
+            },
+          },
+        },
+      },
     })
 
     if (!cart || cart.items.length === 0)
@@ -118,14 +151,24 @@ export const createOrder = async (req: Request, res: Response) => {
         restaurantId: restaurantId ?? null,
         changeFrom: changeFrom ?? null,
         comment: comment ?? null,
+
         items: {
-          create: cart.items.map(item => ({
-            productId: item.productId,
-            title: item.product.title,
-            quantity: item.quantity,
-            price: item.price,
-            selectedOptions: item.selectedOptions,
-          })),
+          create: cart.items.map(item => {
+            const readableOptions = transformOptions(
+              item.selectedOptions,
+              item.product
+            )
+
+            return {
+              productId: item.productId,
+              title: item.product.title,
+              quantity: item.quantity,
+              price: item.price,
+              selectedOptions: JSON.stringify(readableOptions),
+              ingredients: JSON.stringify(item.product.ingredients),
+               imageSrc: item.product.imageSrc,
+            }
+          }),
         },
       },
       include: { items: true },
@@ -140,14 +183,13 @@ export const createOrder = async (req: Request, res: Response) => {
   }
 }
 
-/** GET ORDER BY ID (userId или guestId) */
+/** GET ORDER BY ID */
 export const getOrderById = async (req: Request, res: Response) => {
   try {
     const { orderId } = req.params
     const userId = req.user?.id
     const guestId = req.cookies?.[COOKIE_NAME]
 
-    // Формируем массив условий для OR
     const orConditions: any[] = []
     if (userId) orConditions.push({ userId })
     if (guestId) orConditions.push({ cart: { guestId } })
@@ -162,20 +204,61 @@ export const getOrderById = async (req: Request, res: Response) => {
 
     if (!order) return res.status(404).json({ error: 'Order not found' })
 
-    res.json(order)
+    const items = order.items.map(item => {
+      let selectedOptions: Record<string, string[]> = {}
+      try {
+        const parsed =
+          typeof item.selectedOptions === 'string'
+            ? JSON.parse(item.selectedOptions)
+            : item.selectedOptions
+
+        if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+          for (const key of Object.keys(parsed)) {
+            const val = (parsed as Record<string, any>)[key]
+            if (Array.isArray(val)) selectedOptions[key] = val
+            else if (typeof val === 'string') selectedOptions[key] = [val]
+          }
+        }
+      } catch {
+        selectedOptions = {}
+      }
+
+      return {
+        ...item,
+        selectedOptions,
+        imageSrc: item.imageSrc
+      }
+    })
+
+    // Собираем объект address
+    const address = {
+      street: order.street ?? undefined,
+      house: order.house ?? undefined,
+      entrance: order.entrance ?? undefined,
+      floor: order.floor ?? undefined,
+      apartment: order.apartment ?? undefined,
+      intercom: order.intercom ?? undefined,
+    }
+
+    res.json({
+      ...order,
+      address,
+      items,
+    })
   } catch (e) {
     console.error(e)
     res.status(500).json({ error: 'Server error' })
   }
 }
 
-/** GET ORDERS (мои заказы или гостя) */
+/** GET MY ORDERS */
 export const getMyOrders = async (req: Request, res: Response) => {
   try {
     const userId = req.user?.id
     const guestId = req.cookies?.[COOKIE_NAME]
 
-    if (!userId && !guestId) return res.status(401).json({ error: 'Unauthorized' })
+    if (!userId && !guestId)
+      return res.status(401).json({ error: 'Unauthorized' })
 
     const orConditions: any[] = []
     if (userId) orConditions.push({ userId })
@@ -197,9 +280,56 @@ export const getMyOrders = async (req: Request, res: Response) => {
       take: limit,
     })
 
+    const normalizedOrders = orders.map(order => {
+      const items = order.items.map(item => {
+        let selectedOptions: Record<string, string[]> = {}
+
+        try {
+          const parsed =
+            typeof item.selectedOptions === 'string'
+              ? JSON.parse(item.selectedOptions)
+              : item.selectedOptions
+
+          if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+            for (const key of Object.keys(parsed)) {
+              const val = (parsed as Record<string, any>)[key]
+              if (Array.isArray(val)) selectedOptions[key] = val
+              else if (typeof val === 'string') selectedOptions[key] = [val]
+            }
+          }
+        } catch {
+          selectedOptions = {}
+        }
+
+        return {
+          ...item,
+          selectedOptions,
+          imageSrc: item.imageSrc,
+        }
+      })
+
+      // Собираем объект address для каждого заказа
+      const address = {
+        street: order.street ?? undefined,
+        house: order.house ?? undefined,
+        entrance: order.entrance ?? undefined,
+        floor: order.floor ?? undefined,
+        apartment: order.apartment ?? undefined,
+        intercom: order.intercom ?? undefined,
+      }
+
+      return {
+        ...order,
+        address,
+        items,
+      }
+    })
+
     res.json({
       total,
-      items: orders,
+      items: normalizedOrders,
+      page,
+      limit,
     })
   } catch (e) {
     console.error(e)

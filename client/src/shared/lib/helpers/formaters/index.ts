@@ -1,4 +1,5 @@
+export { formatAddress } from './address';
+export { formatBirthDate } from './birth-date';
 export { parseIngredientsToString } from './ingredients';
 export { getOptionsText } from './options';
-export {formatBirthDate } from './birth-date'
-export {formatPhone} from './phone' 
+export { formatPhone } from './phone';

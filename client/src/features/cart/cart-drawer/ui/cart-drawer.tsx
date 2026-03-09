@@ -18,6 +18,7 @@ export const CartDrawer = () => {
   const router = useRouter();
   const isOpen = useAppSelector(selectOpenDrawerCart);
   const { cart, totalPrice, totalItems, isLoading } = useGetCartInfo();
+  console.log(cart)
 
   const {
     cnFooter,

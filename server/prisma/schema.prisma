@@ -154,15 +154,15 @@ model Order {
 }
 
 model OrderItem {
-  id      String @id @default(uuid())
-  orderId String
-  order   Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
-
-  productId String
-  title     String
-  price     Float
-  quantity  Int
-
+  id              String @id @default(uuid())
+  orderId         String
+  order           Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  imageSrc        String
+  productId       String
+  title           String
+  price           Float
+  quantity        Int
+  ingredients     String
   selectedOptions String
 }
 

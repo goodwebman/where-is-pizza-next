@@ -25,7 +25,16 @@ export enum OrderStatus {
   CANCELLED = 'CANCELLED',
 }
 
-export interface CreateOrderDTO {
+export type Address = {
+  street?: string;
+  house?: string;
+  entrance?: string;
+  floor?: string;
+  apartment?: string;
+  intercom?: string;
+};
+
+export type CreateOrderDTO = {
   name: string;
   phone: string;
   email: string;
@@ -33,14 +42,7 @@ export interface CreateOrderDTO {
   deliveryMode: DeliveryMode;
   deliveryTime: DeliveryTime;
 
-  address?: {
-    street?: string;
-    house?: string;
-    entrance?: string;
-    floor?: string;
-    apartment?: string;
-    intercom?: string;
-  };
+  address?: Address;
 
   scheduledDate?: string;
   scheduledTime?: string;
@@ -52,18 +54,25 @@ export interface CreateOrderDTO {
   changeFrom?: string;
 
   comment?: string;
-}
+};
 
-export interface OrderItem {
+export type Ingredients = {
+  id: string;
+  label: string;
+};
+
+export type OrderItem = {
   id: string;
   productId: string;
   title: string;
+  imageSrc: string;
   price: number;
   quantity: number;
-  selectedOptions: string;
-}
+  selectedOptions: Record<string, string[]>;
+  ingredients?: Ingredients[];
+};
 
-export interface Order {
+export type Order = {
   id: string;
   status: OrderStatus;
   fullPrice: number;
@@ -74,7 +83,7 @@ export interface Order {
 
   deliveryMode: DeliveryMode;
   deliveryTime: DeliveryTime;
-
+  address?: Address | null;
   scheduledDate?: string | null;
   scheduledTime?: string | null;
 
@@ -89,7 +98,7 @@ export interface Order {
   items: OrderItem[];
 
   createdAt: string;
-}
+};
 
 export type OrdersResponse = {
   items: Order[];

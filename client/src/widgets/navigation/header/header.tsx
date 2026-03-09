@@ -51,25 +51,24 @@ export const Header = () => {
             )
           }
         >
-          {!isTabletOrMobile &&
-            CATEGORIES_NAV_ITEMS.map(item => (
-              <Navigation.Item
-                key={item.anchor}
-                href={ROUTES.HOME}
-                scrollToId={getCategorySectionId(item.anchor)}
-                offset={80}
-              >
-                {item.label}
-              </Navigation.Item>
-            ))}
+          {!isTabletOrMobile && (
+            <>
+              {CATEGORIES_NAV_ITEMS.map(item => (
+                <Navigation.Item
+                  key={item.anchor}
+                  href={ROUTES.HOME}
+                  scrollToId={getCategorySectionId(item.anchor)}
+                  offset={80}
+                >
+                  {item.label}
+                </Navigation.Item>
+              ))}
 
-          <Navigation.Item
-            href={ROUTES.PROFILE.ORDERS}
-        
-       
-          >
-           Заказы
-          </Navigation.Item>
+              <Navigation.Item href={ROUTES.PROFILE.ORDERS}>
+                Заказы
+              </Navigation.Item>
+            </>
+          )}
 
           {isTabletOrMobile && (
             <MobileNavigation isOpen={isOpen} onClose={toggleMenu} />

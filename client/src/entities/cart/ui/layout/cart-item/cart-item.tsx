@@ -1,6 +1,9 @@
 import { ProductDetails } from '@/src/entities/product/model/types';
 import { useDebounceCallback } from '@/src/shared/hooks/perfomance';
-import { getOptionsText } from '@/src/shared/lib/helpers/formaters';
+import {
+  getOptionsText,
+  parseIngredientsToString,
+} from '@/src/shared/lib/helpers/formaters';
 import { WithClassNames } from '@/src/shared/types';
 import { Counter } from '@/src/shared/ui';
 import { FC } from 'react';
@@ -65,6 +68,9 @@ export const CartItem: FC<WithClassNames<CartItemProps>> = ({
         <div className={cnRightBlockWrapper}>
           <div className={cnLabel}>{product.title}</div>
           <div className={cnOptions}>{getOptionsText(selectedOptions)}</div>
+          <div className={cnOptions}>
+            {parseIngredientsToString(product.ingredients)}
+          </div>
         </div>
 
         <div className={cnQuantityWithPrice}>
