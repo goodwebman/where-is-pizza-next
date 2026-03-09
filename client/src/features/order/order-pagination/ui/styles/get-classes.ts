@@ -1,24 +1,36 @@
-import classNames from 'classnames/bind'
-import classes from './order-pagination.module.scss'
+import classNames from 'classnames/bind';
+import styles from './order-pagination.module.scss';
 
-const cn = classNames.bind(classes)
+const cn = classNames.bind(styles);
 
-type Args = {
-  className?: string
-}
+type ButtonParams = {
+  active?: boolean;
+  disabled?: boolean;
+  arrow?: boolean;
+  arrowActive?: boolean;
+};
 
-export const getClasses = ({ className }: Args) => {
-  const cnContainer = cn('container', className)
-  const cnButton = cn('button')
-  const cnActive = cn('active')
-  const cnArrow = cn('arrow')
-  const cnDisabled = cn('disabled')
+export const getClasses = () => {
+  const cnContainer = cn('container');
+
+  const cnButton = ({
+    active,
+    disabled,
+    arrow,
+    arrowActive,
+  }: ButtonParams = {}) =>
+    cn('button', {
+      active,
+      disabled,
+      arrow,
+      arrowActive,
+    });
+
+  const cnDots = cn('dots');
 
   return {
     cnContainer,
     cnButton,
-    cnActive,
-    cnArrow,
-    cnDisabled,
-  }
-}
+    cnDots,
+  };
+};

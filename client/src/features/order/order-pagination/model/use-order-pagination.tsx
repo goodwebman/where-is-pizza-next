@@ -1,3 +1,4 @@
+import { Icons } from '@/src/shared/assets/svg/components';
 import { useMemo, useState } from 'react';
 import { getClasses } from '../ui/styles/get-classes';
 
@@ -6,12 +7,14 @@ interface Params {
   perPage: number;
 }
 
-export const useOrderPagination = ({ total: initialTotal, perPage }: Params) => {
+export const useOrderPagination = ({
+  total: initialTotal,
+  perPage,
+}: Params) => {
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(initialTotal);
 
-  const { cnContainer, cnButton, cnActive, cnArrow, cnDisabled } =
-    getClasses({});
+  const { cnContainer, cnButton, cnDots } = getClasses();
 
   const totalPages = Math.ceil(total / perPage);
 
@@ -47,19 +50,25 @@ export const useOrderPagination = ({ total: initialTotal, perPage }: Params) => 
         <button
           onClick={() => setPage(p => p - 1)}
           disabled={page === 1}
-          className={`${cnButton} ${cnArrow} ${page === 1 ? cnDisabled : ''}`}
+          className={cnButton({
+            arrow: true,
+            arrowActive: page !== 1,
+            disabled: page === 1,
+          })}
         >
-          ‹
+          <Icons.LeftArrow width={15} height={15} color="var(--icon-primary)" />
         </button>
 
         {pages.map((p, i) =>
           p === '...' ? (
-            <span key={i}>...</span>
+            <span key={i} className={cnDots}>
+              ...
+            </span>
           ) : (
             <button
               key={p}
               onClick={() => setPage(p)}
-              className={`${cnButton} ${p === page ? cnActive : ''}`}
+              className={cnButton({ active: p === page })}
             >
               {p}
             </button>
@@ -69,11 +78,17 @@ export const useOrderPagination = ({ total: initialTotal, perPage }: Params) => 
         <button
           onClick={() => setPage(p => p + 1)}
           disabled={page === totalPages}
-          className={`${cnButton} ${cnArrow} ${
-            page === totalPages ? cnDisabled : ''
-          }`}
+          className={cnButton({
+            arrow: true,
+            arrowActive: page !== totalPages,
+            disabled: page === totalPages,
+          })}
         >
-          ›
+          <Icons.RightArrow
+            width={15}
+            height={15}
+            color="var(--icon-primary)"
+          />
         </button>
       </div>
     );

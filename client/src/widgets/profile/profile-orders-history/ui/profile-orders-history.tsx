@@ -7,31 +7,29 @@ import { WithClassNames } from '@/src/shared/types';
 
 import { useOrderPagination } from '@/src/features/order/order-pagination/model/use-order-pagination';
 
-
+import { useOrdersHistory } from '../model/use-orders-history';
 import { getClasses } from './styles/get-classes';
-import { useOrdersHistory } from '../model/use-orders-history'
 
-const LIMIT = 2;
+const LIMIT = 5;
 
 export const ProfileOrdersHistory: FC<WithClassNames> = ({ className }) => {
   const { cnContainer } = getClasses({ className });
 
-  const pagination = useOrderPagination({
+  const {Pagination, page, setTotal} = useOrderPagination({
     total: 0,
     perPage: LIMIT,
   });
 
   const ordersQuery = useOrdersHistory({
-    page: pagination.page,
+    page: page,
     limit: LIMIT,
   });
 
   const orders = ordersQuery.data?.items ?? [];
   const total = ordersQuery.data?.total ?? 0;
 
-
   useEffect(() => {
-    pagination.setTotal(total);
+    setTotal(total);
   }, [total]);
 
   if (ordersQuery.isLoading && !ordersQuery.data) {
@@ -52,7 +50,7 @@ export const ProfileOrdersHistory: FC<WithClassNames> = ({ className }) => {
         <OrderCard key={order.id} order={order} />
       ))}
 
-      <pagination.Pagination />
+      <Pagination />
     </div>
   );
 };

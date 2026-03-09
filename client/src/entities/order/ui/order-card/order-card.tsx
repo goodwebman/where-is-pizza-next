@@ -76,7 +76,7 @@ export const OrderCard: FC<WithClassNames<OrderCardProps>> = ({
         </div>
 
         <div className={cnItems}>
-          {order.items.slice(0, 3).map(item => (
+          {order.items.slice(0, 10).map(item => (
             <div key={item.id} className={cnItemIcon}>
               <img src={item.imageSrc} alt={item.title} />
             </div>
@@ -96,6 +96,8 @@ export const OrderCard: FC<WithClassNames<OrderCardProps>> = ({
                 </div>
                 <div className={cnProductInfo}>
                   {item.title} × {item.quantity} — {item.price} ₽
+
+                  
                   {item.selectedOptions && (
                     <div className={cnOptionsText}>
                       Опции: {getOptionsText(item.selectedOptions)}
