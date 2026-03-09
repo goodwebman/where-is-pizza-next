@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { refreshSession } from '@/src/entities/session'
+import { refreshSession } from '@/src/entities/session/model/thunks'
 import { getReduxDispatch, getReduxState } from '../../lib/helpers/redux'
 
 

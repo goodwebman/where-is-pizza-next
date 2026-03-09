@@ -2,7 +2,8 @@
 
 import { useAppDispatch } from '@/src/shared/store/redux-store';
 import { useCallback } from 'react';
-import { registerSession, type RegisterData } from '../model';
+import {  type RegisterData } from '../model';
+import { registerSession } from '@/src/entities/session/model/thunks'
 
 export const useRegister = () => {
   const dispatch = useAppDispatch();

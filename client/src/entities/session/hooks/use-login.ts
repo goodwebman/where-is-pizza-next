@@ -2,7 +2,8 @@
 
 import { useAppDispatch } from '@/src/shared/store/redux-store';
 import { useCallback } from 'react';
-import { loginSession, type LoginData } from '../model';
+import {  type LoginData } from '../model';
+import { loginSession } from '@/src/entities/session/model/thunks'
 
 export const useLogin = () => {
   const dispatch = useAppDispatch();

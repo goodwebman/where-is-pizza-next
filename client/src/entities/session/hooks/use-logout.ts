@@ -4,7 +4,7 @@ import { QUERY_KEYS } from '@/src/shared/api';
 import { useAppDispatch } from '@/src/shared/store/redux-store';
 import { useQueryClient } from '@tanstack/react-query';
 import { useCallback } from 'react';
-import { logoutSession } from '../model';
+import { logoutSession } from '@/src/entities/session/model/thunks'
 
 export const useLogout = () => {
   const dispatch = useAppDispatch();
