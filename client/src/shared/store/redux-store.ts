@@ -1,6 +1,7 @@
 import { cartDrawerSlice } from '@/src/entities/cart/model/slice';
 import { filtersSlice } from '@/src/entities/filters/model/slice';
 import sessionReducer from '@/src/entities/session/model/slice'
+import { productCardModalSlice } from '@/src/features/product'
 import {
   combineReducers,
   configureStore,
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
   session: sessionReducer,
   filters: filtersSlice.reducer,
   cartDrawer: cartDrawerSlice.reducer,
+  productCardModal: productCardModalSlice.reducer
 });
 
 const persistConfig = {

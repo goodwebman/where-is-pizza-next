@@ -7,23 +7,33 @@ import Image from 'next/image';
 import { getClasses } from './styles/get-classes';
 
 import { ProductDetails } from '@/src/entities/product/model/types';
-import { useProductModalContext } from '../model/context/hooks';
+
+import { Icons } from '@/src/shared/assets/svg/components';
+import { useAppDispatch, useAppSelector } from '@/src/shared/store/redux-store';
+import { closeProductCardModal, selectProductModalState } from '../model';
 import {
   useAddProductToCartHandler,
   useProductImageSize,
   useProductOptions,
 } from '../model/hooks';
-import { Icons } from '@/src/shared/assets/svg/components'
 
 export const ProductAddToCartModal = () => {
-  const { product, isOpen, close } = useProductModalContext();
+  const dispatch = useAppDispatch();
+  const { isOpen, product } = useAppSelector(selectProductModalState);
+
   useLockBodyScroll(isOpen);
 
-  const modalContent = product ? (
-    <ProductModalContent key={product.id} product={product} close={close} />
-  ) : null;
+  const handleClose = () => dispatch(closeProductCardModal());
 
-  return <>{modalContent}</>;
+  if (!product) return null;
+
+  return (
+    <ProductModalContent
+      key={product.id}
+      product={product}
+      close={handleClose}
+    />
+  );
 };
 
 type ProductModalContentProps = {
@@ -52,7 +62,7 @@ const ProductModalContent = ({ product, close }: ProductModalContentProps) => {
     cnIngredients,
     cnIngredientsLabel,
     cnIngredientsWrapper,
-    cnTitleRow
+    cnTitleRow,
   } = getClasses({});
 
   return (

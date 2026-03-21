@@ -1,10 +1,12 @@
 'use client';
 
 import { ProductCard } from '@/src/entities/product';
-import { useProductModalContext } from '@/src/features/product/product-add-to-cart-modal/model/context/hooks';
+
+import { openProductCardModal, selectProductModalState } from '@/src/features/product';
 import { Icons } from '@/src/shared/assets/svg/components';
 import { CategoryId } from '@/src/shared/config';
 import { getCategoryLabel } from '@/src/shared/config/categories/categories';
+import { useAppDispatch, useAppSelector } from '@/src/shared/store/redux-store';
 import { Buttons } from '@/src/shared/ui';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -21,7 +23,8 @@ type AddToOrderSliderProps = {
 
 export const AddToOrderSlider = ({ categoryId }: AddToOrderSliderProps) => {
   const { data, isLoading } = useUpsellProducts(categoryId);
-  const { open } = useProductModalContext();
+  const dispatch = useAppDispatch();
+
   const { cnRoot, cnCard, cnNavNext, cnNavPrev, cnLabel } = getClasses();
   const {
     onSwiper,
@@ -79,12 +82,12 @@ export const AddToOrderSlider = ({ categoryId }: AddToOrderSliderProps) => {
         }}
       >
         {data.map(product => (
-          <SwiperSlide key={product.id} >
+          <SwiperSlide key={product.id}>
             <ProductCard
               forSlider
               className={cnCard}
               {...product}
-              onClick={() => open(product)}
+              onClick={() => dispatch(openProductCardModal(product))}
             />
           </SwiperSlide>
         ))}

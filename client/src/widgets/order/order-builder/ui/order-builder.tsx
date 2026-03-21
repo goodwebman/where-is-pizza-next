@@ -5,7 +5,7 @@ import { AddToOrderSlider } from '@/src/features/order/add-to-order-slider';
 import { OrderForm } from '@/src/features/order/order-form/ui';
 import { OrderPreview } from '@/src/features/order/order-preview/ui/order-preview';
 import { ProductAddToCartModal } from '@/src/features/product';
-import { ProductModalProvider } from '@/src/features/product/product-add-to-cart-modal/model/context/product-modal-context';
+
 import { WithClassNames } from '@/src/shared/types';
 import { FC } from 'react';
 import { getClasses } from './styles/get-classes';
@@ -15,7 +15,6 @@ export const OrderBuilder: FC<WithClassNames> = ({ className }) => {
   const { cnContainer, cnLabelExtra } = getClasses({ className });
 
   return (
-    <ProductModalProvider>
       <section className={cnContainer}>
         <OrderPreview
           cart={cart}
@@ -33,6 +32,6 @@ export const OrderBuilder: FC<WithClassNames> = ({ className }) => {
 
         <ProductAddToCartModal />
       </section>
-    </ProductModalProvider>
+
   );
 };

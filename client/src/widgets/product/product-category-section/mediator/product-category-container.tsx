@@ -13,7 +13,8 @@ import {
 import { openFiltersDrawer } from '@/src/entities/filters/model/slice';
 import { EMPTY_FILTERS, FiltersMap } from '@/src/entities/filters/model/types';
 
-import { useProductModalContext } from '@/src/features/product/product-add-to-cart-modal/model/context/hooks';
+import { ProductDetails } from '@/src/entities/product/model/types';
+import { openProductCardModal } from '@/src/features/product';
 import { ProductAddToCartModal } from '@/src/features/product/product-add-to-cart-modal/ui/product-add-to-cart-modal';
 import { ProductFiltersDrawer } from '@/src/features/product/product-filters-drawer/ui/product-filters-drawer';
 import { CATEGORIES, CATEGORY_NAMES, CategoryId } from '@/src/shared/config';
@@ -30,7 +31,7 @@ export const ProductCategoryContainer: FC = () => {
 
   const pizzaFiltersQuery = usePizzaFiltersQuery();
   const sushiFiltersQuery = useSushiFiltersQuery();
-  
+
   const allFilters: Partial<Record<CategoryId, FiltersMap>> = {
     pizza: pizzaFiltersQuery.data,
     sushi: sushiFiltersQuery.data,
@@ -51,7 +52,8 @@ export const ProductCategoryContainer: FC = () => {
 
   const productsMap = useCategoryProducts(selectedFiltersMap);
 
-  const { open: openAddToCartModal } = useProductModalContext();
+  const handleOpenProductCardModal = (product: ProductDetails) =>
+    dispatch(openProductCardModal(product));
 
   return (
     <>
@@ -69,7 +71,7 @@ export const ProductCategoryContainer: FC = () => {
             isError={productsMap[categoryId].isError}
             filters={filters}
             onOpenFilters={handleOpenFilters}
-            onProductClick={openAddToCartModal}
+            onProductClick={handleOpenProductCardModal}
           />
         );
       })}
