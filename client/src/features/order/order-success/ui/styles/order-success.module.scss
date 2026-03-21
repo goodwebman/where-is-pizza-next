@@ -1,0 +1,34 @@
+@use '@/src/shared/styles/typography/typography.module' as typo;
+@use '@/src/shared/styles/breakpoints/breakpoints.module' as *;
+
+.root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 24px;
+  padding: 40px 20px;
+}
+
+.image {
+  max-width: 200px;
+  width: 100%;
+  height: auto;
+}
+
+.title {
+  @include typo.h2;
+  font-size: 28px;
+  color: var(--text-secondary);
+}
+
+.subtitle {
+  @include typo.b2;
+  color: var(--text-secondary);
+  max-width: 420px;
+  line-height: 1.5;
+}
+
+.button {
+  margin-top: 10px;
+}
