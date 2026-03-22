@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto'
-import { prisma } from './../lib/prisma'
+import { prisma } from '../lib/prisma'
 
 const BASE = 'http://localhost:4000/images'
 async function main() {
@@ -82,7 +82,12 @@ async function main() {
 		},
 	]
 
-	type OptionValue = { slug: string; title: string; price?: number, weight?: number }
+	type OptionValue = {
+		slug: string
+		title: string
+		price?: number
+		weight?: number
+	}
 	type ProductOptionType = {
 		id: string
 		title: string

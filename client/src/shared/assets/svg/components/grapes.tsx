@@ -2,7 +2,7 @@ import { FC, SVGProps } from 'react';
 const SvgGrapes: FC<
   SVGProps<SVGSVGElement> & {
     color?: string,
-  },
+  }
 > = ({ color = 'var(--icon-secondary)', ...props }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="none" viewBox="0 0 24 24" {...props}>
     <path stroke={color} strokeWidth={1.5} d="M14.83 18a3 3 0 1 1-5.659 0" />

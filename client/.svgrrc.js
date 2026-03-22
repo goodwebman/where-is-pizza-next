@@ -10,7 +10,7 @@ module.exports = {
     bracketSameLine: false,
     bracketSpacing: true,
     singleQuote: true,
-    trailingComma: 'all',
+    trailingComma: 'es5',
     printWidth: 110,
   },
 

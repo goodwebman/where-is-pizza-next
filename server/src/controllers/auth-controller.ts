@@ -1,30 +1,30 @@
 import bcrypt from 'bcrypt'
 import { Request, Response } from 'express'
-import { prisma } from '../../lib/prisma'
 import { JWTHandler } from '../jwt'
+import { prisma } from '../lib/prisma'
 
-import { LoginData, RegisterData } from './types'
 import { mergeGuestCart } from './cart-controller'
+import { LoginData, RegisterData } from './types'
 
 const jwt = new JWTHandler(process.env.JWT_SECRET || 'secret')
 
 const REFRESH_EXPIRY = 30 * 24 * 60 * 60 * 1000 // 30 дней
-const ACCESS_EXPIRY = 15 * 60 * 60// 15 минут
+const ACCESS_EXPIRY = 15 * 60 * 60 // 15 минут
 
 const createTokens = async (userId: number) => {
-  const accessToken = jwt.createAccessToken({ userId }, ACCESS_EXPIRY)
+	const accessToken = jwt.createAccessToken({ userId }, ACCESS_EXPIRY)
 
-  const refreshToken = jwt.createRefreshToken()
+	const refreshToken = jwt.createRefreshToken()
 
-  await prisma.refreshToken.create({
-    data: {
-      token: refreshToken,
-      userId,
-      expiresAt: new Date(Date.now() + REFRESH_EXPIRY),
-    },
-  })
+	await prisma.refreshToken.create({
+		data: {
+			token: refreshToken,
+			userId,
+			expiresAt: new Date(Date.now() + REFRESH_EXPIRY),
+		},
+	})
 
-  return { accessToken, refreshToken }
+	return { accessToken, refreshToken }
 }
 
 export const register = async (req: Request, res: Response) => {
@@ -70,7 +70,6 @@ export const register = async (req: Request, res: Response) => {
 
 		res.json({
 			token: tokens.accessToken,
-			
 		})
 	} catch (e) {
 		console.error('REGISTER ERROR:', e)
@@ -108,7 +107,6 @@ export const login = async (req: Request, res: Response) => {
 
 		res.json({
 			token: tokens.accessToken,
-			
 		})
 	} catch (e) {
 		console.error('LOGIN ERROR:', e)
@@ -140,45 +138,45 @@ export const logout = async (req: Request, res: Response) => {
 }
 
 export const session = async (req: Request, res: Response) => {
-  try {
-    const refreshToken = req.cookies?.refreshToken
+	try {
+		const refreshToken = req.cookies?.refreshToken
 
-    if (!refreshToken) {
-      return res.status(401).json({ error: 'Unauthorized' })
-    }
+		if (!refreshToken) {
+			return res.status(401).json({ error: 'Unauthorized' })
+		}
 
-    const storedToken = await prisma.refreshToken.findUnique({
-      where: { token: refreshToken },
-    })
+		const storedToken = await prisma.refreshToken.findUnique({
+			where: { token: refreshToken },
+		})
 
-    if (!storedToken || storedToken.expiresAt < new Date()) {
-      return res.status(401).json({ error: 'Invalid session' })
-    }
+		if (!storedToken || storedToken.expiresAt < new Date()) {
+			return res.status(401).json({ error: 'Invalid session' })
+		}
 
-    const user = await prisma.user.findUnique({
-      where: { id: storedToken.userId },
-      select: {
-        id: true,
-        email: true,
-        username: true,
-      },
-    })
+		const user = await prisma.user.findUnique({
+			where: { id: storedToken.userId },
+			select: {
+				id: true,
+				email: true,
+				username: true,
+			},
+		})
 
-    if (!user) {
-      return res.status(401).json({ error: 'User not found' })
-    }
+		if (!user) {
+			return res.status(401).json({ error: 'User not found' })
+		}
 
-    const accessToken = jwt.createAccessToken(
-      { userId: user.id },
-      ACCESS_EXPIRY
-    )
+		const accessToken = jwt.createAccessToken(
+			{ userId: user.id },
+			ACCESS_EXPIRY,
+		)
 
-    res.json({
-      user,
-      token: accessToken,
-    })
-  } catch (e) {
-    console.error('SESSION ERROR:', e)
-    res.status(500).json({ error: 'Server error' })
-  }
+		res.json({
+			user,
+			token: accessToken,
+		})
+	} catch (e) {
+		console.error('SESSION ERROR:', e)
+		res.status(500).json({ error: 'Server error' })
+	}
 }

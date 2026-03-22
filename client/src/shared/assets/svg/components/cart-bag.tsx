@@ -2,7 +2,7 @@ import { FC, SVGProps } from 'react';
 const SvgCartBag: FC<
   SVGProps<SVGSVGElement> & {
     color?: string,
-  },
+  }
 > = ({ color = 'var(--icon-secondary)', ...props }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="none" viewBox="0 0 24 24" {...props}>
     <g fill={color} clipPath="url(#clip0_25104_7597)">

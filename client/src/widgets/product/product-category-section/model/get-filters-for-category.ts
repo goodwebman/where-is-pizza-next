@@ -1,4 +1,5 @@
-import { CategoryId, FiltersMap } from '@/src/entities/filters/model/types';
+import { FiltersMap } from '@/src/entities/filters/model/types';
+import { CategoryId } from '@/src/shared/config';
 
 /**
  * Возвращает фильтры для конкретной категории из объекта всех фильтров.

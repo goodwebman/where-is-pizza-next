@@ -1,12 +1,10 @@
 'use client';
 
 import { EMPTY_FILTERS, FiltersMap } from '@/src/entities/filters/model/types';
-import { productsApi } from '@/src/entities/product/api/product.api';
-import { useQueries } from '@tanstack/react-query';
-
-import { Product } from '@/src/entities/product/model/types';
-import { QUERY_KEYS } from '@/src/shared/api';
+import { Product } from '@/src/entities/product';
+import { getProductsQuery } from '@/src/entities/product/api/product.queries';
 import { CATEGORIES, CategoryId } from '@/src/shared/config';
+import { useQueries } from '@tanstack/react-query';
 
 type SelectedFiltersMap = Partial<Record<CategoryId, FiltersMap>>;
 
@@ -20,19 +18,12 @@ export const useCategoryProducts = (
   selectedFiltersMap: SelectedFiltersMap,
 ): Record<CategoryId, CategoryProductsState> => {
   const queries = useQueries({
-    queries: CATEGORIES.map(categoryId => ({
-      queryKey: [
-        QUERY_KEYS.PRODUCTS,
+    queries: CATEGORIES.map(categoryId =>
+      getProductsQuery(
         categoryId,
         selectedFiltersMap[categoryId] ?? EMPTY_FILTERS,
-      ],
-      queryFn: () =>
-        productsApi.getProducts(
-          categoryId,
-          selectedFiltersMap[categoryId] ?? EMPTY_FILTERS,
-        ),
-      staleTime: 1000 * 60 * 5,
-    })),
+      ),
+    ),
   });
 
   return CATEGORIES.reduce((acc, categoryId, index) => {

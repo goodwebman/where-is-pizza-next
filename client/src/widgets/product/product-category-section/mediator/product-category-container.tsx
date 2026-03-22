@@ -1,23 +1,21 @@
 'use client';
 
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 
 import {
-  usePizzaFiltersQuery,
-  useSushiFiltersQuery,
-} from '@/src/entities/filters/hooks/use-filters-query';
-import {
+  selectAllSelectedFilters,
   selectOpenDrawerCategory,
-  selectSelectedFiltersByCategory,
 } from '@/src/entities/filters/model/selectors';
+
 import { openFiltersDrawer } from '@/src/entities/filters/model/slice';
 import { EMPTY_FILTERS, FiltersMap } from '@/src/entities/filters/model/types';
 
+import { useFiltersQuery } from '@/src/entities/filters/hooks/use-filters-query';
 import { ProductDetails } from '@/src/entities/product/model/types';
 import { openProductCardModal } from '@/src/features/product';
 import { ProductAddToCartModal } from '@/src/features/product/product-add-to-cart-modal/ui/product-add-to-cart-modal';
 import { ProductFiltersDrawer } from '@/src/features/product/product-filters-drawer/ui/product-filters-drawer';
-import { CATEGORIES, CATEGORY_NAMES, CategoryId } from '@/src/shared/config';
+import { CATEGORIES, CategoryId } from '@/src/shared/config';
 import { getCategoryLabel } from '@/src/shared/config/categories/categories';
 import { getCategorySectionId } from '@/src/shared/lib';
 import { useAppDispatch, useAppSelector } from '@/src/shared/store/redux-store';
@@ -27,38 +25,38 @@ import { ProductCategorySection } from '../ui/product-category-section';
 
 export const ProductCategoryContainer: FC = () => {
   const dispatch = useAppDispatch();
+
   const openDrawerCategory = useAppSelector(selectOpenDrawerCategory);
 
-  const pizzaFiltersQuery = usePizzaFiltersQuery();
-  const sushiFiltersQuery = useSushiFiltersQuery();
+  const selectedFiltersMap = useAppSelector(selectAllSelectedFilters);
 
-  const allFilters: Partial<Record<CategoryId, FiltersMap>> = {
-    pizza: pizzaFiltersQuery.data,
-    sushi: sushiFiltersQuery.data,
-  };
+  const productsMap = useCategoryProducts(selectedFiltersMap);
+
+  const filtersQueries = CATEGORIES.map(categoryId =>
+    useFiltersQuery(categoryId),
+  );
+
+  const allFilters: Partial<Record<CategoryId, FiltersMap>> = useMemo(() => {
+    return CATEGORIES.reduce((acc, categoryId, index) => {
+      acc[categoryId] = filtersQueries[index].data;
+      return acc;
+    }, {} as Partial<Record<CategoryId, FiltersMap>>);
+  }, [filtersQueries]);
 
   const handleOpenFilters = (categoryId: CategoryId) => {
     dispatch(openFiltersDrawer(categoryId));
   };
 
-  const selectedFiltersMap: Partial<Record<CategoryId, FiltersMap>> = {
-    pizza: useAppSelector(
-      selectSelectedFiltersByCategory(CATEGORY_NAMES.pizza),
-    ),
-    sushi: useAppSelector(
-      selectSelectedFiltersByCategory(CATEGORY_NAMES.sushi),
-    ),
-  };
-
-  const productsMap = useCategoryProducts(selectedFiltersMap);
-
-  const handleOpenProductCardModal = (product: ProductDetails) =>
+  const handleOpenProductCardModal = (product: ProductDetails) => {
     dispatch(openProductCardModal(product));
+  };
 
   return (
     <>
       {CATEGORIES.map(categoryId => {
         const filters = getFiltersForCategory(categoryId, allFilters);
+
+        const productsState = productsMap[categoryId];
 
         return (
           <ProductCategorySection
@@ -66,9 +64,9 @@ export const ProductCategoryContainer: FC = () => {
             id={getCategorySectionId(categoryId)}
             categoryId={categoryId}
             label={getCategoryLabel(categoryId)}
-            products={productsMap[categoryId].products}
-            isLoading={productsMap[categoryId].isLoading}
-            isError={productsMap[categoryId].isError}
+            products={productsState.products}
+            isLoading={productsState.isLoading}
+            isError={productsState.isError}
             filters={filters}
             onOpenFilters={handleOpenFilters}
             onProductClick={handleOpenProductCardModal}

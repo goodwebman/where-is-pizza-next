@@ -1,4 +1,3 @@
 export {
-  usePizzaFiltersQuery,
-  useSushiFiltersQuery,
+  useFiltersQuery,
 } from './use-filters-query';

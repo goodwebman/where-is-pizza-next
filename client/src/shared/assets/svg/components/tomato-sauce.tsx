@@ -2,7 +2,7 @@ import { FC, SVGProps } from 'react';
 const SvgTomatoSauce: FC<
   SVGProps<SVGSVGElement> & {
     color?: string,
-  },
+  }
 > = ({ color = 'var(--icon-secondary)', ...props }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="none" viewBox="0 0 41 26" {...props}>
     <path

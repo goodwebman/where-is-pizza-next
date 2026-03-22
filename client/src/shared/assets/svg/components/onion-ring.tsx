@@ -2,7 +2,7 @@ import { FC, SVGProps } from 'react';
 const SvgOnionRing: FC<
   SVGProps<SVGSVGElement> & {
     color?: string,
-  },
+  }
 > = ({ color = 'var(--icon-secondary)', ...props }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="none" viewBox="0 0 48 48" {...props}>
     <g fill={color} clipPath="url(#clip0_1207_2429)">
