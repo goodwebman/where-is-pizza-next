@@ -18,12 +18,19 @@ export const useCategoryProducts = (
   selectedFiltersMap: SelectedFiltersMap,
 ): Record<CategoryId, CategoryProductsState> => {
   const queries = useQueries({
-    queries: CATEGORIES.map(categoryId =>
-      getProductsQuery(
+    queries: CATEGORIES.map(categoryId => {
+      const { queryKey, queryFn } = getProductsQuery(
         categoryId,
-        selectedFiltersMap[categoryId] ?? EMPTY_FILTERS,
-      ),
-    ),
+        selectedFiltersMap[categoryId] ?? EMPTY_FILTERS
+      );
+
+      return {
+        queryKey,
+        queryFn,
+        staleTime: 1000 * 60 * 10,      
+        refetchInterval: 1000 * 60 * 10, 
+      };
+    }),
   });
 
   return CATEGORIES.reduce((acc, categoryId, index) => {

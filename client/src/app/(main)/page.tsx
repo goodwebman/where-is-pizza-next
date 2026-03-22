@@ -11,7 +11,7 @@ import { getFiltersQuery } from '@/src/entities/filters/api/filters.queries';
 import { getProductsQuery } from '@/src/entities/product/api/product.queries';
 import { ProductCategoryContainer } from '@/src/widgets/product/product-category-section/mediator/product-category-container';
 
-export const dynamic = 'force-static';
+export const revalidate = 60 * 10;
 
 export default async function MainPage() {
   const queryClient = new QueryClient();
