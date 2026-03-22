@@ -2,11 +2,11 @@
 
 import { ProductCard } from '@/src/entities/product';
 
-import { openProductCardModal, selectProductModalState } from '@/src/features/product';
+import { openProductCardModal } from '@/src/features/product';
 import { Icons } from '@/src/shared/assets/svg/components';
 import { CategoryId } from '@/src/shared/config';
 import { getCategoryLabel } from '@/src/shared/config/categories/categories';
-import { useAppDispatch, useAppSelector } from '@/src/shared/store/redux-store';
+import { useAppDispatch } from '@/src/shared/store/redux-store';
 import { Buttons } from '@/src/shared/ui';
 import 'swiper/css';
 import 'swiper/css/navigation';

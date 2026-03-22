@@ -13,24 +13,23 @@ type ModalProps = {
 };
 
 export const Modal = ({ isOpen, onClose, children, className }: ModalProps) => {
-  const { cnRoot, cnOverlay, cnContent, cnCloseBtn } = getClasses({
-    className,
-  });
+  const { cnRoot, cnOverlay, cnContent, cnCloseBtn } = getClasses({ className });
 
   if (!isOpen) return null;
 
   return createPortal(
     <div className={cnRoot}>
+   
       <div className={cnOverlay} onClick={onClose} />
 
-      <div className={cnContent}>
-        {children}
+    
+      <div className={cnContent}>{children}</div>
 
-        <button className={cnCloseBtn} onClick={onClose}>
-          <Icons.ModalXMark color='var(--icon-primary)' width={32} height={32} />
-        </button>
-      </div>
+   
+      <button className={cnCloseBtn} onClick={onClose}>
+        <Icons.ModalXMark color="var(--icon-primary)" width={32} height={32} />
+      </button>
     </div>,
-    document.body,
+    document.body
   );
 };

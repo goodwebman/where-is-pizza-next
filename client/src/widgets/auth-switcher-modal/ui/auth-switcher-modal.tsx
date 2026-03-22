@@ -3,6 +3,7 @@ import { LoginForm, RegisterForm } from '@/src/features/auth/auth-forms';
 import { Buttons, Modal } from '@/src/shared/ui';
 import { FC, useState } from 'react';
 import { getClasses } from './styles/get-classes';
+import { useLockBodyScroll } from '@/src/shared/hooks'
 
 enum ToggleAuthState {
   LOGIN = 'login',
@@ -24,6 +25,8 @@ export const AuthSwitcherModal: FC<AuthSwitcherProps> = ({
 }) => {
   const [mode, setMode] = useState<AuthState>(ToggleAuthState.LOGIN);
   const { cnRoot } = getClasses({ className });
+
+   useLockBodyScroll(isOpen);
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <section className={cnRoot}>
