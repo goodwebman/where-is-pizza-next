@@ -1,8 +1,8 @@
 'use client';
 import { useCallback, useEffect, useRef } from 'react';
 
-export function useDebounceCallback<T extends (...args: any[]) => void>(
-  callback: T,
+export function useDebounceCallback<T extends unknown[]>(
+  callback: (...args: T) => void,
   delay = 400,
 ) {
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -19,7 +19,7 @@ export function useDebounceCallback<T extends (...args: any[]) => void>(
   }, []);
 
   return useCallback(
-    (...args: Parameters<T>) => {
+    (...args: T) => {
       if (timerRef.current) clearTimeout(timerRef.current);
 
       timerRef.current = setTimeout(() => {

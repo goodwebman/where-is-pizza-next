@@ -40,6 +40,10 @@
 
 .section {
   padding-bottom: 50px;
+
+  @include media-max($breakpoint-xs) {
+    padding-bottom: 24px;
+  }
 }
 
 .products-container {
@@ -62,5 +66,10 @@
 
   @include media-max($breakpoint-tablet) {
      grid-template-columns: repeat(1, minmax(0, 1fr));
+     gap: 20px;
+  }
+
+  @include media-max($breakpoint-xs) {
+    gap: 12px;
   }
 }

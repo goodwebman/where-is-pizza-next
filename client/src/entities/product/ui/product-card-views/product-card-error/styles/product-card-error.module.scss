@@ -1,5 +1,6 @@
 @use '@/src/shared//styles/shadows/shadows.module' as *;
 @use '@/src/shared/styles/typography/typography.module' as typo;
+@use '@/src/shared/styles/breakpoints/breakpoints.module' as *;
 
 .card {
   display: flex;
@@ -55,4 +56,11 @@
 
   color: var(--text-danger);
   text-align: center;
+}
+
+@include media-max($breakpoint-xs) {
+  .card {
+    height: 200px;
+    gap: 24px;
+  }
 }

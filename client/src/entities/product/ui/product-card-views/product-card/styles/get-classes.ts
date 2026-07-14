@@ -21,11 +21,7 @@ export const getProductCardClasses = ({
   const cnTitle = cn('title', { 'for-slider': forSlider });
   const cnIngredients = cn('ingredients', { 'for-slider': forSlider });
   const cnFooter = cn('footer');
-  const cnDesktopFooter = cn('desktop-footer', { 'for-slider': forSlider });
-  const cnMobileFooter = cn('mobile-footer', { 'for-slider': forSlider });
-  const cnButton = cn('button');
   const cnPrice = cn('price', { 'for-slider': forSlider });
-
   const cnBadge = cn('badge', {
     new: badge === 'new',
     popular: badge === 'popular',
@@ -39,10 +35,7 @@ export const getProductCardClasses = ({
     cnTitle,
     cnIngredients,
     cnFooter,
-    cnButton,
     cnPrice,
     cnBadge,
-    cnDesktopFooter,
-    cnMobileFooter,
   };
 };

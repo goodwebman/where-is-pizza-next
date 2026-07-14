@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
-    "svg:transform": "svgr src/shared/assets/svg/raw --out-dir src/shared/assets/svg/components --ext tsx --no-index && node src/shared/scripts/generate-svg-icons-index.js"
+    "lint": "eslint .",
+    "svg:transform": "svgr src/shared/assets/svg/raw --out-dir src/shared/assets/svg/components --ext tsx --no-index && node src/shared/scripts/generate-svg-icons-index.js",
+    "test": "vitest run",
+    "test:watch": "vitest"
   }
 }

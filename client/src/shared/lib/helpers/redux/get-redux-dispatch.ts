@@ -1,6 +1,7 @@
+import type { AppDispatch } from '@/src/shared/store/redux-store'
+import { getStore } from './store-registry'
 
-// intentional violation of the FSD
-
-import { store } from '@/src/shared/store/redux-store'
-
-export const getReduxDispatch = () => store.dispatch;
+export const getReduxDispatch = (): AppDispatch | null => {
+  if (typeof window === 'undefined') return null
+  return (getStore()?.dispatch as AppDispatch) ?? null
+}

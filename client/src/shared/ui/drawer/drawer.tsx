@@ -55,7 +55,7 @@ export const Drawer: FC<DrawerProps> = ({
               onClick={onClose}
               aria-label="Закрыть"
             >
-              <Icons.BackDropXMark width={24} hanging={24} />
+              <Icons.BackDropXMark width={24} height={24} />
             </button>
           </div>
         )}

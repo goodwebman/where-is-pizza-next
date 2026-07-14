@@ -1,6 +1,7 @@
 'use client';
 
 import { Buttons, InputDefaultField } from '@/src/shared/ui';
+import type { User } from '@/src/entities/user/model/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
@@ -13,7 +14,7 @@ import {
 import { getClasses } from './styles/get-classes';
 
 type Props = {
-  user: any;
+  user: User | null | undefined;
   onCancel: () => void;
 };
 

@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { AddToCartPayload, cartApi } from '@/src/entities/cart';
 import { QUERY_KEYS } from '@/src/shared/api';
+import { getErrorMessage } from '@/src/shared/lib/helpers/error/get-error-message';
 import toast from 'react-hot-toast';
 
 export const useAddProductToCart = () => {
@@ -18,7 +19,7 @@ export const useAddProductToCart = () => {
       });
     },
     onError: error => {
-      toast.error(JSON.stringify(error), {
+      toast.error(getErrorMessage(error), {
         position: 'top-center',
       });
     },
@@ -27,6 +28,6 @@ export const useAddProductToCart = () => {
   return {
     addToCart: mutation.mutateAsync,
     loading: mutation.isPending,
-    error: mutation.error as string | null,
+    error: mutation.error,
   };
 };

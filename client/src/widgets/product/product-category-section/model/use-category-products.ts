@@ -27,8 +27,7 @@ export const useCategoryProducts = (
       return {
         queryKey,
         queryFn,
-        staleTime: 1000 * 60 * 10,      
-        refetchInterval: 1000 * 60 * 10, 
+        staleTime: 1000 * 60 * 10,
       };
     }),
   });

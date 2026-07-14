@@ -1,6 +1,5 @@
 'use client';
 import { IngredientIcon } from '@/src/entities/ingredient';
-import { useLockBodyScroll } from '@/src/shared/hooks';
 import { Buttons, Modal } from '@/src/shared/ui';
 import { TabsRoot } from '@/src/shared/ui/tabs/tabs';
 import Image from 'next/image';
@@ -20,8 +19,6 @@ import {
 export const ProductAddToCartModal = () => {
   const dispatch = useAppDispatch();
   const { isOpen, product } = useAppSelector(selectProductModalState);
-
-  useLockBodyScroll(isOpen);
 
   const handleClose = () => dispatch(closeProductCardModal());
 

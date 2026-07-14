@@ -1,5 +1,6 @@
 @use '@/src/shared//styles/shadows/shadows.module' as *;
 @use '@/src/shared/styles/typography/typography.module' as typo;
+@use '@/src/shared/styles/breakpoints/breakpoints.module' as *;
 
 .card {
   width: 100%;
@@ -72,4 +73,11 @@
 .price {
   width: 40px;
   height: 16px;
+}
+
+@include media-max($breakpoint-xs) {
+  .card {
+    padding: 12px;
+    gap: 8px;
+  }
 }

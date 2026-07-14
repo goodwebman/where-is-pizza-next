@@ -118,50 +118,6 @@
   margin-top: auto;
   gap: 12px;
 
-  .mobile-footer {
-    display: none;
-  }
-
-  .desktop-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-
-    &.for-slider {
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      text-align: center;
-    }
-  }
-
-  @include media-max($breakpoint-tablet) {
-    .desktop-footer {
-      display: none;
-
-      &.for-slider {
-        display: flex;
-      }
-    }
-
-    .mobile-footer {
-      display: flex;
-      gap: 8px;
-      justify-content: flex-start;
-
-      &.for-slider {
-        display: none;
-      }
-    }
-
-    .mobile-footer button {
-      background-color: var(--bg-primary-low);
-      color: var(--text-inverted);
-
-      padding: 10px;
-    }
-  }
 }
 
 .content {
@@ -187,6 +143,63 @@
     &.for-slider {
       font-size: 16px;
       font-weight: bold;
+    }
+  }
+}
+
+/* ─────────────── xs: 320px-420px ─────────────── */
+@include media-max($breakpoint-xs) {
+  .card {
+    padding: 12px;
+    gap: 8px;
+  }
+
+  .imageWrapper {
+    max-width: 80px;
+  }
+
+  .title {
+    @include typo.b2;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .ingredients {
+    @include typo.b4;
+    -webkit-line-clamp: 2;
+  }
+
+  .footer {
+    gap: 6px;
+    flex-wrap: wrap;
+
+    button {
+      padding: 8px 12px !important;
+      font-size: 14px;
+    }
+  }
+
+  .price {
+    font-size: 14px;
+  }
+}
+
+/* ─────────────── 350px ─────────────── */
+@include media-max(350px) {
+  .title {
+    @include typo.b3;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .footer {
+    button {
+      padding: 6px 10px !important;
+      font-size: 13px;
     }
   }
 }

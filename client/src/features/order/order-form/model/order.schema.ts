@@ -11,7 +11,7 @@ export const orderSchema = z
         /^[78]\d{10}$/,
         'Неверный формат телефона. Пример: 89659862820 или 79659862820',
       ),
-    email: z.string().email('Введите почту'),
+    email: z.string().email({ message: 'Введите почту' }),
 
     deliveryMode: z.nativeEnum(DeliveryMode),
     deliveryTime: z.nativeEnum(DeliveryTime),

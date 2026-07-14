@@ -7,14 +7,15 @@
 		"server"
 	],
 	"scripts": {
-		"dev": "concurrently \"yarn dev:server\" \"yarn dev:client\"",
-		"dev:client": "yarn workspace client dev",
-		"dev:server": "yarn workspace server dev",
-		"build": "yarn workspace client build && yarn workspace server build",
-		"start": "concurrently \"yarn workspace server start\" \"yarn workspace client start\"",
-		"lint": "yarn workspace client lint",
-		"prisma:generate": "yarn workspace server prisma:generate",
-		"prisma:migrate": "yarn workspace server prisma:migrate"
+		"dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+		"dev:client": "npm -w client run dev",
+		"dev:server": "npm -w server run dev",
+		"build": "npm -w client run build && npm -w server run build",
+		"start": "concurrently \"npm -w server run start\" \"npm -w client run start\"",
+		"lint": "npm -w client run lint",
+		"test": "npm -w client run test",
+		"prisma:generate": "npm -w server run prisma:generate",
+		"prisma:migrate": "npm -w server run prisma:migrate"
 	},
 	"dependencies": {
 		"@floating-ui/react": "^0.27.19",
@@ -48,6 +49,8 @@
 	"devDependencies": {
 		"@svgr/cli": "^8.1.0",
 		"@svgr/core": "^8.1.0",
+		"@testing-library/jest-dom": "^6.6.0",
+		"@testing-library/react": "^16.3.0",
 		"@types/bcrypt": "^6.0.0",
 		"@types/better-sqlite3": "^7.6.13",
 		"@types/cookie-parser": "^1.4.3",
@@ -58,9 +61,11 @@
 		"@types/react-dom": "^19",
 		"eslint": "^9",
 		"eslint-config-next": "16.1.6",
+		"jsdom": "^26.0.0",
 		"prisma": "^7.4.1",
 		"ts-node": "^10.9.2",
 		"ts-node-dev": "^2.0.0",
-		"typescript": "^5.2.2"
+		"typescript": "^5.2.2",
+		"vitest": "^3.1.0"
 	}
 }

@@ -10,7 +10,8 @@ import {
 import { openFiltersDrawer } from '@/src/entities/filters/model/slice';
 import { EMPTY_FILTERS, FiltersMap } from '@/src/entities/filters/model/types';
 
-import { useFiltersQuery } from '@/src/entities/filters/hooks/use-filters-query';
+import { getFiltersQuery } from '@/src/entities/filters/api/filters.queries';
+import { useQueries } from '@tanstack/react-query';
 import { ProductDetails } from '@/src/entities/product/model/types';
 import { openProductCardModal } from '@/src/features/product';
 import { ProductAddToCartModal } from '@/src/features/product/product-add-to-cart-modal/ui/product-add-to-cart-modal';
@@ -32,16 +33,16 @@ export const ProductCategoryContainer: FC = () => {
 
   const productsMap = useCategoryProducts(selectedFiltersMap);
 
-  const filtersQueries = CATEGORIES.map(categoryId =>
-    useFiltersQuery(categoryId),
-  );
+  const filtersResults = useQueries({
+    queries: CATEGORIES.map(categoryId => getFiltersQuery(categoryId)),
+  });
 
   const allFilters: Partial<Record<CategoryId, FiltersMap>> = useMemo(() => {
     return CATEGORIES.reduce((acc, categoryId, index) => {
-      acc[categoryId] = filtersQueries[index].data;
+      acc[categoryId] = filtersResults[index].data;
       return acc;
     }, {} as Partial<Record<CategoryId, FiltersMap>>);
-  }, [filtersQueries]);
+  }, [filtersResults]);
 
   const handleOpenFilters = (categoryId: CategoryId) => {
     dispatch(openFiltersDrawer(categoryId));

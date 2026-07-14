@@ -56,7 +56,7 @@ export const OrderForm: FC<OrderFormProps> = ({ fullPrice, totalItems }) => {
 
   const { handleSubmit } = methods;
 
-  const { submitOrder } = useOrderSubmit();
+  const { submitOrder, isLoading } = useOrderSubmit();
   const onSubmit = (data: CreateOrderDTO) => {
     submitOrder(data);
   };
@@ -72,7 +72,11 @@ export const OrderForm: FC<OrderFormProps> = ({ fullPrice, totalItems }) => {
         <OrderPaymentSection />
         <OrderChangeSection />
         <OrderCommentSection />
-        <OrderSubmitSection fullPrice={fullPrice} totalItems={totalItems} />
+        <OrderSubmitSection
+          fullPrice={fullPrice}
+          totalItems={totalItems}
+          isPending={isLoading}
+        />
       </form>
     </FormProvider>
   );

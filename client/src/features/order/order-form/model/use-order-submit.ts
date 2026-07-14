@@ -20,9 +20,14 @@ export const useOrderSubmit = () => {
     onSuccess: async (order) => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.ORDER] });
 
-      await cartApi.clearCart();
-
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.CART] });
+      // Очистка корзины не должна блокировать успешный переход.
+      // Если упадёт — заказ уже создан, юзер всё равно на странице успеха.
+      try {
+        await cartApi.clearCart();
+        queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.CART] });
+      } catch {
+        // silent — не ломаем happy path
+      }
 
       toast.success('Заказ успешно оформлен', {
         position: 'top-center',

@@ -1,8 +1,15 @@
 'use client';
 
-import { ReactNode } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  type FC,
+  type ReactNode,
+} from 'react';
 import { createPortal } from 'react-dom';
 import { Icons } from '../../assets/svg/components';
+import { useLockBodyScroll } from '../../hooks';
 import { getClasses } from './styles/get-classes';
 
 type ModalProps = {
@@ -12,21 +19,65 @@ type ModalProps = {
   onClose: () => void;
 };
 
-export const Modal = ({ isOpen, onClose, children, className }: ModalProps) => {
+export const Modal: FC<ModalProps> = ({ isOpen, onClose, children, className }) => {
   const { cnRoot, cnOverlay, cnContent, cnCloseBtn } = getClasses({ className });
+
+  const modalRef = useRef<HTMLDivElement>(null);
+  const previousActiveElement = useRef<Element | null>(null);
+
+  useLockBodyScroll(isOpen);
+
+  // Save and restore focus
+  useEffect(() => {
+    if (isOpen) {
+      previousActiveElement.current = document.activeElement;
+      // Focus the modal after a tick
+      requestAnimationFrame(() => {
+        modalRef.current?.focus();
+      });
+    }
+
+    return () => {
+      if (previousActiveElement.current instanceof HTMLElement) {
+        previousActiveElement.current.focus();
+      }
+    };
+  }, [isOpen]);
+
+  // Escape closes the modal
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    },
+    [onClose],
+  );
 
   if (!isOpen) return null;
 
   return createPortal(
-    <div className={cnRoot}>
-   
-      <div className={cnOverlay} onClick={onClose} />
+    <div
+      className={cnRoot}
+      role="dialog"
+      aria-modal="true"
+      onKeyDown={handleKeyDown}
+    >
+      <div className={cnOverlay} onClick={onClose} aria-hidden="true" />
 
-    
-      <div className={cnContent}>{children}</div>
+      <div
+        ref={modalRef}
+        className={cnContent}
+        tabIndex={-1}
+        role="document"
+      >
+        {children}
+      </div>
 
-   
-      <button className={cnCloseBtn} onClick={onClose}>
+      <button
+        className={cnCloseBtn}
+        onClick={onClose}
+        aria-label="Закрыть"
+        type="button"
+      >
         <Icons.ModalXMark color="var(--icon-primary)" width={32} height={32} />
       </button>
     </div>,

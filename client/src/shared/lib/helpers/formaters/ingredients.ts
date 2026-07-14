@@ -8,7 +8,7 @@ export function parseIngredientsToString(
       const parsed = JSON.parse(ingredients);
       if (Array.isArray(parsed)) {
         if (parsed.every(i => typeof i === 'object' && 'label' in i)) {
-          return parsed.map((i: any) => i.label).join(', ');
+          return parsed.map((i: { label: string }) => i.label).join(', ');
         }
         if (parsed.every(i => typeof i === 'string')) {
           return parsed.join(', ');

@@ -42,16 +42,22 @@ export const Counter: FC<WithClassNames<CounterProps>> = ({
         type="button"
         className={cnButtonDecrement}
         onClick={handleDecrement}
+        disabled={value <= min}
+        aria-label="Уменьшить"
       >
         -
       </button>
 
-      <span className={cnValue}>{value}</span>
+      <span className={cnValue} aria-live="polite">
+        {value}
+      </span>
 
       <button
         type="button"
         className={cnButtonIncrement}
         onClick={handleIncrement}
+        disabled={value >= max}
+        aria-label="Увеличить"
       >
         +
       </button>

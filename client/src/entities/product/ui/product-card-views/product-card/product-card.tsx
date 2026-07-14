@@ -31,10 +31,8 @@ export const ProductCard: React.FC<WithClassNames<ProductCardProps>> = ({
     cnFooter,
     cnPrice,
     cnBadge,
-    cnDesktopFooter,
-    cnMobileFooter,
   } = getProductCardClasses({ badge, className, forSlider });
-  
+
   return (
     <article className={cnCard}>
       <div className={cnImageWrapper}>
@@ -57,18 +55,10 @@ export const ProductCard: React.FC<WithClassNames<ProductCardProps>> = ({
         <p className={cnIngredients}>{parseIngredientsToString(ingredients)}</p>
 
         <div className={cnFooter}>
-          <div className={cnDesktopFooter}>
-            <Buttons.DefaultButton onClick={onClick}>
-              Выбрать
-            </Buttons.DefaultButton>
-            <span className={cnPrice}>от {price} ₽</span>
-          </div>
-
-          <div className={cnMobileFooter}>
-            <Buttons.DefaultButton onClick={onClick}>
-              от {price} ₽
-            </Buttons.DefaultButton>
-          </div>
+          <Buttons.DefaultButton onClick={onClick}>
+            Выбрать
+          </Buttons.DefaultButton>
+          <span className={cnPrice} aria-hidden="true">от {price} ₽</span>
         </div>
       </div>
     </article>

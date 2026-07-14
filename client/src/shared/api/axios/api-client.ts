@@ -1,16 +1,16 @@
+import type { Session } from '@/src/entities/session/model/types'
 import axios from 'axios'
-import { refreshSession } from '@/src/entities/session/model/thunks'
 import { getReduxDispatch, getReduxState } from '../../lib/helpers/redux'
 
 
 export const axiosInstance = axios.create({
-  baseURL: 'http://localhost:4000',
+  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000',
   timeout: 8000,
   withCredentials: true,
 })
 
 let isRefreshing = false
-let refreshPromise: Promise<any> | null = null
+let refreshPromise: Promise<Session> | null = null
 
 
 
@@ -18,7 +18,7 @@ axiosInstance.interceptors.request.use(config => {
   const state = getReduxState()
 
   const token =
-    state.session.type === 'authorized'
+    state?.session?.type === 'authorized'
       ? state.session.session.token
       : null
 
@@ -48,6 +48,17 @@ axiosInstance.interceptors.response.use(
 
         const dispatch = getReduxDispatch()
 
+        if (!dispatch) {
+          // On the server, no Redux — can't refresh
+          isRefreshing = false
+          return Promise.reject(error)
+        }
+
+        // Dynamic import to break the circular dep:
+        // thunks → api → api-client → thunks (refreshSession)
+        const { refreshSession } = await import(
+          '@/src/entities/session/model/thunks'
+        )
         refreshPromise = dispatch(refreshSession()).unwrap()
       }
 
@@ -56,10 +67,12 @@ axiosInstance.interceptors.response.use(
       isRefreshing = false
       refreshPromise = null
 
+      if (!data) return Promise.reject(error)
+
       original.headers.Authorization = `Bearer ${data.token}`
 
       return axiosInstance(original)
-    } catch (e) {
+    } catch  {
       isRefreshing = false
       refreshPromise = null
 
