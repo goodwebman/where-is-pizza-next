@@ -7,7 +7,7 @@ import { OrderSchemaValues } from '../../../model';
 import { getClasses } from './styles/get-classes';
 import { ChangeMethod } from '@/src/entities/order/model/types'
 
-export const OrderChangeSection: FC = memo(() => {
+export const OrderChangeSection: FC = memo(function OrderChangeSection() {
   const { control } = useFormContext<OrderSchemaValues>();
   const changeMode = useWatch({ control, name: 'changeMethod' });
 

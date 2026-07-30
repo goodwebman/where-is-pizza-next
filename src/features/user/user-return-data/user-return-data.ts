@@ -1,12 +1,18 @@
-import { selectIsAuthorized } from '@/src/entities/session';
+'use client';
+
+import { useQuery } from '@tanstack/react-query';
+
+import { useIsAuthorized } from '@/src/entities/session';
 import { User } from '@/src/entities/user';
 import { userApi } from '@/src/entities/user/api/user.api';
 import { QUERY_KEYS } from '@/src/shared/api';
-import { useAppSelector } from '@/src/shared/store/redux-store';
-import { useQuery } from '@tanstack/react-query';
 
+/**
+ * The full profile (phone, birth date), distinct from the identity returned by
+ * the session query — hence a separate cache key.
+ */
 export const useUserReturnData = () => {
-  const isAuth = useAppSelector(selectIsAuthorized);
+  const isAuth = useIsAuthorized();
 
   return useQuery<User | null>({
     queryKey: [QUERY_KEYS.ME],

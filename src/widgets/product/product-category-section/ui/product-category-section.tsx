@@ -11,7 +11,7 @@ import { ProductCardEmpty } from '@/src/entities/product/ui/product-card-views/p
 import { Icons } from '@/src/shared/assets/svg/components';
 import { CategoryId } from '@/src/shared/config';
 import { WithClassNames } from '@/src/shared/types';
-import { FC, useMemo } from 'react';
+import { FC } from 'react';
 import { getClasses } from './styles/get-classes';
 
 type ProductCategorySectionProps = {
@@ -51,7 +51,7 @@ export const ProductCategorySection: FC<
   const hasFilters = Boolean(filters && Object.keys(filters).length);
   const emptyProducts = products.length === 0;
 
-  const content = useMemo(() => {
+  const renderContent = () => {
     if (isLoading) {
       return Array.from({ length: 5 }).map((_, i) => (
         <ProductCardSkeleton key={i} />
@@ -81,7 +81,7 @@ export const ProductCategorySection: FC<
         badge={product.badge}
       />
     ));
-  }, [isLoading, isError, emptyProducts, products]);
+  };
 
   return (
     <section className={cnSection} id={id}>
@@ -100,7 +100,7 @@ export const ProductCategorySection: FC<
         )}
       </div>
 
-      <div className={cnProductsContainer}>{content}</div>
+      <div className={cnProductsContainer}>{renderContent()}</div>
     </section>
   );
 };

@@ -8,7 +8,7 @@ import {  OrderSchemaValues } from '../../../model';
 import { getClasses } from './styles/get-classes';
 import { DeliveryMode } from '@/src/entities/order/model/types'
 
-export const OrderDeliverySection: FC = memo(() => {
+export const OrderDeliverySection: FC = memo(function OrderDeliverySection() {
   const { control, setValue } = useFormContext<OrderSchemaValues>();
 
   const deliveryMode = useWatch({

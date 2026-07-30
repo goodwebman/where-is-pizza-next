@@ -1,22 +1,22 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useSyncExternalStore } from 'react';
+
+const emptySubscribe = () => () => {};
 
 export const useMediaQuery = (query: string): boolean => {
-  const [matches, setMatches] = useState(false);
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
+  const subscribe = useCallback(
+    (onStoreChange: () => void) => {
       const mediaQuery = window.matchMedia(query);
-      setMatches(mediaQuery.matches);
+      mediaQuery.addEventListener('change', onStoreChange);
+      return () => mediaQuery.removeEventListener('change', onStoreChange);
+    },
+    [query],
+  );
 
-      const handler = (event: MediaQueryListEvent) => setMatches(event.matches);
-      mediaQuery.addEventListener('change', handler);
-      return () => mediaQuery.removeEventListener('change', handler);
-    }
-  }, [query]);
-
-  return matches;
+  return useSyncExternalStore(
+    typeof window === 'undefined' ? emptySubscribe : subscribe,
+    () => window.matchMedia(query).matches,
+    () => false,
+  );
 };
-
-//const isTabletOrMobile = useMediaQuery(`(max-width: ${TABLET_BREAKPOINT - 0.02}px)`);

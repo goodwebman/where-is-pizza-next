@@ -10,7 +10,6 @@ export const useOptionsSelect = () => {
   const { logout } = useLogout();
   const options = useMemo(
     () => [
-     
       { value: 'settings', children: 'Настройки', href: '/profile/settings' },
       { value: 'logout', children: 'Выйти из аккаунта' },
     ],
@@ -30,7 +29,7 @@ export const useOptionsSelect = () => {
         router.push(href);
       }
     },
-    [router],
+    [router, logout],
   );
 
   return { options, handleSelect };

@@ -1,38 +1,25 @@
 'use client';
 
 import { SelectedOptions } from '@/src/entities/cart';
-
-import { ProductDetails, ProductOption } from '@/src/entities/product/model/types';
-import { useAddProductToCart } from '@/src/features/cart'
+import { ProductDetails } from '@/src/entities/product/model/types';
+import { useAddProductToCart } from '@/src/features/cart';
 
 export const useAddProductToCartHandler = (onClose: () => void) => {
   const { addToCart, loading } = useAddProductToCart();
 
   const handleAddToCart = async (
     product: ProductDetails,
-    selected: SelectedOptions
+    selected: SelectedOptions,
   ) => {
     if (!product) return;
 
-
-    let finalPrice = product.price;
-
-    product.options?.forEach((option: ProductOption) => {
-      const selectedIds = selected[option.id];
-      if (!selectedIds || !selectedIds.length) return;
-
-      option.values.forEach(value => {
-        if (selectedIds.includes(value.id) && value.price) {
-          finalPrice += value.price;
-        }
-      });
-    });
-
+    // The price used to be computed here and sent along; the server now derives
+    // it from the catalogue and ignores anything the client believes it costs.
+    // Display-side pricing still lives in the modal, where it belongs.
     await addToCart({
       productId: product.id,
       selectedOptions: selected,
       quantity: 1,
-      price: finalPrice,
     });
 
     onClose();

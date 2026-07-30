@@ -1,5 +1,10 @@
 import { ProductDetails } from '../../product/model/types';
 
+/**
+ * Two shapes share this alias by direction: outbound it is
+ * Record<optionId, valueId[]>, inbound the server resolves it to
+ * Record<optionTitle, valueTitle[]> for display.
+ */
 export type SelectedOptions = Record<string, string[]>;
 
 export type CartItem = {
@@ -22,5 +27,4 @@ export type AddToCartPayload = {
   productId: string;
   quantity?: number;
   selectedOptions?: SelectedOptions;
-  price?: number;
 };

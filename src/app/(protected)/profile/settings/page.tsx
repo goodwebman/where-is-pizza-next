@@ -1,12 +1,6 @@
-import { AuthGuard } from '@/src/features/auth';
 import { ProfileSettings } from '@/src/widgets';
 
-const ProfileSettingsPage = () => {
-  return (
-    <AuthGuard>
-      <ProfileSettings />
-    </AuthGuard>
-  );
-};
+// Access is enforced server-side by the layout — no client-side guard needed.
+const ProfileSettingsPage = () => <ProfileSettings />;
 
 export default ProfileSettingsPage;

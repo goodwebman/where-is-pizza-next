@@ -1,11 +1,7 @@
 'use client';
 
-import {
-  selectAuthError,
-  selectAuthStatus,
-  useRegister,
-} from '@/src/entities/session';
-import { useAppSelector } from '@/src/shared/store/redux-store';
+import { useRegister } from '@/src/entities/session';
+import { getErrorMessage } from '@/src/shared/lib/helpers/error/get-error-message';
 import { Buttons, InputDefaultField } from '@/src/shared/ui';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FC } from 'react';
@@ -36,7 +32,7 @@ export const RegisterForm: FC<RegisterFormProps> = ({
     },
   });
 
-  const { register } = useRegister();
+  const { register, loading } = useRegister();
 
   const onSubmit = async (data: RegisterSchemaValues) => {
     try {
@@ -50,7 +46,9 @@ export const RegisterForm: FC<RegisterFormProps> = ({
         position: 'top-center',
       });
     } catch (error) {
-      toast.error(`${error}`, {
+      // Was `${error}`, which rendered "AxiosError: Request failed with status
+      // code 409" into the toast.
+      toast.error(getErrorMessage(error), {
         position: 'top-center',
       });
     }
@@ -60,8 +58,7 @@ export const RegisterForm: FC<RegisterFormProps> = ({
     getClasses({
       className,
     });
-  const authError = useAppSelector(selectAuthError);
-  const authStatus = useAppSelector(selectAuthStatus);
+
   return (
     <section className={cnRoot}>
       <h1 className={cnTitle}>Регистрация</h1>
@@ -75,7 +72,7 @@ export const RegisterForm: FC<RegisterFormProps> = ({
           placeholder="Иван Иванов"
           name="username"
           label="Введите имя*"
-          errorMessage={errors.username?.message || authError}
+          errorMessage={errors.username?.message}
           hasError={!!errors.username}
         />
 
@@ -85,7 +82,7 @@ export const RegisterForm: FC<RegisterFormProps> = ({
           placeholder="email01test@mail.ru"
           name="email"
           label="Введите почту*"
-          errorMessage={errors.email?.message || authError}
+          errorMessage={errors.email?.message}
           hasError={!!errors.email}
         />
 
@@ -95,12 +92,12 @@ export const RegisterForm: FC<RegisterFormProps> = ({
           placeholder="qwerty128&^*&JAS^D"
           name="password"
           label="Введите пароль*"
-          errorMessage={errors.password?.message || authError}
+          errorMessage={errors.password?.message}
           hasError={!!errors.password}
         />
 
-        <Buttons.DefaultButton type='submit'>
-          {authStatus === 'pending' ? 'Регистрируем...' : 'Регистрация'}
+        <Buttons.DefaultButton type="submit" disabled={loading}>
+          {loading ? 'Регистрируем...' : 'Регистрация'}
         </Buttons.DefaultButton>
       </form>
       <p className={cnSuptitle}>

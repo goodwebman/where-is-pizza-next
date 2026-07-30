@@ -69,6 +69,8 @@ export const DropdownContainer: FC<DropdownContainerProps> = ({
   });
 
 
+  const { setReference, setFloating } = refs;
+
   const dismiss = useDismiss(context);
   const role = useRole(context, { role: 'menu' });
 
@@ -98,7 +100,7 @@ export const DropdownContainer: FC<DropdownContainerProps> = ({
   return (
     <div className={cnContainer}>
       <button
-        ref={refs.setReference}
+        ref={setReference}
         type="button"
         className={cnButton}
         {...getReferenceProps({
@@ -113,7 +115,7 @@ export const DropdownContainer: FC<DropdownContainerProps> = ({
 
       {isOpen && (
         <ul
-          ref={refs.setFloating}
+          ref={setFloating}
           style={floatingStyles}
           className={cnMenu}
           {...getFloatingProps()}

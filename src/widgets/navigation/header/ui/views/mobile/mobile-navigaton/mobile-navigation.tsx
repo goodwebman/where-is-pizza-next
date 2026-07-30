@@ -40,13 +40,13 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
     className,
   });
 
-  if (!isOpen) return null;
-
   const {
     isOpen: isAuthSwitcherModalOpen,
     open,
     close,
   } = useAuthSwitcherModal();
+
+  if (!isOpen) return null;
 
   return (
     <nav className={cnRoot}>

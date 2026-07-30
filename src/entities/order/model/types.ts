@@ -1,65 +1,28 @@
-export enum DeliveryMode {
-  Delivery = 'delivery',
-  Pickup = 'pickup',
-}
+import type { Ingredients } from '@/src/entities/product/model/types';
+import type {
+  ChangeMethod,
+  DeliveryMode,
+  DeliveryTime,
+  OrderStatus,
+  PaymentMethod,
+} from '@/src/shared/contracts';
 
-export enum DeliveryTime {
-  ASAP = 'asap',
-  Scheduled = 'scheduled',
-}
+/**
+ * Enums and the create-order payload live in shared/contracts so the server
+ * validates exactly what the client sends. Re-exported here to keep the
+ * entity's public surface stable for existing imports.
+ */
+export {
+  ChangeMethod,
+  DeliveryMode,
+  DeliveryTime,
+  OrderStatus,
+  PaymentMethod,
+  type Address,
+  type CreateOrderInput as CreateOrderDTO,
+} from '@/src/shared/contracts';
 
-export enum PaymentMethod {
-  Cash = 'cash',
-  Card = 'card',
-  ApplePay = 'applePay',
-}
-
-export enum ChangeMethod {
-  WithoutChange = 'withoutChange',
-  WithChange = 'withChange',
-}
-
-export enum OrderStatus {
-  PENDING = 'PENDING',
-  CONFIRMED = 'CONFIRMED',
-  CANCELLED = 'CANCELLED',
-}
-
-export type Address = {
-  street?: string;
-  house?: string;
-  entrance?: string;
-  floor?: string;
-  apartment?: string;
-  intercom?: string;
-};
-
-export type CreateOrderDTO = {
-  name: string;
-  phone: string;
-  email: string;
-
-  deliveryMode: DeliveryMode;
-  deliveryTime: DeliveryTime;
-
-  address?: Address;
-
-  scheduledDate?: string;
-  scheduledTime?: string;
-
-  restaurantId?: string;
-
-  paymentMethod: PaymentMethod;
-  changeMethod: ChangeMethod;
-  changeFrom?: string;
-
-  comment?: string;
-};
-
-export type Ingredients = {
-  id: string;
-  label: string;
-};
+export type { Ingredients };
 
 export type OrderItem = {
   id: string;
@@ -69,7 +32,7 @@ export type OrderItem = {
   price: number;
   quantity: number;
   selectedOptions: Record<string, string[]>;
-  ingredients?: Ingredients[];
+  ingredients: Ingredients[];
 };
 
 export type Order = {
@@ -83,17 +46,24 @@ export type Order = {
 
   deliveryMode: DeliveryMode;
   deliveryTime: DeliveryTime;
-  address?: Address | null;
-  scheduledDate?: string | null;
-  scheduledTime?: string | null;
+  address: {
+    street?: string;
+    house?: string;
+    entrance?: string;
+    floor?: string;
+    apartment?: string;
+    intercom?: string;
+  } | null;
+  scheduledDate: string | null;
+  scheduledTime: string | null;
 
-  restaurantId?: string | null;
+  restaurantId: string | null;
 
   paymentMethod: PaymentMethod;
   changeMethod: ChangeMethod;
-  changeFrom?: string | null;
+  changeFrom: string | null;
 
-  comment?: string | null;
+  comment: string | null;
 
   items: OrderItem[];
 

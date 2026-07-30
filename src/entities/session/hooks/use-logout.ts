@@ -1,21 +1,24 @@
 'use client';
 
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+
 import { QUERY_KEYS } from '@/src/shared/api';
-import { useAppDispatch } from '@/src/shared/store/redux-store';
-import { useQueryClient } from '@tanstack/react-query';
-import { useCallback } from 'react';
-import { logoutSession } from '@/src/entities/session/model/thunks'
+import { sessionApi } from '../api/session.api';
 
 export const useLogout = () => {
-  const dispatch = useAppDispatch();
   const queryClient = useQueryClient();
 
-  const logout = useCallback(async () => {
-    await dispatch(logoutSession()).unwrap();
+  const mutation = useMutation({
+    mutationFn: () => sessionApi.logout(),
+    onSuccess: () => {
+      queryClient.setQueryData([QUERY_KEYS.SESSION], null);
+      // Drop everything scoped to the account, so the next person using this
+      // browser cannot glimpse the previous user's data.
+      queryClient.removeQueries({ queryKey: [QUERY_KEYS.ME] });
+      queryClient.removeQueries({ queryKey: [QUERY_KEYS.ORDER] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.CART] });
+    },
+  });
 
-    queryClient.setQueryData([QUERY_KEYS.ME], null);
-    queryClient.removeQueries({ queryKey: [QUERY_KEYS.ME] });
-  }, [dispatch, queryClient]);
-
-  return { logout };
+  return { logout: mutation.mutateAsync, loading: mutation.isPending };
 };

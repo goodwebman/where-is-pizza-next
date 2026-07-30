@@ -1,2 +1,1 @@
-export * from './auth-forms'
-export * from './auth-guard'
+﻿export * from './auth-forms';

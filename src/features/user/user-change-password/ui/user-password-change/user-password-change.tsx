@@ -2,9 +2,8 @@
 
 import { useState } from 'react';
 
-import { selectIsAuthorized } from '@/src/entities/session';
+import { useIsAuthorized } from '@/src/entities/session';
 import { Icons } from '@/src/shared/assets/svg/components';
-import { useAppSelector } from '@/src/shared/store/redux-store';
 import { Buttons } from '@/src/shared/ui';
 import { AnimatePresence, motion } from 'framer-motion';
 import { UserPasswordForm } from '../components/user-password-form/ui';
@@ -14,7 +13,7 @@ export const UserPasswordChange = () => {
   const [change, setChange] = useState(false);
   const { cnHeader, cnLabel, cnRoot } = getClasses({});
 
-  const isAuth = useAppSelector(selectIsAuthorized);
+  const isAuth = useIsAuthorized();
 
   if (!isAuth) return null;
 

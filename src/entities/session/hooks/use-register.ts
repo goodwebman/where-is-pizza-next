@@ -1,19 +1,23 @@
 'use client';
 
-import { useAppDispatch } from '@/src/shared/store/redux-store';
-import { useCallback } from 'react';
-import {  type RegisterData } from '../model';
-import { registerSession } from '@/src/entities/session/model/thunks'
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+
+import { QUERY_KEYS } from '@/src/shared/api';
+import type { RegisterInput } from '@/src/shared/contracts';
+import { sessionApi } from '../api/session.api';
 
 export const useRegister = () => {
-  const dispatch = useAppDispatch();
+  const queryClient = useQueryClient();
 
-  const register = useCallback(
-    async (data: RegisterData) => {
-      return await dispatch(registerSession(data)).unwrap();
+  const mutation = useMutation({
+    mutationFn: (data: RegisterInput) => sessionApi.register(data),
+    onSuccess: user => {
+      queryClient.setQueryData([QUERY_KEYS.SESSION], user);
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.CART] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.ORDER] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.ME] });
     },
-    [dispatch],
-  );
+  });
 
-  return { register };
+  return { register: mutation.mutateAsync, loading: mutation.isPending };
 };

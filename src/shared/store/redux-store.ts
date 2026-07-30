@@ -1,8 +1,6 @@
 import { cartDrawerSlice } from '@/src/entities/cart/model/slice';
 import { filtersSlice } from '@/src/entities/filters/model/slice';
-import sessionReducer from '@/src/entities/session/model/slice'
 import { productCardModalSlice } from '@/src/features/product'
-import { registerStore } from '@/src/shared/lib/helpers/redux/store-registry'
 import {
   combineReducers,
   configureStore,
@@ -29,8 +27,12 @@ import { createTransform,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
+/**
+ * Redux holds ephemeral UI state only. Authentication moved to httpOnly cookies
+ * with React Query as the client-side cache, so there is no session slice and no
+ * token in memory to keep in sync.
+ */
 const rootReducer = combineReducers({
-  session: sessionReducer,
   filters: filtersSlice.reducer,
   cartDrawer: cartDrawerSlice.reducer,
   productCardModal: productCardModalSlice.reducer
@@ -77,8 +79,6 @@ export const store = configureStore({
       },
     }),
 });
-
-registerStore(store)
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
