@@ -1,0 +1,234 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/server/db/generated"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id            Int            @id @default(autoincrement())
+  email         String         @unique
+  username      String         @unique
+  password      String
+  phone         String?        @unique
+  birthDate     DateTime?
+  refreshTokens RefreshToken[]
+
+  cart   Cart?
+  orders Order[]
+}
+
+/// Refresh tokens are stored hashed (SHA-256) — a database leak must not hand
+/// out usable sessions. `familyId` groups every token descended from one login
+/// so that detecting reuse of a rotated token can revoke the whole family.
+model RefreshToken {
+  id        Int       @id @default(autoincrement())
+  tokenHash String    @unique
+  familyId  String
+  userId    Int
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  rotatedAt DateTime?
+  revokedAt DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([userId])
+  @@index([familyId])
+  @@index([expiresAt])
+}
+
+model Product {
+  id          String  @id @default(uuid())
+  categoryId  String
+  title       String
+  imageSrc    String
+  ingredients Json
+  price       Int
+  badge       String?
+
+  nutrition Nutrition?
+  options   ProductOption[]
+  cartItems CartItem[]
+
+  @@index([categoryId])
+}
+
+model Nutrition {
+  id              String @id @default(uuid())
+  caloriesPer100g Int
+
+  productId String  @unique
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model ProductOption {
+  id       String     @id @default(uuid())
+  title    String
+  type     OptionType
+  required Boolean    @default(false)
+
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  values ProductOptionValue[]
+
+  @@index([productId])
+}
+
+model ProductOptionValue {
+  id       String        @id @default(uuid())
+  slug     String
+  title    String
+  price    Int?
+  weight   Int?
+  optionId String
+  option   ProductOption @relation(fields: [optionId], references: [id], onDelete: Cascade)
+
+  @@index([optionId])
+}
+
+enum OptionType {
+  single
+  multiple
+}
+
+model Cart {
+  id String @id @default(uuid())
+
+  userId Int?  @unique
+  user   User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  guestId String? @unique
+
+  items     CartItem[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  orders Order[]
+}
+
+model CartItem {
+  id     String @id @default(uuid())
+  cartId String
+  cart   Cart   @relation(fields: [cartId], references: [id], onDelete: Cascade)
+
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+
+  /// Unit price in minor-less integer roubles, always recomputed server-side
+  /// from Product.price plus the selected option surcharges.
+  price    Int
+  quantity Int @default(1)
+
+  /// Canonical JSON of Record<optionId, valueId[]> — keys and values sorted, so
+  /// that byte equality means semantic equality. See domain/cart/canonical-options.
+  selectedOptions String
+
+  createdAt DateTime @default(now())
+
+  /// Makes "same product with same options" a single row by construction: the
+  /// add-to-cart path is an atomic upsert instead of read-then-write.
+  @@unique([cartId, productId, selectedOptions])
+  @@index([cartId])
+}
+
+model Order {
+  id String @id @default(uuid())
+
+  userId Int?
+  user   User? @relation(fields: [userId], references: [id])
+
+  /// Kept for traceability only. The cart row is deleted when a guest cart is
+  /// merged into a user account, which nulls this out — ownership is therefore
+  /// carried by userId/guestId below, never by this relation.
+  cartId String?
+  cart   Cart?   @relation(fields: [cartId], references: [id])
+
+  /// Snapshot of the guest cookie at creation time. Independent of the cart's
+  /// lifetime, so guest order history survives the cart being merged or cleared.
+  guestId String?
+
+  status    OrderStatus @default(PENDING)
+  fullPrice Int
+
+  name  String
+  phone String
+  email String
+
+  deliveryMode DeliveryMode
+  deliveryTime DeliveryTime
+
+  street    String?
+  house     String?
+  entrance  String?
+  floor     String?
+  apartment String?
+  intercom  String?
+
+  scheduledDate String?
+  scheduledTime String?
+
+  restaurantId String?
+
+  paymentMethod PaymentMethod
+  changeMethod  ChangeMethod
+  changeFrom    String?
+
+  comment String?
+
+  items OrderItem[]
+
+  createdAt DateTime @default(now())
+
+  @@index([userId, createdAt])
+  @@index([guestId, createdAt])
+}
+
+/// Immutable snapshot of a product at the moment the order was placed.
+model OrderItem {
+  id        String @id @default(uuid())
+  orderId   String
+  order     Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  imageSrc  String
+  productId String
+  title     String
+  price     Int
+  quantity  Int
+
+  /// { id, label }[] — matches the Ingredients[] type the client expects.
+  ingredients Json
+
+  /// Human-readable Record<optionTitle, valueTitle[]>, resolved at order time so
+  /// history stays correct even if option titles change later.
+  selectedOptions Json
+
+  @@index([orderId])
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+}
+
+enum DeliveryMode {
+  Delivery
+  Pickup
+}
+
+enum DeliveryTime {
+  ASAP
+  Scheduled
+}
+
+enum PaymentMethod {
+  Cash
+  Card
+}
+
+enum ChangeMethod {
+  WithoutChange
+  WithChange
+}
