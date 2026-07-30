@@ -534,8 +534,13 @@ const optionValueId = (option: string, slug: string) => `${option}:${slug}`;
 async function main() {
   const prisma = new PrismaClient({
     adapter: new PrismaPg({
+      // Prefers the direct connection: the seed runs dozens of statements in a
+      // row, and DATABASE_URL_UNPOOLED is the name Vercel's Neon integration
+      // uses.
       connectionString:
-        process.env.DIRECT_DATABASE_URL ?? process.env.DATABASE_URL,
+        process.env.DIRECT_DATABASE_URL ??
+        process.env.DATABASE_URL_UNPOOLED ??
+        process.env.DATABASE_URL,
     }),
   });
 
