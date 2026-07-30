@@ -21,37 +21,51 @@
   }
 }
 
+/// Reserves room for the largest image so picking a size resizes the pizza
+/// without the rest of the dialog jumping around.
+///
+/// min-width: 400px here was the main reason this dialog broke on phones: on a
+/// 360px screen the column could not fit and the layout overflowed sideways.
+/// min-width: 0 plus a max-width lets it shrink instead.
 .image-wrapper {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
 
-  // min-width: 400px was the main reason this dialog broke on phones: on a
-  // 360px screen the column simply could not fit, so the layout overflowed
-  // sideways. A square box that scales down keeps the proportions instead.
   min-width: 0;
   width: 100%;
   max-width: 420px;
-  aspect-ratio: 1;
+  min-height: 400px;
   margin: 0 auto;
 
   @include media-max($breakpoint-laptop) {
-    max-width: 320px;
+    max-width: 340px;
+    min-height: 300px;
   }
 
   @include media-max($breakpoint-sm) {
-    max-width: 240px;
+    max-width: 100%;
+    min-height: 220px;
+  }
+
+  @include media-max($breakpoint-xxs) {
+    min-height: 180px;
   }
 }
 
+/// No width/height here on purpose: those come from the width and height
+/// attributes that useProductImageSize feeds to next/image, which is what makes
+/// the pizza grow when a larger size is picked. Setting them in CSS overrode
+/// that and killed the effect. max-width keeps it inside the dialog on small
+/// screens, height: auto keeps it in proportion when that kicks in.
 .image {
-  width: 100%;
-  height: 100%;
   max-width: 100%;
+  height: auto;
   object-fit: contain;
-  // Previously scaled down and nudged with margin-right: 60px, which threw the
-  // image off-centre on small screens.
+  transition:
+    width 0.25s ease,
+    height 0.25s ease;
 }
 
 .options {
@@ -81,6 +95,10 @@
 
     @include media-max($breakpoint-sm) {
       font-size: 20px;
+    }
+
+    @include media-max($breakpoint-xxs) {
+      font-size: 18px;
     }
   }
 
@@ -120,6 +138,12 @@
     border-radius: 14px;
   }
 
+  @include media-max($breakpoint-xxs) {
+    padding: 10px;
+    max-width: 64px;
+    border-radius: 12px;
+  }
+
   &--selected {
     border: 1px var(--border-primary) solid;
   }
@@ -141,6 +165,10 @@
 
     @include media-max($breakpoint-sm) {
       gap: 12px;
+    }
+
+    @include media-max($breakpoint-xxs) {
+      gap: 8px;
     }
   }
 }

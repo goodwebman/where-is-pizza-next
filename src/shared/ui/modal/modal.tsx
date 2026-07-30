@@ -69,17 +69,27 @@ export const Modal: FC<ModalProps> = ({ isOpen, onClose, children, className }) 
         tabIndex={-1}
         role="document"
       >
+        {/*
+          Inside the dialog, not beside it: positioned against the full-screen
+          container the button sat in the viewport corner, which on a short
+          screen is above the vertically centred dialog - floating over the
+          overlay instead of on the dialog itself.
+        */}
+        <button
+          className={cnCloseBtn}
+          onClick={onClose}
+          aria-label="Закрыть"
+          type="button"
+        >
+          <Icons.ModalXMark
+            color="var(--icon-primary)"
+            width={32}
+            height={32}
+          />
+        </button>
+
         {children}
       </div>
-
-      <button
-        className={cnCloseBtn}
-        onClick={onClose}
-        aria-label="Закрыть"
-        type="button"
-      >
-        <Icons.ModalXMark color="var(--icon-primary)" width={32} height={32} />
-      </button>
     </div>,
     document.body
   );

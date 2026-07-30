@@ -12,7 +12,10 @@
 
 @font-face {
   font-family: 'Inter';
-  src: url('/fonts/Inter-Semibold.ttf') format('truetype');
+  /* Case matters: the file is Inter-SemiBold.ttf. Windows did not care, Vercel's
+     Linux filesystem did, so this weight 404'd in production and headings fell
+     back to a system serif. */
+  src: url('/fonts/Inter-SemiBold.ttf') format('truetype');
   font-weight: 600;
   font-style: normal;
   font-display: swap;

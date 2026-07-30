@@ -1,15 +1,15 @@
-/// Display face for section headings. Falls back to Inter if the variable is
-/// missing, so styles still render if the font fails to load.
+/// Headings use SF Pro Text Bold - already bundled with the project, and a
+/// softer, rounder face than Inter, which now reads as the interface font.
 @mixin h1 {
-  font-family: var(--font-display), 'Inter', sans-serif;
-  font-weight: 800;
+  font-family: 'SFProText', 'Inter', sans-serif;
+  font-weight: 700;
   font-size: 40px;
   letter-spacing: -0.02em;
 }
 
 @mixin h2 {
-  font-family: var(--font-display), 'Inter', sans-serif;
-  font-weight: 800;
+  font-family: 'SFProText', 'Inter', sans-serif;
+  font-weight: 700;
   font-size: 32px;
   letter-spacing: -0.02em;
 }

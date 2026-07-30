@@ -25,6 +25,11 @@
   @include media-max($breakpoint-sm) {
     padding: 12px;
   }
+
+  // On a 320px screen every pixel of width counts.
+  @include media-max($breakpoint-xxs) {
+    padding: 8px;
+  }
 }
 
 .overlay {
@@ -49,47 +54,44 @@
 
   background-color: var(--bg-inverted);
   border-radius: 16px;
-  // Room at the top so content never sits under the close button.
-  padding: 56px 24px 32px;
+  padding: 16px 24px 32px;
 
   display: flex;
   flex-direction: column;
   gap: 16px;
 
   @include media-max($breakpoint-tablet) {
-    padding: 52px 16px 24px;
+    padding: 12px 16px 24px;
   }
 
   @include media-max($breakpoint-sm) {
-    padding: 48px 12px 16px;
+    padding: 12px 12px 16px;
     border-radius: 12px;
+  }
+
+  @include media-max($breakpoint-xxs) {
+    padding: 8px 10px 12px;
+    gap: 12px;
   }
 }
 
-/// Absolute against .root, not fixed to the viewport as before, and kept out of
-/// the flex flow - as a flex child it would sit beside the dialog and push it
-/// off-centre. Offsets match the container padding, so on narrow screens, where
-/// the dialog fills the width, it lands exactly on the dialog's corner.
+/// Sticky, as the first child of the scrolling dialog: it stays in the dialog's
+/// top-right corner and remains reachable while the content scrolls under it.
+/// The opaque background is what keeps it legible over that content.
 .close-btn {
-  position: absolute;
-  top: 32px;
-  right: 24px;
+  position: sticky;
+  top: 0;
+  align-self: flex-end;
   z-index: 1010;
 
   display: inline-flex;
-  padding: 4px;
-  background: none;
+  padding: 6px;
+  background-color: var(--bg-inverted);
   border: none;
   border-radius: 8px;
   cursor: pointer;
 
-  @include media-max($breakpoint-tablet) {
-    top: 20px;
-    right: 16px;
-  }
-
-  @include media-max($breakpoint-sm) {
-    top: 12px;
-    right: 12px;
+  &:hover {
+    background-color: var(--bg-secondary);
   }
 }
