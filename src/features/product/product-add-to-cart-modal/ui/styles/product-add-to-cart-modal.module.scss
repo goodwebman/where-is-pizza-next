@@ -1,32 +1,23 @@
 @use '@/src/shared/styles/typography/typography.module' as typo;
 @use '@/src/shared/styles/breakpoints/breakpoints.module' as *;
 
+/// Wider than the default dialog because this one is two columns on desktop.
+/// Width and centring come from the base modal; only the ceiling is raised.
 .modal {
-  width: 70%;
-  max-height: 85vh;
-
-  @include media-max($breakpoint-md) {
-    width: 100%;
-  }
-
-  overflow-y: auto;
-  overflow-x: hidden;
+  max-width: 1100px;
 }
 
 .root {
   display: flex;
-
   justify-content: space-between;
   align-items: center;
   gap: 40px;
 
-  @include media-max($breakpoint-xxl) {
+  // Below this the two columns no longer fit side by side.
+  @include media-max($breakpoint-laptop) {
     flex-direction: column;
-    gap: 10px;
-  }
-
-  @include media-max($breakpoint-tablet) {
-    display: block;
+    align-items: stretch;
+    gap: 20px;
   }
 }
 
@@ -35,22 +26,32 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-width: 400px;
-  min-height: 400px;
+
+  // min-width: 400px was the main reason this dialog broke on phones: on a
+  // 360px screen the column simply could not fit, so the layout overflowed
+  // sideways. A square box that scales down keeps the proportions instead.
+  min-width: 0;
+  width: 100%;
+  max-width: 420px;
+  aspect-ratio: 1;
+  margin: 0 auto;
+
+  @include media-max($breakpoint-laptop) {
+    max-width: 320px;
+  }
+
+  @include media-max($breakpoint-sm) {
+    max-width: 240px;
+  }
 }
 
 .image {
+  width: 100%;
+  height: 100%;
   max-width: 100%;
   object-fit: contain;
-
-  @include media-max($breakpoint-lg) {
-    scale: 0.8;
-  }
-
-  @include media-max($breakpoint-xs) {
-    scale: 0.8;
-    margin-right: 60px;
-  }
+  // Previously scaled down and nudged with margin-right: 60px, which threw the
+  // image off-centre on small screens.
 }
 
 .options {
@@ -58,6 +59,12 @@
   flex-direction: column;
   gap: 24px;
   height: 100%;
+  min-width: 0;
+
+  @include media-max($breakpoint-laptop) {
+    width: 100%;
+    gap: 16px;
+  }
 
   &--header {
     display: flex;
@@ -70,8 +77,11 @@
     @include typo.b1;
     font-size: 25px;
     font-weight: bold;
-    text-align: center;
     color: var(--text-secondary);
+
+    @include media-max($breakpoint-sm) {
+      font-size: 20px;
+    }
   }
 
   &--sublabel {
@@ -104,6 +114,12 @@
     max-width: 80px;
   }
 
+  @include media-max($breakpoint-sm) {
+    padding: 12px;
+    max-width: 72px;
+    border-radius: 14px;
+  }
+
   &--selected {
     border: 1px var(--border-primary) solid;
   }
@@ -122,10 +138,10 @@
     align-items: center;
     justify-content: center;
     gap: 20px;
-    align-items: center;
 
-
-    
+    @include media-max($breakpoint-sm) {
+      gap: 12px;
+    }
   }
 }
 
@@ -138,6 +154,19 @@
 
   button {
     padding: 16px 25px;
+  }
+
+  // Side by side these two wrap awkwardly on a phone; stacking keeps the price
+  // readable and gives the button a full-width tap target.
+  @include media-max($breakpoint-sm) {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+
+    button {
+      width: 100%;
+      padding: 14px 20px;
+    }
   }
 
   &--left {
@@ -174,12 +203,14 @@
   position: relative;
   display: flex;
 }
+
 .calories--overlay {
   position: absolute;
   top: 150%;
   right: 0;
 
   min-width: 180px;
+  max-width: min(240px, 70vw);
   padding: 10px 12px;
   border-radius: 12px;
   background: var(--bg-secondary);

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Куда пицца">
+  <!-- Crust: the outer wedge, in the brand orange. -->
+  <path d="M16 2.5 29 27.2a2.2 2.2 0 0 1-2.6 3.05C22.9 29.3 19.6 28.8 16 28.8s-6.9.5-10.4 1.45A2.2 2.2 0 0 1 3 27.2Z" fill="#e66f34"/>
+  <!-- Cheese: inset so the crust reads as a rim even at 16px. -->
+  <path d="M16 7.6 25.6 25.9c-3.1-.7-6.3-1.05-9.6-1.05s-6.5.35-9.6 1.05Z" fill="#ffc46b"/>
+  <!-- Pepperoni, sized to stay visible when the icon is scaled down. -->
+  <circle cx="16" cy="14.6" r="2.05" fill="#d63a2f"/>
+  <circle cx="11.5" cy="21.4" r="1.85" fill="#d63a2f"/>
+  <circle cx="20.4" cy="21.4" r="1.85" fill="#d63a2f"/>
+</svg>

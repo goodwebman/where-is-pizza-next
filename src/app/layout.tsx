@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Nunito } from 'next/font/google';
 
 import { Footer } from '@/src/widgets/navigation/footer/footer';
 import { Header } from '@/src/widgets/navigation/header';
@@ -6,8 +7,19 @@ import { CartDrawer } from '../features/cart/cart-drawer/ui/cart-drawer';
 import './globals.css';
 import { Providers } from './providers';
 
+/**
+ * Display face for headings. Self-hosted by next/font at build time — no
+ * request to Google at runtime, and no layout shift.
+ */
+const display = Nunito({
+  subsets: ['cyrillic', 'latin'],
+  weight: ['700', '800'],
+  variable: '--font-display',
+  display: 'swap',
+});
+
 export const metadata: Metadata = {
-  title: 'Where is pizza',
+  title: 'Куда пицца — доставка пиццы и суши',
   description: 'Доставка пиццы, суши и других вкусностей',
 };
 
@@ -17,7 +29,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="ru" className={display.variable}>
       <head>
         <script
           dangerouslySetInnerHTML={{

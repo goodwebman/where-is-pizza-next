@@ -1,13 +1,17 @@
+/// Display face for section headings. Falls back to Inter if the variable is
+/// missing, so styles still render if the font fails to load.
 @mixin h1 {
-  font-family: 'Inter';
-  font-weight: 600;
+  font-family: var(--font-display), 'Inter', sans-serif;
+  font-weight: 800;
   font-size: 40px;
+  letter-spacing: -0.02em;
 }
 
 @mixin h2 {
-  font-family: 'Inter';
-  font-weight: 600;
+  font-family: var(--font-display), 'Inter', sans-serif;
+  font-weight: 800;
   font-size: 32px;
+  letter-spacing: -0.02em;
 }
 
 
