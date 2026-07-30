@@ -81,8 +81,14 @@ export const Modal: FC<ModalProps> = ({ isOpen, onClose, children, className }) 
           aria-label="Закрыть"
           type="button"
         >
+          {/*
+            --icon-primary is gray-0, i.e. white: it was chosen back when this
+            button sat on the dimmed overlay. Inside the dialog the background
+            is also white, so the icon was invisible until hover tinted the
+            button behind it.
+          */}
           <Icons.ModalXMark
-            color="var(--icon-primary)"
+            color="var(--text-secondary)"
             width={32}
             height={32}
           />
