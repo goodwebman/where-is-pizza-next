@@ -7,6 +7,7 @@ import {
   selectOpenDrawerCategory,
 } from '@/src/entities/filters/model/selectors';
 
+import { countSelectedFilters } from '@/src/entities/filters/model/count-selected-filters';
 import { openFiltersDrawer } from '@/src/entities/filters/model/slice';
 import { EMPTY_FILTERS, FiltersMap } from '@/src/entities/filters/model/types';
 
@@ -69,6 +70,9 @@ export const ProductCategoryContainer: FC = () => {
             isLoading={productsState.isLoading}
             isError={productsState.isError}
             filters={filters}
+            selectedFiltersCount={countSelectedFilters(
+              selectedFiltersMap[categoryId],
+            )}
             onOpenFilters={handleOpenFilters}
             onProductClick={handleOpenProductCardModal}
           />

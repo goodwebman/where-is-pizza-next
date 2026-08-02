@@ -20,6 +20,8 @@ type ProductCategorySectionProps = {
   label: string;
   products: Product[];
   filters?: FiltersMap;
+  /** How many options are currently applied — shown on the filter button. */
+  selectedFiltersCount?: number;
   isLoading?: boolean;
   isError?: boolean;
   onOpenFilters?: (categoryId: CategoryId) => void;
@@ -34,6 +36,7 @@ export const ProductCategorySection: FC<
   label,
   products,
   filters,
+  selectedFiltersCount = 0,
   onOpenFilters,
   isLoading,
   isError,
@@ -44,9 +47,10 @@ export const ProductCategorySection: FC<
     cnHeader,
     cnHeaderLabel,
     cnFilterButton,
+    cnFilterCount,
     cnProductsContainer,
     cnSection,
-  } = getClasses({ className });
+  } = getClasses({ className, hasSelectedFilters: selectedFiltersCount > 0 });
 
   const hasFilters = Boolean(filters && Object.keys(filters).length);
   const emptyProducts = products.length === 0;
@@ -68,11 +72,12 @@ export const ProductCategorySection: FC<
       return <ProductCardEmpty />;
     }
 
-    return products.map(product => (
+    return products.map((product, index) => (
       <ProductCard
         onClick={() => onProductClick(product)}
         categoryId={product.categoryId}
         key={product.id}
+        index={index}
         id={product.id}
         title={product.title}
         imageSrc={product.imageSrc}
@@ -93,9 +98,22 @@ export const ProductCategorySection: FC<
             type="button"
             className={cnFilterButton}
             onClick={() => onOpenFilters(categoryId)}
+            // The badge is decorative for screen readers — the count belongs in
+            // the button's own name instead.
+            aria-label={
+              selectedFiltersCount > 0
+                ? `Фильтры, выбрано: ${selectedFiltersCount}`
+                : 'Фильтры'
+            }
           >
             <Icons.Filter width={16} height={16} />
             <span>Фильтры</span>
+
+            {selectedFiltersCount > 0 && (
+              <span className={cnFilterCount} aria-hidden="true">
+                {selectedFiltersCount}
+              </span>
+            )}
           </button>
         )}
       </div>

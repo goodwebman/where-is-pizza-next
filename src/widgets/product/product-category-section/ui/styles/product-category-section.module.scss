@@ -3,24 +3,37 @@
 .header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 32px 0;
   gap: 15px;
+
+  @include media-max($breakpoint-sm) {
+    padding: 20px 0;
+    gap: 10px;
+  }
 
   &--label {
     @include typo.h1;
     color: var(--text-secondary);
+    // nowrap plus a fixed 40px would push the filter button off a 320px screen,
+    // so the heading scales with the viewport instead.
     white-space: nowrap;
+    font-size: clamp(22px, 6vw, 40px);
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
 .filter-button {
   display: inline-flex;
-  padding: 0 12px;
+  padding: 8px 12px;
   align-items: center;
   border-radius: 8px;
   gap: 8px;
   background-color: var(--bg-inverted);
   border: 1px var(--border-default) solid;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
 
   &:active {
     transform: scale(0.97);
@@ -35,6 +48,45 @@
     @include typo.b2;
     color: var(--text-secondary);
     white-space: nowrap;
+  }
+
+  /// Applied filters are otherwise invisible from the outside: the section just
+  /// shows fewer products, which reads as "there is nothing here".
+  &--active {
+    border-color: var(--border-primary);
+  }
+
+  /// Two classes, so it overrides the generic `span` rule above rather than
+  /// depending on source order.
+  .filter-count {
+    @include typo.b4;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--text-primary);
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    border-radius: 999px;
+    background-color: var(--bg-primary);
+  }
+
+  @include media-max($breakpoint-xs) {
+    padding: 6px 10px;
+    gap: 6px;
+
+    span {
+      @include typo.b3;
+    }
+
+    .filter-count {
+      min-width: 18px;
+      height: 18px;
+      font-size: 11px;
+    }
   }
 }
 
