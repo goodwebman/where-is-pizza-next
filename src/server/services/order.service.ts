@@ -17,7 +17,7 @@ import {
   toWirePaymentMethod,
 } from '@/src/server/domain/order/map-enums';
 import { toAddress } from '@/src/server/domain/order/map-order';
-import { badRequest, notFound, unauthorized } from '@/src/server/http/errors';
+import { badRequest, notFound } from '@/src/server/http/errors';
 import type { Ingredients } from '@/src/entities/product/model/types';
 import type {
   CreateOrderInput,
@@ -235,7 +235,14 @@ export const getMyOrders = async (
   { page, limit }: GetOrdersQuery,
   db: Db = prisma,
 ): Promise<{ items: Order[]; total: number; page: number; limit: number }> => {
-  if (!actor.userId && !actor.guestId) throw unauthorized();
+  // A visitor with neither a session nor a guest cookie has no orders - that is
+  // an empty history, not an auth failure. Order history is readable by guests
+  // (scoped to their cookie by ownershipFilter), so a 401 here would only send
+  // the client off on a pointless token refresh before it could render the
+  // empty state.
+  if (!actor.userId && !actor.guestId) {
+    return { items: [], total: 0, page, limit };
+  }
 
   const where = ownershipFilter(actor);
 

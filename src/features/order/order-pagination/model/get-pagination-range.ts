@@ -1,6 +1,5 @@
-import { useMemo, useState } from 'react';
-
 interface Params {
+  page: number;
   total: number;
   perPage: number;
 }
@@ -29,15 +28,16 @@ const buildPages = (page: number, totalPages: number): (number | '...')[] => {
   return result;
 };
 
-export const useOrderPagination = ({ total, perPage }: Params) => {
-  const [page, setPage] = useState(1);
-
+/**
+ * A pure derivation rather than the previous `useOrderPagination` hook, which
+ * owned the page state *and* demanded a total. The total only exists once the
+ * list query has run, and that query needs the current page — so the caller had
+ * no total to give, passed a hardcoded 0, and `totalPages` stayed at 0, which
+ * made <Pagination> bail out on every render. Page state now lives in the
+ * widget, where it exists before the query.
+ */
+export const getPaginationRange = ({ page, total, perPage }: Params) => {
   const totalPages = Math.ceil(total / perPage);
 
-  const pages = useMemo(
-    () => buildPages(page, totalPages),
-    [page, totalPages],
-  );
-
-  return { page, setPage, pages, totalPages } as const;
+  return { totalPages, pages: buildPages(page, totalPages) } as const;
 };

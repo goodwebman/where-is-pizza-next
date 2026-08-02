@@ -3,7 +3,6 @@ import { LoginForm, RegisterForm } from '@/src/features/auth/auth-forms';
 import { Buttons, Modal } from '@/src/shared/ui';
 import { FC, useState } from 'react';
 import { getClasses } from './styles/get-classes';
-import { useLockBodyScroll } from '@/src/shared/hooks'
 
 enum ToggleAuthState {
   LOGIN = 'login',
@@ -18,6 +17,12 @@ type AuthSwitcherProps = {
   onClose: () => void;
 };
 
+/**
+ * Body scroll is locked by <Modal> itself. This component used to call
+ * useLockBodyScroll as well, and the two locks fought: the parent's effect ran
+ * after the child's, so it snapshotted the already-hidden overflow and restored
+ * `hidden` on close - leaving the whole page unscrollable.
+ */
 export const AuthSwitcherModal: FC<AuthSwitcherProps> = ({
   className,
   isOpen,
@@ -26,7 +31,6 @@ export const AuthSwitcherModal: FC<AuthSwitcherProps> = ({
   const [mode, setMode] = useState<AuthState>(ToggleAuthState.LOGIN);
   const { cnRoot } = getClasses({ className });
 
-   useLockBodyScroll(isOpen);
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <section className={cnRoot}>

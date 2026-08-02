@@ -37,6 +37,9 @@ export const useSwiperNav = () => {
   return {
     onSwiper,
     onSlideChange,
+    // For events that change what "first/last slide" means without changing the
+    // active slide - resize and breakpoint switches.
+    syncNav: updateState,
     slideNext,
     slidePrev,
     canSlidePrev,

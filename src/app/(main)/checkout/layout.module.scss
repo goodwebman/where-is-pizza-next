@@ -17,7 +17,17 @@
     padding: 40px 50px;
   }
 
+  @include media-max($breakpoint-md) {
+    padding: 32px 24px;
+  }
+
+  // Never 0: the cards and the order summary are rounded white blocks, and with
+  // no gutter they ran straight into the screen edges.
   @include media-max($breakpoint-sm) {
-    padding: 40px 0px;
+    padding: 24px 16px;
+  }
+
+  @include media-max($breakpoint-xxs) {
+    padding: 20px 12px;
   }
 }

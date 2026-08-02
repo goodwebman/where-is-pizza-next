@@ -1,65 +1,78 @@
 @use '@/src/shared/styles/typography/typography.module' as typo;
 @use '@/src/shared/styles/breakpoints/breakpoints.module' as *;
-.root {
-  position: relative;
 
-  align-items: center;
-  gap: 20px;
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  @include media-max($breakpoint-sm) {
+    gap: 12px;
+  }
 }
 
 .label {
-  padding-bottom: 40px;
   @include typo.h2;
   font-size: 25px;
   color: var(--text-secondary);
+
+  @include media-max($breakpoint-sm) {
+    font-size: 20px;
+  }
+}
+
+/// The arrows are positioned against this box rather than the section, so they
+/// land on the middle of the cards instead of being dragged down by the heading.
+.viewport {
+  position: relative;
+  min-width: 0;
+}
+
+/// Swiper clips its slides, which used to eat both the card shadow and the 6px
+/// hover lift - hence the padding instead of the previous `box-shadow: none`.
+.viewport :global(.swiper) {
+  padding: 8px 4px 16px;
+}
+
+/// Slides stretch to the tallest card so every footer sits on the same line.
+.viewport :global(.swiper-slide) {
+  height: auto;
+  display: flex;
 }
 
 .card {
-  width: 100%;
-  max-width: 260px;
-  box-shadow: none !important;
-
-  @include media-max($breakpoint-sm) {
-    margin: 0 auto;
-  }
+  max-width: 300px;
+  // Centred inside a slide that is wider than the cap, instead of hugging its
+  // left edge.
+  margin-inline: auto;
 }
 
 .nav {
-  &--prev {
+  &--prev,
+  &--next {
     position: absolute;
-    top: 50%;
+    // Level with the image, not the card: at 50% the arrow covered the "Выбрать"
+    // button.
+    top: 40%;
+    transform: translateY(-50%);
     z-index: 10;
-    left: -60px;
 
-    @include media-max($breakpoint-md) {
-      scale: 0.7;
+    @include media-max($breakpoint-laptop) {
+      scale: 0.8;
     }
 
-    @include media-max($breakpoint-sm) {
-      left: -10px;
-    }
-
-    @include media-max($breakpoint-xs) {
-      left: -22px;
+    // Below tablet there is no room outside the slider, and the peeking next
+    // card already advertises that the row scrolls.
+    @include media-max($breakpoint-tablet) {
+      display: none;
     }
   }
 
+  &--prev {
+    left: -22px;
+  }
+
   &--next {
-    position: absolute;
-    top: 50%;
-    z-index: 10;
-
-    right: -60px;
-    @include media-max($breakpoint-md) {
-      scale: 0.7;
-    }
-
-    @include media-max($breakpoint-sm) {
-      right: -10px;
-    }
-
-    @include media-max($breakpoint-xs) {
-      right: -22px;
-    }
+    right: -22px;
   }
 }

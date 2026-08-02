@@ -47,10 +47,14 @@ const list = (query = '', cookies: Record<string, string> = {}) =>
   });
 
 describe('GET /api/orders/me', () => {
-  it('401s for a visitor with no session and no guest cookie', async () => {
-    const { status } = await list();
+  // Order history is a public page for guests, so "no identity at all" is an
+  // empty history rather than an auth failure.
+  it('returns an empty history for a visitor with no session and no guest cookie', async () => {
+    const { status, json } = await list();
 
-    expect(status).toBe(401);
+    expect(status).toBe(200);
+    expect(json.total).toBe(0);
+    expect(json.items).toEqual([]);
   });
 
   it('lists a user\'s orders, newest first', async () => {

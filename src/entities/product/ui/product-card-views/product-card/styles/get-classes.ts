@@ -21,6 +21,7 @@ export const getProductCardClasses = ({
   const cnTitle = cn('title', { 'for-slider': forSlider });
   const cnIngredients = cn('ingredients', { 'for-slider': forSlider });
   const cnFooter = cn('footer');
+  const cnAction = cn('action');
   const cnPrice = cn('price', { 'for-slider': forSlider });
   const cnBadge = cn('badge', {
     new: badge === 'new',
@@ -35,6 +36,7 @@ export const getProductCardClasses = ({
     cnTitle,
     cnIngredients,
     cnFooter,
+    cnAction,
     cnPrice,
     cnBadge,
   };

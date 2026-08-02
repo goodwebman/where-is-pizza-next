@@ -1,28 +1,52 @@
-@use '@/src/shared//styles/shadows/shadows.module' as *;
+@use '@/src/shared/styles/shadows/shadows.module' as *;
 @use '@/src/shared/styles/typography/typography.module' as typo;
 @use '@/src/shared/styles/breakpoints/breakpoints.module' as *;
 
 .card {
+  position: relative;
   width: 100%;
-
-  border-radius: 16px;
-  background: var(--bg-inverted);
-  padding: 20px;
-  @include shadow(medium-glow);
+  // A flex/grid item defaults to `min-width: auto` and refuses to shrink below
+  // its content. That is what let the price render outside the card.
+  min-width: 0;
+  // Equal height for every card in a row, so the footers line up.
+  height: 100%;
 
   display: flex;
   flex-direction: column;
   gap: 12px;
-  -webkit-user-drag: none;
+
+  padding: 16px;
+  border-radius: 18px;
+  background: var(--bg-inverted);
+  border: 1px solid transparent;
+  @include shadow(soft-glow);
 
   user-select: none;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  &:hover {
-    transform: translateY(-6px);
+  -webkit-user-drag: none;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+
+  // Guarded by `hover: hover`: on touch screens a plain :hover sticks after the
+  // tap and leaves the card lifted until you tap elsewhere.
+  @media (hover: hover) {
+    &:hover {
+      transform: translateY(-6px);
+      border-color: var(--border-primary);
+      @include shadow(medium-glow);
+
+      .image {
+        transform: scale(1.06);
+      }
+    }
   }
 
+  // Narrow viewports: the catalog card turns horizontal so a whole product fits
+  // without scrolling. A slide is too narrow for that, hence the opt-out below.
   @include media-max($breakpoint-tablet) {
     flex-direction: row;
+    align-items: stretch;
   }
 
   &.for-slider {
@@ -31,34 +55,48 @@
 }
 
 .imageWrapper {
-  user-select: none;
   position: relative;
   width: 100%;
   aspect-ratio: 1;
-  overflow: hidden;
-  border-radius: 12px;
   flex-shrink: 0;
+  overflow: hidden;
+  border-radius: 14px;
+  // A tinted plate under the transparent product PNGs - white on white read as
+  // an empty gap.
+  background: var(--bg-secondary);
   -webkit-user-drag: none;
-
   user-select: none;
 
   @include media-max($breakpoint-tablet) {
-    max-width: 200px;
+    width: 38%;
+    max-width: 180px;
+    align-self: center;
   }
 
   @include media-max($breakpoint-sm) {
+    width: 34%;
     max-width: 120px;
+  }
 
-    &.for-slider {
-      max-width: 200px;
-    }
+  @include media-max($breakpoint-xs) {
+    max-width: 96px;
+  }
+
+  // Higher specificity than the media queries above on purpose: the slider card
+  // keeps a full-width image at every size.
+  &.for-slider {
+    width: 100%;
+    max-width: none;
+    align-self: stretch;
   }
 }
 
 .image {
   object-fit: contain;
-  user-select: none;
   object-position: center;
+  // Breathing room between the product and the edge of the plate.
+  padding: 8px;
+  transition: transform 0.25s ease;
   -webkit-user-drag: none;
   user-select: none;
 }
@@ -68,10 +106,12 @@
   top: 8px;
   left: 8px;
   z-index: 2;
-  font-size: 12px;
-  font-weight: 600;
+
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
   padding: 4px 8px;
-  border-radius: 6px;
+  border-radius: 999px;
   color: var(--text-primary);
 }
 
@@ -80,31 +120,51 @@
 }
 
 .popular {
-  background: var(--bg-danger);
+  background: var(--bg-primary);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1 1 auto;
+  // Both matter: without them the content column inflates to its widest child
+  // and pushes the price past the card edge.
+  min-width: 0;
+  min-height: 0;
 }
 
 .title {
   @include typo.b1;
-  font-weight: bold;
-  overflow-x: auto;
+  font-weight: 700;
+  color: var(--text-secondary);
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  // line-clamp does nothing without it. Previously this was `overflow-x: auto`,
+  // which gave long titles a scrollbar inside the card instead of an ellipsis.
+  overflow: hidden;
+  overflow-wrap: break-word;
+
   &.for-slider {
     text-align: center;
-  }
-
-  @include media-max($breakpoint-md) {
-    &.for-slider {
-      @include typo.b2;
-      font-weight: bold;
-    }
   }
 }
 
 .ingredients {
-  @include typo.b2;
+  @include typo.b3;
+  color: var(--text-secondary);
+  // Softens the near-black to roughly #757575 - still AA on white, unlike the
+  // gray-600 placeholder token.
+  opacity: 0.65;
+
   display: -webkit-box;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
- overflow-x: auto;
+  overflow: hidden;
+  overflow-wrap: break-word;
+
   &.for-slider {
     text-align: center;
   }
@@ -112,94 +172,86 @@
 
 .footer {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding-top: 8px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
   margin-top: auto;
-  gap: 12px;
-
-}
-
-.content {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  flex: 1;
-  min-height: 0;
-
-  @include media-max($breakpoint-tablet) {
-    flex: 1;
-    gap: 6px;
-  }
+  padding-top: 10px;
 }
 
 .price {
   @include typo.b1;
-  font-weight: bold;
+  font-weight: 700;
   color: var(--text-inverted);
   white-space: nowrap;
-
-  @include media-max($breakpoint-md) {
-    &.for-slider {
-      font-size: 16px;
-      font-weight: bold;
-    }
-  }
+  flex-shrink: 0;
 }
 
-/* ─────────────── xs: 320px-420px ─────────────── */
+/// Two-class selector so it beats the button's own `.medium` padding, which is
+/// sized for a full-width form and never fit next to the price in a 260px card.
+.footer .action {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 12px 16px;
+}
+
+/* ─────────────── ≤450px ─────────────── */
 @include media-max($breakpoint-xs) {
   .card {
     padding: 12px;
-    gap: 8px;
-  }
-
-  .imageWrapper {
-    max-width: 80px;
+    gap: 10px;
+    border-radius: 14px;
   }
 
   .title {
     @include typo.b2;
-    font-weight: bold;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    font-weight: 700;
+    -webkit-line-clamp: 2;
   }
 
   .ingredients {
     @include typo.b4;
-    -webkit-line-clamp: 2;
   }
 
   .footer {
-    gap: 6px;
-    flex-wrap: wrap;
+    gap: 8px;
+    padding-top: 6px;
+  }
 
-    button {
-      padding: 8px 12px !important;
+  .footer .action {
+    padding: 10px 12px;
+
+    span {
       font-size: 14px;
     }
   }
 
   .price {
-    font-size: 14px;
+    font-size: 15px;
   }
 }
 
-/* ─────────────── 350px ─────────────── */
-@include media-max(350px) {
-  .title {
-    @include typo.b3;
-    font-weight: bold;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+/* ─────────────── ≤360px ─────────────── */
+@include media-max($breakpoint-xxs) {
+  .card {
+    padding: 10px;
+    gap: 8px;
   }
 
-  .footer {
-    button {
-      padding: 6px 10px !important;
+  .image {
+    padding: 4px;
+  }
+
+  .footer .action {
+    padding: 9px 10px;
+
+    span {
       font-size: 13px;
     }
+  }
+
+  .price {
+    font-size: 14px;
   }
 }

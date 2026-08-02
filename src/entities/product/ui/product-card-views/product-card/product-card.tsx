@@ -29,9 +29,12 @@ export const ProductCard: React.FC<WithClassNames<ProductCardProps>> = ({
     cnTitle,
     cnIngredients,
     cnFooter,
+    cnAction,
     cnPrice,
     cnBadge,
   } = getProductCardClasses({ badge, className, forSlider });
+
+  const ingredientsLabel = parseIngredientsToString(ingredients);
 
   return (
     <article className={cnCard}>
@@ -44,6 +47,9 @@ export const ProductCard: React.FC<WithClassNames<ProductCardProps>> = ({
           src={imageSrc}
           alt={title}
           fill
+          // Without `sizes` a fill image always downloads the largest source,
+          // and these cards are 260px wide at most.
+          sizes="(max-width: 520px) 45vw, (max-width: 1024px) 40vw, 300px"
           className={cnImage}
           priority={false}
         />
@@ -52,13 +58,25 @@ export const ProductCard: React.FC<WithClassNames<ProductCardProps>> = ({
       <div className={cnContent}>
         <h3 className={cnTitle}>{title}</h3>
 
-        <p className={cnIngredients}>{parseIngredientsToString(ingredients)}</p>
+        {ingredientsLabel && (
+          <p className={cnIngredients}>{ingredientsLabel}</p>
+        )}
 
         <div className={cnFooter}>
-          <Buttons.DefaultButton onClick={onClick}>
+          {/*
+            Price before the button in the DOM: it reads as "от 220 ₽ - Выбрать"
+            for screen readers, and lets the button take the remaining width
+            instead of pushing the price out of the card.
+          */}
+          <span className={cnPrice}>от {price} ₽</span>
+
+          <Buttons.DefaultButton
+            className={cnAction}
+            onClick={onClick}
+            aria-label={`Выбрать: ${title}`}
+          >
             Выбрать
           </Buttons.DefaultButton>
-          <span className={cnPrice} aria-hidden="true">от {price} ₽</span>
         </div>
       </div>
     </article>

@@ -1,5 +1,19 @@
+@use '@/src/shared/styles/typography/typography.module' as typo;
+
 .container {
   display: flex;
   flex-direction: column;
   gap: 24px;
+}
+
+.message {
+  @include typo.b1;
+  color: var(--text-secondary);
+}
+
+.hint {
+  @include typo.b3;
+  color: var(--text-secondary);
+  opacity: 0.65;
+  max-width: 46ch;
 }
