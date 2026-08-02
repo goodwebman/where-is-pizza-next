@@ -41,7 +41,12 @@
 }
 
 .field {
-  flex: 1;
+  flex: 1 1 0;
+  // An <input> defaults to ~20 characters wide and, as a flex item, refuses to
+  // shrink below that: on a 320px screen the address grid's columns are ~120px
+  // and every field pushed the page sideways.
+  min-width: 0;
+  width: 100%;
   border: none;
   outline: none;
   background: var(--bg-inverted);

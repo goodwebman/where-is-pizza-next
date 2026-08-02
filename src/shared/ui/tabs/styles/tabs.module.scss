@@ -5,18 +5,23 @@
   border: 2px solid var(--border-default);
   border-radius: 8px;
   max-height: 48px;
+  // The parent is a column with `align-items: start` below 850px, so the row
+  // sizes to its content — at 320px that content was 304px wide inside a 256px
+  // column and scrolled the whole page sideways.
+  max-width: 100%;
 }
 
 .tab {
-  min-width: 0;
-  flex: 1;
+  flex: 1 1 0;
   min-width: 0;
   @include typo.b2;
   cursor: pointer;
   background-color: var(--bg-inverted);
   color: var(--text-secondary);
   white-space: nowrap;
-  padding: 13px 35px;
+  // Fixed 35px of side padding is what made the row too wide to fit; it now
+  // gives ground on narrow screens and keeps the comfortable size above ~880px.
+  padding: 13px clamp(10px, 4vw, 35px);
   border-radius: 6px;
   border: none;
 
