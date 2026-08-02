@@ -8,8 +8,9 @@ import {
   PaymentMethod,
 } from '@/src/entities/order/model/types';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { AnimatePresence, motion } from 'framer-motion';
 import { FC } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, useForm, useWatch } from 'react-hook-form';
 import { orderSchema, OrderSchemaValues, useOrderSubmit } from '../../model';
 import { OrderAboutSection } from '../sections/order-about/order-about';
 import { OrderChangeSection } from '../sections/order-change/order-change';
@@ -54,11 +55,28 @@ export const OrderForm: FC<OrderFormProps> = ({ fullPrice, totalItems }) => {
     },
   });
 
-  const { handleSubmit } = methods;
+  const { handleSubmit, control } = methods;
+
+  const paymentMethod = useWatch({ control, name: 'paymentMethod' });
+  // Change only exists for cash. Derived at render — no effect resetting form
+  // state behind the user's back.
+  const isCashPayment = paymentMethod === PaymentMethod.Cash;
 
   const { submitOrder, isLoading } = useOrderSubmit();
+
   const onSubmit = (data: CreateOrderDTO) => {
-    submitOrder(data);
+    // The change fields keep whatever the customer typed before switching to a
+    // card, so they are normalised here rather than wiped on switch — going back
+    // to "Наличными" restores the previous choice.
+    submitOrder(
+      isCashPayment
+        ? data
+        : {
+            ...data,
+            changeMethod: ChangeMethod.WithoutChange,
+            changeFrom: undefined,
+          },
+    );
   };
 
   const { cnRoot } = getClasses({});
@@ -70,7 +88,23 @@ export const OrderForm: FC<OrderFormProps> = ({ fullPrice, totalItems }) => {
         <OrderDeliverySection />
         <OrderDeliveryTimeSection />
         <OrderPaymentSection />
-        <OrderChangeSection />
+
+        {/* Collapsing rather than snapping: the section sits mid-form, so a hard
+            unmount jumps everything below it up by its full height. */}
+        <AnimatePresence initial={false}>
+          {isCashPayment && (
+            <motion.div
+              key="order-change"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.25, ease: 'easeOut' }}
+              style={{ overflow: 'hidden' }}
+            >
+              <OrderChangeSection />
+            </motion.div>
+          )}
+        </AnimatePresence>
         <OrderCommentSection />
         <OrderSubmitSection
           fullPrice={fullPrice}

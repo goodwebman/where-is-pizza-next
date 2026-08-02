@@ -103,7 +103,15 @@ export const createOrderSchema = z
       }
     }
 
-    if (data.changeMethod !== ChangeMethod.WithoutChange && !data.changeFrom) {
+    // Change is a cash-only concept. Scoped to cash so that a stale
+    // "сдача с ..." left over from before the customer switched to a card
+    // cannot block the submit through a field that is no longer on screen —
+    // the form normalises the payload for non-cash orders.
+    if (
+      data.paymentMethod === PaymentMethod.Cash &&
+      data.changeMethod !== ChangeMethod.WithoutChange &&
+      !data.changeFrom
+    ) {
       ctx.addIssue({
         code: 'custom',
         path: ['changeFrom'],
