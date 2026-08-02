@@ -12,8 +12,13 @@ const REFRESH_COOKIE = 'wp_rt';
  *
  * It deliberately does not verify the signature. This runs on the Edge runtime,
  * where the real check would mean shipping crypto and a database round-trip into
- * every navigation; the profile layout does the authoritative check server-side.
+ * every navigation; the settings page does the authoritative check server-side.
  * Forging these cookies buys you a redirect one step later and nothing else.
+ *
+ * The matcher lists the private pages one by one rather than all of /profile:
+ * /profile/orders is open to guests, whose history is keyed by the guest cookie
+ * (Order.guestId), and a blanket matcher here silently bounced them off it no
+ * matter what the page itself allowed.
  */
 export function proxy(request: NextRequest) {
   const hasSessionCookie =
@@ -27,5 +32,5 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/profile/:path*'],
+  matcher: ['/profile/settings', '/profile/settings/:path*'],
 };

@@ -232,7 +232,9 @@ test.describe('account', () => {
 
     expect((await page.request.get('/api/auth/session')).status()).toBe(401);
 
-    await page.goto('/profile/orders');
+    // Settings, not orders: the order history is open to guests now, so it no
+    // longer tells you anything about whether a session exists.
+    await page.goto('/profile/settings');
     await expect(page).toHaveURL('/');
   });
 });

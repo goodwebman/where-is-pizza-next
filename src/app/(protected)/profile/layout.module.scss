@@ -19,7 +19,19 @@
     padding: 40px 50px;
   }
 
+  @include media-max($breakpoint-md) {
+    padding: 32px 24px;
+    padding-bottom: 60px;
+  }
+
+  // Never 0: the order cards and empty state are rounded blocks and ran into
+  // the screen edges without a gutter.
   @include media-max($breakpoint-sm) {
-    padding: 40px 0px;
+    padding: 24px 16px 48px;
+    gap: 20px;
+  }
+
+  @include media-max($breakpoint-xxs) {
+    padding: 20px 12px 40px;
   }
 }

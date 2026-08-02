@@ -9,12 +9,12 @@ type Args = {
 
 export const getClasses = ({ className }: Args) => {
   const cnContainer = cn('container', className);
-  const cnMessage = cn('message');
-  const cnHint = cn('hint');
+  const cnSkeleton = cn('skeleton');
+  const cnLink = cn('link');
 
   return {
     cnContainer,
-    cnMessage,
-    cnHint,
+    cnSkeleton,
+    cnLink,
   };
 };

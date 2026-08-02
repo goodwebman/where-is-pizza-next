@@ -1,19 +1,49 @@
 @use '@/src/shared/styles/typography/typography.module' as typo;
+@use '@/src/shared/styles/breakpoints/breakpoints.module' as *;
 
 .container {
   display: flex;
   flex-direction: column;
   gap: 24px;
+  min-width: 0;
+
+  @include media-max($breakpoint-sm) {
+    gap: 16px;
+  }
 }
 
-.message {
+/// Roughly an order card's height, so the loading state occupies the space the
+/// real content will.
+.skeleton {
+  width: 100%;
+  height: 160px;
+
+  @include media-max($breakpoint-sm) {
+    height: 120px;
+  }
+}
+
+.link {
   @include typo.b1;
-  color: var(--text-secondary);
-}
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 13px 32px;
+  border-radius: 8px;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.2s ease, transform 0.1s ease;
 
-.hint {
-  @include typo.b3;
-  color: var(--text-secondary);
-  opacity: 0.65;
-  max-width: 46ch;
+  &:hover {
+    background-color: var(--bg-primary-hover);
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+
+  @include media-max($breakpoint-xxs) {
+    padding: 11px 20px;
+    font-size: 16px;
+  }
 }

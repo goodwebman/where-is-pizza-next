@@ -31,7 +31,12 @@ export const UserProfileSectionsTabs = ({
   return (
     <aside className={cnRoot}>
       <h1 className={cnLabel}>{isAuthenticated ? 'Мой аккаунт' : 'Заказы'}</h1>
-      <TabsRoot tabs={tabs} activeTab={activeTab} onChange={handleChange} />
+
+      {/* A switch with a single option is just a wide label — a guest has only
+          the order history, and the heading already says so. */}
+      {tabs.length > 1 && (
+        <TabsRoot tabs={tabs} activeTab={activeTab} onChange={handleChange} />
+      )}
     </aside>
   );
 };

@@ -4,10 +4,22 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   gap: 20px;
+  min-width: 0;
+
+  // A 40px heading and a two-tab switch cannot share a 256px row: below the
+  // tablet they stack instead of pushing each other off the screen.
+  @include media-max($breakpoint-tablet) {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
 }
 
 .label {
   @include typo.h1;
   color: var(--text-secondary);
+  font-size: clamp(24px, 6vw, 40px);
+  min-width: 0;
 }
