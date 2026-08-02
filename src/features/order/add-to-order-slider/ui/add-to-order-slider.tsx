@@ -21,14 +21,14 @@ type AddToOrderSliderProps = {
 };
 
 /**
- * Fractional values below the tablet breakpoint on purpose: the sliver of the
- * next card is what tells a touch user the row scrolls, since the arrows are
- * hidden there.
+ * Two full cards are visible from 320px up — never one, which made the row look
+ * like a broken grid. Fractions only appear once there is room for the peeking
+ * card to still be legible.
  */
 const SLIDER_BREAKPOINTS = {
-  0: { slidesPerView: 1.25, spaceBetween: 12 },
-  420: { slidesPerView: 1.7, spaceBetween: 12 },
-  560: { slidesPerView: 2.3, spaceBetween: 16 },
+  0: { slidesPerView: 2, spaceBetween: 8 },
+  380: { slidesPerView: 2, spaceBetween: 10 },
+  520: { slidesPerView: 2.3, spaceBetween: 14 },
   768: { slidesPerView: 3, spaceBetween: 16 },
   1024: { slidesPerView: 3, spaceBetween: 20 },
   1500: { slidesPerView: 4, spaceBetween: 20 },
@@ -61,39 +61,41 @@ export const AddToOrderSlider = ({ categoryId }: AddToOrderSliderProps) => {
       </h2>
 
       <div className={cnViewport}>
-        {canSlidePrev && (
-          <Buttons.IconButton
-            circle
-            onClick={slidePrev}
-            className={cnNavPrev}
-            aria-label="Предыдущие товары"
-            icon={
-              <Icons.LeftArrow
-                color="var(--icon-primary)"
-                width={20}
-                height={20}
-              />
-            }
-          />
-        )}
+        {/*
+          Always mounted and disabled at the ends, instead of unmounted: a button
+          that vanishes on the first slide moves the whole row sideways and
+          leaves no hint that the list scrolls at all.
+        */}
+        <Buttons.IconButton
+          circle
+          size="small"
+          onClick={slidePrev}
+          disabled={!canSlidePrev}
+          className={cnNavPrev}
+          aria-label="Предыдущие товары"
+          icon={
+            <Icons.LeftArrow color="var(--icon-primary)" width={20} height={20} />
+          }
+        />
 
         <Swiper
           modules={[Navigation]}
           grabCursor
-          slidesPerView={1.25}
-          spaceBetween={12}
+          slidesPerView={2}
+          spaceBetween={8}
           breakpoints={SLIDER_BREAKPOINTS}
           onSwiper={onSwiper}
           onSlideChange={onSlideChange}
           // Slides per view changes with the viewport, so what counts as the
-          // last slide does too - without these the arrows go stale on resize.
+          // last slide does too — without these the arrows go stale on resize.
           onResize={syncNav}
           onBreakpoint={syncNav}
         >
-          {data.map(product => (
+          {data.map((product, index) => (
             <SwiperSlide key={product.id}>
               <ProductCard
                 forSlider
+                index={index}
                 className={cnCard}
                 {...product}
                 onClick={() => dispatch(openProductCardModal(product))}
@@ -102,21 +104,21 @@ export const AddToOrderSlider = ({ categoryId }: AddToOrderSliderProps) => {
           ))}
         </Swiper>
 
-        {canSlideNext && (
-          <Buttons.IconButton
-            circle
-            onClick={slideNext}
-            className={cnNavNext}
-            aria-label="Следующие товары"
-            icon={
-              <Icons.RightArrow
-                color="var(--icon-primary)"
-                width={20}
-                height={20}
-              />
-            }
-          />
-        )}
+        <Buttons.IconButton
+          circle
+          size="small"
+          onClick={slideNext}
+          disabled={!canSlideNext}
+          className={cnNavNext}
+          aria-label="Следующие товары"
+          icon={
+            <Icons.RightArrow
+              color="var(--icon-primary)"
+              width={20}
+              height={20}
+            />
+          }
+        />
       </div>
     </section>
   );

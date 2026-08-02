@@ -19,6 +19,10 @@
   @include media-max($breakpoint-sm) {
     font-size: 20px;
   }
+
+  @include media-max($breakpoint-xxs) {
+    font-size: 18px;
+  }
 }
 
 /// The arrows are positioned against this box rather than the section, so they
@@ -29,7 +33,7 @@
 }
 
 /// Swiper clips its slides, which used to eat both the card shadow and the 6px
-/// hover lift - hence the padding instead of the previous `box-shadow: none`.
+/// hover lift — hence the padding instead of the previous `box-shadow: none`.
 .viewport :global(.swiper) {
   padding: 8px 4px 16px;
 }
@@ -47,32 +51,49 @@
   margin-inline: auto;
 }
 
-.nav {
-  &--prev,
-  &--next {
+/// Scoped under .viewport so these win over IconButton's own `.small` padding
+/// and `.disabled` opacity without needing !important.
+.viewport {
+  .nav--prev,
+  .nav--next {
     position: absolute;
     // Level with the image, not the card: at 50% the arrow covered the "Выбрать"
     // button.
-    top: 40%;
+    top: 38%;
     transform: translateY(-50%);
     z-index: 10;
 
-    @include media-max($breakpoint-laptop) {
-      scale: 0.8;
+    // Both arrows stay mounted at the ends of the list (see the component), so
+    // the disabled state has to read as disabled rather than just be inert.
+    &:disabled {
+      opacity: 0.3;
     }
 
-    // Below tablet there is no room outside the slider, and the peeking next
-    // card already advertises that the row scrolls.
+    // Below tablet there is no gutter to sit in, so they overlap the edge of the
+    // row; the ring keeps them readable on top of a card.
     @include media-max($breakpoint-tablet) {
-      display: none;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+      border: 2px solid var(--bg-inverted);
+    }
+
+    @include media-min($breakpoint-tablet) {
+      padding: 14px;
     }
   }
 
-  &--prev {
+  .nav--prev {
     left: -22px;
+
+    @include media-max($breakpoint-tablet) {
+      left: -6px;
+    }
   }
 
-  &--next {
+  .nav--next {
     right: -22px;
+
+    @include media-max($breakpoint-tablet) {
+      right: -6px;
+    }
   }
 }

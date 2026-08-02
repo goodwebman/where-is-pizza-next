@@ -42,7 +42,7 @@
     }
   }
 
-  // Narrow viewports: the catalog card turns horizontal so a whole product fits
+  // Narrow viewports: the catalogue card turns horizontal so a whole product fits
   // without scrolling. A slide is too narrow for that, hence the opt-out below.
   @include media-max($breakpoint-tablet) {
     flex-direction: row;
@@ -59,11 +59,10 @@
   width: 100%;
   aspect-ratio: 1;
   flex-shrink: 0;
+  // Only here to clip the hover scale — no fill of its own: a tinted plate
+  // behind a transparent product PNG reads as a grey box drawn inside the card.
   overflow: hidden;
   border-radius: 14px;
-  // A tinted plate under the transparent product PNGs - white on white read as
-  // an empty gap.
-  background: var(--bg-secondary);
   -webkit-user-drag: none;
   user-select: none;
 
@@ -94,8 +93,6 @@
 .image {
   object-fit: contain;
   object-position: center;
-  // Breathing room between the product and the edge of the plate.
-  padding: 8px;
   transition: transform 0.25s ease;
   -webkit-user-drag: none;
   user-select: none;
@@ -155,7 +152,7 @@
 .ingredients {
   @include typo.b3;
   color: var(--text-secondary);
-  // Softens the near-black to roughly #757575 - still AA on white, unlike the
+  // Softens the near-black to roughly #757575 — still AA on white, unlike the
   // gray-600 placeholder token.
   opacity: 0.65;
 
@@ -196,6 +193,27 @@
   padding: 12px 16px;
 }
 
+/* ─────────────── ≤520px ─────────────── */
+/// Two slides fit on the narrowest phone, which leaves a slider card ~140px
+/// wide — a row of "от 220 ₽ [Выбрать]" cannot fit in that, so it stacks.
+@include media-max($breakpoint-sm) {
+  .footer.for-slider {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+    padding-top: 8px;
+  }
+
+  .footer.for-slider .price {
+    text-align: center;
+  }
+
+  .footer.for-slider .action {
+    width: 100%;
+    padding: 10px 8px;
+  }
+}
+
 /* ─────────────── ≤450px ─────────────── */
 @include media-max($breakpoint-xs) {
   .card {
@@ -204,14 +222,28 @@
     border-radius: 14px;
   }
 
+  .card.for-slider {
+    padding: 10px;
+    gap: 8px;
+  }
+
   .title {
     @include typo.b2;
     font-weight: 700;
-    -webkit-line-clamp: 2;
+  }
+
+  .title.for-slider {
+    @include typo.b4;
+    font-weight: 700;
   }
 
   .ingredients {
     @include typo.b4;
+  }
+
+  .ingredients.for-slider {
+    @include typo.b5;
+    -webkit-line-clamp: 1;
   }
 
   .footer {
@@ -227,8 +259,16 @@
     }
   }
 
+  .footer.for-slider .action span {
+    font-size: 12px;
+  }
+
   .price {
     font-size: 15px;
+  }
+
+  .price.for-slider {
+    font-size: 13px;
   }
 }
 
@@ -239,8 +279,14 @@
     gap: 8px;
   }
 
-  .image {
-    padding: 4px;
+  .card.for-slider {
+    padding: 8px;
+    border-radius: 12px;
+  }
+
+  .badge {
+    font-size: 10px;
+    padding: 3px 6px;
   }
 
   .footer .action {
@@ -251,7 +297,19 @@
     }
   }
 
+  .footer.for-slider .action {
+    padding: 8px 6px;
+
+    span {
+      font-size: 12px;
+    }
+  }
+
   .price {
     font-size: 14px;
+  }
+
+  .price.for-slider {
+    font-size: 12px;
   }
 }

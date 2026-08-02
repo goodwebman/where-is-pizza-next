@@ -1,6 +1,9 @@
+'use client';
+
 import { parseIngredientsToString } from '@/src/shared/lib/helpers/formaters/ingredients';
 import { WithClassNames } from '@/src/shared/types';
 import { Buttons } from '@/src/shared/ui';
+import { motion, useReducedMotion } from 'framer-motion';
 import Image from 'next/image';
 import React from 'react';
 import { Product } from '../../../model/types';
@@ -9,9 +12,17 @@ import { getProductCardClasses } from './styles/get-classes';
 type ProductCardProps = {
   onClick?: () => void;
   forSlider?: boolean;
-} & Product;
+  /** Position in its row — drives the entrance stagger. */
+  index?: number;
+};
 
-export const ProductCard: React.FC<WithClassNames<ProductCardProps>> = ({
+/** Enough to read as a wave, capped so late cards do not sit blank for a second. */
+const STAGGER_STEP = 0.06;
+const MAX_STAGGER = 0.36;
+
+export const ProductCard: React.FC<
+  WithClassNames<ProductCardProps & Product>
+> = ({
   title,
   imageSrc,
   ingredients,
@@ -20,6 +31,7 @@ export const ProductCard: React.FC<WithClassNames<ProductCardProps>> = ({
   className,
   onClick,
   forSlider,
+  index = 0,
 }) => {
   const {
     cnCard,
@@ -34,10 +46,25 @@ export const ProductCard: React.FC<WithClassNames<ProductCardProps>> = ({
     cnBadge,
   } = getProductCardClasses({ badge, className, forSlider });
 
+  const prefersReducedMotion = useReducedMotion();
+
   const ingredientsLabel = parseIngredientsToString(ingredients);
 
   return (
-    <article className={cnCard}>
+    <motion.article
+      className={cnCard}
+      // whileInView rather than a mount animation: the catalogue renders every
+      // category at once, so a mount animation would fire for cards far below
+      // the fold and be over before anyone scrolled to them.
+      initial={prefersReducedMotion ? false : { opacity: 0, y: 24, scale: 0.97 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{
+        duration: 0.4,
+        ease: [0.22, 1, 0.36, 1],
+        delay: Math.min(index * STAGGER_STEP, MAX_STAGGER),
+      }}
+    >
       <div className={cnImageWrapper}>
         {badge && (
           <span className={cnBadge}>{badge === 'new' ? 'NEW' : 'POPULAR'}</span>
@@ -48,7 +75,7 @@ export const ProductCard: React.FC<WithClassNames<ProductCardProps>> = ({
           alt={title}
           fill
           // Without `sizes` a fill image always downloads the largest source,
-          // and these cards are 260px wide at most.
+          // and these cards are 300px wide at most.
           sizes="(max-width: 520px) 45vw, (max-width: 1024px) 40vw, 300px"
           className={cnImage}
           priority={false}
@@ -58,13 +85,11 @@ export const ProductCard: React.FC<WithClassNames<ProductCardProps>> = ({
       <div className={cnContent}>
         <h3 className={cnTitle}>{title}</h3>
 
-        {ingredientsLabel && (
-          <p className={cnIngredients}>{ingredientsLabel}</p>
-        )}
+        {ingredientsLabel && <p className={cnIngredients}>{ingredientsLabel}</p>}
 
         <div className={cnFooter}>
           {/*
-            Price before the button in the DOM: it reads as "от 220 ₽ - Выбрать"
+            Price before the button in the DOM: it reads as "от 220 ₽ — Выбрать"
             for screen readers, and lets the button take the remaining width
             instead of pushing the price out of the card.
           */}
@@ -79,6 +104,6 @@ export const ProductCard: React.FC<WithClassNames<ProductCardProps>> = ({
           </Buttons.DefaultButton>
         </div>
       </div>
-    </article>
+    </motion.article>
   );
 };
