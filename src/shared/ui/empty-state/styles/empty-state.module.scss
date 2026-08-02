@@ -1,0 +1,94 @@
+@use '@/src/shared/styles/shadows/shadows.module' as *;
+@use '@/src/shared/styles/typography/typography.module' as typo;
+@use '@/src/shared/styles/breakpoints/breakpoints.module' as *;
+
+.root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 12px;
+
+  width: 100%;
+  padding: 56px 24px;
+  border-radius: 20px;
+  background: var(--bg-inverted);
+  @include shadow(soft-glow);
+
+  @include media-max($breakpoint-sm) {
+    padding: 36px 16px;
+    border-radius: 16px;
+  }
+
+  @include media-max($breakpoint-xxs) {
+    padding: 28px 12px;
+    gap: 10px;
+  }
+
+  &.compact {
+    padding: 32px 20px;
+    box-shadow: none;
+    background: transparent;
+  }
+}
+
+.media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+
+  // Caps whatever the caller passes in, so an oversized illustration cannot
+  // blow out a narrow screen.
+  img,
+  svg {
+    width: auto;
+    max-width: min(220px, 60vw);
+    height: auto;
+  }
+
+  &.compact img,
+  &.compact svg {
+    max-width: min(120px, 40vw);
+  }
+}
+
+.title {
+  @include typo.h2;
+  font-size: 28px;
+  color: var(--text-secondary);
+
+  @include media-max($breakpoint-sm) {
+    font-size: 22px;
+  }
+
+  @include media-max($breakpoint-xxs) {
+    font-size: 19px;
+  }
+
+  &.compact {
+    @include typo.b1;
+    font-weight: 700;
+  }
+}
+
+.description {
+  @include typo.b2;
+  color: var(--text-secondary);
+  opacity: 0.65;
+  max-width: 46ch;
+
+  @include media-max($breakpoint-xs) {
+    @include typo.b3;
+  }
+}
+
+.action {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 12px;
+}

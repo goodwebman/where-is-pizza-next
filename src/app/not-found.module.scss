@@ -1,0 +1,82 @@
+@use '@/src/shared/styles/typography/typography.module' as typo;
+@use '@/src/shared/styles/breakpoints/breakpoints.module' as *;
+
+.page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 24px;
+
+  @include media-max($breakpoint-sm) {
+    padding: 40px 16px;
+  }
+
+  @include media-max($breakpoint-xxs) {
+    padding: 32px 12px;
+  }
+}
+
+.pizza {
+  position: relative;
+  display: inline-flex;
+
+  img {
+    // Slow drift rather than a spin: it reads as alive without pulling the eye
+    // away from the message.
+    animation: float 5s ease-in-out infinite;
+  }
+}
+
+/// The 404 rides on the pizza instead of being another line of text.
+.code {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @include typo.h1;
+  font-size: clamp(48px, 14vw, 88px);
+  color: var(--text-primary);
+  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+  letter-spacing: 0.02em;
+  pointer-events: none;
+}
+
+.button {
+  @include typo.b1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 13px 32px;
+  border-radius: 8px;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.2s ease, transform 0.1s ease;
+
+  &:hover {
+    background-color: var(--bg-primary-hover);
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(2deg);
+  }
+}
+
+/// Anything that loops forever has to be silenced for users who ask for less
+/// motion — this one runs for as long as the page is open.
+@media (prefers-reduced-motion: reduce) {
+  .pizza img {
+    animation: none;
+  }
+}

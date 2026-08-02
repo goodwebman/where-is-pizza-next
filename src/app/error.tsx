@@ -2,6 +2,12 @@
 
 import { useEffect } from 'react';
 
+import errorImg from '@/public/images/error.png';
+import { Buttons, EmptyState } from '@/src/shared/ui';
+import Image from 'next/image';
+// Same page shell as the 404 — both are "a page you cannot use right now".
+import styles from './not-found.module.scss';
+
 export default function GlobalError({
   error,
   reset,
@@ -14,12 +20,17 @@ export default function GlobalError({
   }, [error]);
 
   return (
-    <main style={{ padding: '4rem 1.5rem', textAlign: 'center' }}>
-      <h1>Что-то пошло не так</h1>
-      <p>Мы уже разбираемся. Попробуйте обновить страницу.</p>
-      <button type="button" onClick={reset} style={{ marginTop: '1.5rem' }}>
-        Попробовать снова
-      </button>
+    <main className={styles.page}>
+      <EmptyState
+        media={<Image src={errorImg} alt="" width={120} height={120} />}
+        title="Что-то пошло не так"
+        description="Мы уже разбираемся. Попробуйте открыть страницу заново."
+        action={
+          <Buttons.DefaultButton onClick={reset}>
+            Попробовать снова
+          </Buttons.DefaultButton>
+        }
+      />
     </main>
   );
 }

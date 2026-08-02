@@ -4,6 +4,7 @@ export { Counter } from './counter';
 export { Divider } from './divider';
 export { Drawer } from './drawer';
 export { Dropdown } from './dropdown';
+export { EmptyState } from './empty-state';
 export {
   BaseInput,
   BaseTextarea,
