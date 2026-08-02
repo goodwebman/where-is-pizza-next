@@ -6,6 +6,13 @@
   --bg-secondary: var(--gray-100);
   --bg-inverted: var(--gray-0);
 
+  /* These four existed only in the dark theme, so in light mode they resolved
+     to nothing at all: the burger button's bars (--bg-contrast) rendered
+     transparent, which left the mobile menu — and with it the only route to
+     "Заказы" on a phone — invisible. */
+  --bg-contrast: var(--gray-800);
+  --bg-succes: var(--green-500);
+
   --bg-disabled: var(--gray-600);
   --bg-danger: var(--red-500);
   --bg-danger-hover: var(--red-600);
@@ -34,4 +41,14 @@
   // icons
 
   --icon-primary: var(--gray-0);
+  /* Default `color` of every generated SVG icon component — undefined here meant
+     icons fell back to whatever the raw SVG carried. */
+  --icon-secondary: var(--orange-500);
+
+  // skeletons
+
+  --skeleton-100: var(--gray-100);
+  --skeleton-200: var(--gray-200);
+  --skeleton-300: var(--gray-300);
+  --skeleton-400: var(--gray-600);
 }
